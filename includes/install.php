@@ -15,6 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return void
  */
 function edd_wl_install() {
+
+	// return if EDD is not installed
+	if( ! class_exists( 'Easy_Digital_Downloads' ) )
+		return;
+
 	global $wpdb;
 
 	// Flush the rewrite rules
@@ -23,7 +28,7 @@ function edd_wl_install() {
 	// wishlist
 	$wishlist = wp_insert_post( 
 		array(
-			'post_title'     	=> sprintf( __( '%s', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
+			'post_title'     	=> __( 'Wish Lists', 'edd-wish-lists' ),
 			'post_content'   	=> '[edd_wish_lists]',
 			'post_status'    	=> 'publish',
 			'post_author'    	=> 1,

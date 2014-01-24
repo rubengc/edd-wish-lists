@@ -186,7 +186,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 */
 		private function hooks() {
 			add_action( 'admin_init', array( $this, 'activation' ) );
-			add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'settings_link' ), 10, 2 );
+			
 
 			// insert actions
 			do_action( 'edd_wl_setup_actions' );
@@ -257,7 +257,9 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 			 		// display notice
 			 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 				}
-
+			}
+			else {
+				add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'settings_link' ), 10, 2 );
 			}
 
 		}
@@ -331,7 +333,22 @@ add_action( 'plugins_loaded', 'edd_wish_lists', apply_filters( 'edd_wl_action_pr
  *
  * @since 1.0
 */
-include_once dirname( __FILE__ ) . '/includes/install.php';
-register_activation_hook( __FILE__, 'edd_wl_install' );
+function edd_wl_plugin_activate() {
+	add_option( 'Activated_Plugin', 'edd-wish-lists' );
+}
+register_activation_hook( __FILE__, 'edd_wl_plugin_activate' );
+
+function edd_wl_load_plugin() {
+	include_once dirname( __FILE__ ) . '/includes/install.php';
+
+    if ( is_admin() && get_option( 'Activated_Plugin' ) == 'edd-wish-lists' ) {
+
+        delete_option( 'Activated_Plugin' );
+
+        // run install script
+        edd_wl_install();
+    }
+}
+add_action( 'admin_init', 'edd_wl_load_plugin' );
 
 endif;

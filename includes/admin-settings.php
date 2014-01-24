@@ -90,7 +90,7 @@ function edd_wl_settings( $settings ) {
 				'yes' =>  __( 'Yes', 'edd-wish-lists' ),
 				'no' =>  __( 'No', 'edd-wish-lists' ),
 			),
-			'std' => 'yes'
+			'std' => 'no'
 		),
 		array(
 			'id' => 'edd_wl_icon',
@@ -105,7 +105,7 @@ function edd_wl_settings( $settings ) {
 				'bookmark' =>  __( 'Bookmark', 'edd-wish-lists' ),
 				'none' =>  __( 'No Icon', 'edd-wish-lists' ),
 			),
-			'std' => 'star'
+			'std' => 'gift'
 		),
 		array(
 			'id' => 'edd_wl_button_style',
@@ -116,7 +116,7 @@ function edd_wl_settings( $settings ) {
 				'plain' =>  __( 'Plain Text', 'edd-wish-lists' ),
 				'button' =>  __( 'Button', 'edd-wish-lists' ),
 			),
-			'std' => 'plain'
+			'std' => 'button'
 		),
 		array(
 			'id' => 'edd_wl_services',
