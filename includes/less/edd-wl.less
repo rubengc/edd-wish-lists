@@ -1,0 +1,374 @@
+// import modal
+@import 'modal.less';
+@import 'buttons.less';
+@import 'icons.less';
+
+// *, *:before, *:after {
+//     -moz-box-sizing: border-box;
+// }
+
+
+@button-color: #f8f8f8;
+
+
+@light-grey: #c4c4c4;
+
+@dark-grey: #606060;
+
+
+// basic form styles
+.wish-list-form {
+	label {
+		display: block;
+	}
+
+	input[type="text"], textarea {
+		width: 100%;
+	}
+}
+
+.edd-wl-service { 
+	display: inline-block; margin: 0 1em 1em 0; 
+	vertical-align: top;
+} 
+
+.edd-wl-service iframe { 
+	max-width: none;
+}
+
+// messages
+.edd-wl-msg { 
+	border: 1px solid #E6DB55;
+	margin: 0 0 1em 0; 
+	background: #FFFFE0; 
+	color: #333;
+	padding: 0.5em 1em;
+
+	p {
+		margin-bottom: 0;
+	}
+}
+
+
+// add to wish list button
+
+// item already exists in wish list
+.edd-wl-already-exists {
+	font-size: 0.85rem;
+	margin: 1em 0;
+}
+
+// spinner
+// combine these 2 classes
+a.edd-wish-list-save .edd-loading,
+a.edd-add-to-wish-list .edd-loading { 
+	position: absolute; 
+	left: 50%; 
+	top: 50%;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+
+a.edd-add-to-wish-list .glyphicon,
+a.edd-wish-list-save .edd-add-to-wish-list-label, 
+a.edd-add-to-wish-list .edd-add-to-wish-list-label,
+a.edd-wish-list-save .edd-loading,
+a.edd-add-to-wish-list .edd-loading {
+  -webkit-transition: .25s  opacity !important;
+  -moz-transition: .25s opacity !important;
+  -ms-transition: .25s opacity !important;
+  -o-transition: .25s opacity !important;
+  transition: .25s opacity !important;
+ }
+
+// hide icon also
+.edd-add-to-wish-list[data-edd-loading] .glyphicon,
+.edd-wish-list-save[data-edd-loading] .edd-add-to-wish-list-label,
+.edd-add-to-wish-list[data-edd-loading] .edd-add-to-wish-list-label { 
+	opacity: 0; 
+	filter: alpha(opacity=0);
+}
+
+.edd-wish-list-save[data-edd-loading] .edd-loading,
+.edd-add-to-wish-list[data-edd-loading] .edd-loading { 
+	opacity: 1; 
+	filter: alpha(opacity=100);
+}
+
+// combine with other button
+a.edd-wish-list-save {
+	position: relative;
+}
+
+// absolute link defaults so theme's don't show nasty colours
+a.edd-wl-action {
+	color: @dark-grey;
+	margin: 0 0 1em 0;
+	text-decoration: none;
+	font-size: 14px; // 14px regardless of plain or button
+}
+
+
+a.edd-add-to-wish-list {
+	// hide button when there is no JS so we can show our input
+	display: none;
+	position: relative;
+	  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+          outline: none;
+
+	// show button when JS is enabled
+	&.edd-has-js {
+		display: inline-block;
+	}
+
+	// when set to button
+	&.button {
+		// background: #f8f8f8;
+		// padding: 0.25rem 0.5rem;
+		// border: 1px solid darken( @button-color, 4%);
+	}
+
+	.icon {
+		// margin-right: 4px;
+		// margin-right: 0.25rem;
+		// font-size: 20px;
+		// font-size: 1.25rem;
+		// vertical-align: middle;
+	}
+
+	&:hover {
+		// text-decoration: none;
+		// color: darken( @dark-grey, 20% );
+	}
+}
+
+
+
+.hide-text {
+	clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+}
+
+
+
+
+// widget styles
+.widget_edd-wish-lists {
+
+	ul {
+		margin: 0 0 24px 0;
+		margin: 0 0 0.5rem 0;
+	}
+	.edd-wish-list-item-price {
+		display: block;
+	}
+}
+
+.edd-wish-list-item-title-option {
+	display: block;
+}
+
+
+.edd-wish-list {
+//	background: #f8f8f8;
+	margin: 0 0 1em 0;
+	padding: 0;
+	list-style-type: none;
+	
+
+
+	.icon-remove {
+		font-size: 0.75rem;
+	}
+
+	li {
+		list-style-type: none;
+
+		&.header span {
+		//	background: red;
+			text-transform: uppercase;
+			font-size: 14px;
+		}
+		
+		//background: #f8f8f8;
+		margin: 0 0 24px 0;
+		margin: 0 0 0.5rem 0;
+		padding: 0 0 24px 0;
+		padding: 0 0 0.5rem 0;
+		
+		border-bottom: 1px solid #eee;
+
+		// > span {
+			
+		// }
+
+		span { 
+		//	display: block;
+			
+		//	margin: 0 1em 1em 0;
+			position: relative;
+			
+
+			// why did i add this
+			a {
+			//	vertical-align: middle;
+			}
+
+			.edd-remove-from-wish-list {
+				color: @light-grey;
+				&:hover {
+					text-decoration: none;
+					color: darken( @light-grey, 10%);
+				}
+			}
+
+			&.edd-wish-list-item-count {
+				font-size: 12px;
+				color: #a5a5a5;
+			}
+
+			&.edd-wish-list-status,
+			&.edd-wish-list-edit {
+			 	float: right;
+			 	font-size: 12px;
+			 	line-height: 1.4;
+			}
+
+			&.edd-wish-list-item-title-option {
+				display: block;
+			}
+
+		}
+	}
+}
+
+@media screen and ( max-width: 479px ) {
+
+	.edd-wish-list {
+		li {
+			position: relative;
+
+			
+
+			span {
+
+				&.edd-wish-list-status,
+				&.edd-wish-list-edit {
+				 	margin-left: 10px;
+				}
+
+				&.edd-wish-list-item-image {
+					display: none;
+				}
+
+				&.edd-wish-list-item-price {
+					display: block;
+				}
+
+				&.edd-wish-list-item-remove {
+					position: absolute;
+					right: 0;
+					top: 0;
+				//	float: right;
+				}
+
+				
+			}
+		}
+	}
+
+
+
+}
+
+@media screen and ( min-width: 480px ) {
+	.edd-wish-list {
+		li {
+			text-align: justify;
+			font-size: 0.1px;
+			
+			&:after { content: ''; display: inline-block; width: 100%; }
+
+			> span {
+				vertical-align: middle;
+			}
+			span {
+				display: inline-block;
+				font-size: 14px;
+				
+				line-height: 1.3;
+
+				// item classes
+				&.edd-wish-list-item-title {
+					width: 55%;
+					text-align: left;
+				}
+
+				&.edd-wish-list-item-price {
+					width: 12%;
+					word-wrap: normal;
+				}
+
+				&.edd-wish-list-item-remove {
+					width: 5%;
+					font-size: 12px;
+					text-align: right;
+				}
+
+				&.edd-wish-list-item-purchase {
+					width: 17%;
+					text-align: right;
+
+					.edd-wl-action { 
+						margin-bottom: 0;
+					}
+				}
+
+				&.edd-wish-list-item-image {
+					width: 50px;
+				}
+
+				// list classes
+				 
+				 &.edd-wish-list-status {
+				 	text-align: left;
+				 }
+
+				 &.edd-wish-list-edit {
+				 	text-align: right;
+				 }
+
+				// &.edd-wish-list-edit,
+				// &.edd-wish-list-status {
+				// 	width: 10%;
+				// }
+			}
+		}
+	}
+}
+
+@media screen and ( min-width: 720px ) {
+
+	.edd-wish-list {
+		li {
+
+			&:hover {
+				span.edd-wish-list-item-remove {
+				//	display: inline-block;
+				}
+			}
+
+			span {
+				
+				&.edd-wish-list-item-remove {
+				//	margin-left: -24px;
+				}
+			}
+		}
+	}
+
+}
