@@ -81,17 +81,17 @@ function edd_wl_settings( $settings ) {
 			),
 			'std' => 'yes'
 		),
-		array(
-			'id' => 'edd_wl_redirect',
-			'name' => sprintf( __( 'Redirect To %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
-			'desc' => '<p class="description">' . sprintf( __( 'Customer will be redirected to their %s once download has been added', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
-			'type' => 'select',
-			'options' =>  array(
-				'yes' =>  __( 'Yes', 'edd-wish-lists' ),
-				'no' =>  __( 'No', 'edd-wish-lists' ),
-			),
-			'std' => 'no'
-		),
+		// array(
+		// 	'id' => 'edd_wl_redirect',
+		// 	'name' => sprintf( __( 'Redirect To %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
+		// 	'desc' => '<p class="description">' . sprintf( __( 'Customer will be redirected to their %s once download has been added', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
+		// 	'type' => 'select',
+		// 	'options' =>  array(
+		// 		'yes' =>  __( 'Yes', 'edd-wish-lists' ),
+		// 		'no' =>  __( 'No', 'edd-wish-lists' ),
+		// 	),
+		// 	'std' => 'no'
+		// ),
 		array(
 			'id' => 'edd_wl_icon',
 			'name' => __( 'Icon', 'edd-wish-lists' ),

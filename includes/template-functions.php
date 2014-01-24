@@ -118,8 +118,20 @@ add_action( 'edd_after_download_content', 'edd_wl_load_wish_list_link' );
 //add_action( 'edd_wl_test_hook', 'edd_wl_wish_list_link' );
 
 
+/**
+ * Remove link on view wish list template
+ * 
+ * Does security checks to make sure it can show
+ *
+ * @since 1.0
+ * @todo  
+*/
+function edd_wl_remove_link( $args = array() ) {
 
-
+	// $defaults = array(
+	// 	'text' => '',
+	// );
+}
 
 /**
  * The Wish list link

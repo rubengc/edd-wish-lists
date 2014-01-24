@@ -64,6 +64,11 @@ function edd_wl_form_list_create() {
  * @since 1.0
 */
 function edd_wl_form_list_edit() {
+
+  // check if user is allowed to edit this link
+  // if ( ! edd_wl_is_users_list( get_query_var('edit') ) )
+  //   return;
+
   $edd_wish_lists = edd_wish_lists();
   $edd_wish_lists::$add_script = true;
 
@@ -134,6 +139,17 @@ function edd_wl_form_list_edit() {
 */
 function edd_wl_process_form_requests() {
 
+  global $edd_options;
+
+  // if not users list, redirect to homepage
+  // make this into reusable function
+  if ( isset( $edd_options['edd_wl_page_edit'] ) && is_page ( $edd_options['edd_wl_page_edit'] ) ) {
+    if ( ! edd_wl_is_users_list( get_query_var( 'edit' ) ) ) {
+      wp_redirect( site_url() ); exit;
+    }
+  }
+
+ 
   if ( isset( $_POST['submitted'] ) && isset( $_POST['list_nonce_field'] ) && wp_verify_nonce( $_POST['list_nonce_field'], 'list_nonce' ) ) {
 
     // list title

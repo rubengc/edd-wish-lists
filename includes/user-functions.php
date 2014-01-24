@@ -64,6 +64,44 @@ function edd_wl_create_token( $list_id = '' ) {
 	}
 }
 
+/**
+ * Check if the list belongs to the current user. If it does, they are allowed to remove it
+ *
+ * @since 1.0
+*/
+function edd_wl_is_users_list( $list_id ) {
+	$current_user_id = get_current_user_id();
+
+	// should only be on view or edit page
+	if ( ! ( get_query_var('edit') || get_query_var('view') ) )
+		return;
+
+	// logged in users
+	if ( is_user_logged_in() && (int) $list->post_author === $current_user_id ) {
+		return true;
+	}
+	// non logged in users
+	elseif ( ! is_user_logged_in() ) {
+		// get token
+		$token = edd_wl_get_list_token();
+		$token = isset( $token ) ? $token : '';
+
+	//	var_dump( $token );
+
+		if ( $token ) {
+			// get custom meta of post
+			$current_list_meta = get_post_custom( $list_id );
+			// if token matches the edd_wl_token then this list belongs to user
+			if ( $token === $current_list_meta['edd_wl_token'][0] )	{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+
 
 /**
  * Retrieve a saved wish list token. Used in validating wish list

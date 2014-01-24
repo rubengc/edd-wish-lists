@@ -1,7 +1,6 @@
 <?php
 /**
  * Sets up the custom post type
- * @since  1.0
  */
 
 // Exit if accessed directly
@@ -13,11 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 1.0
 */
 function edd_wl_register_post_type() {
-
-//	$slug = 'wish-lists';
-//	$slug = defined( 'EDDWL_SLUG' ) ? EDDWL_SLUG : 'bookmarks';
-
-	$labels =  apply_filters( 'edd_wl_cpt_labels', array(
+	$labels =  apply_filters( 'edd_wl_post_type_labels', array(
 		'name' 				=> '%2$s',
 		'singular_name' 	=> '%1$s',
 		'add_new' 			=> __( 'Add New', 'edd-wish-lists' ),
@@ -38,29 +33,17 @@ function edd_wl_register_post_type() {
 	}
 
 	$args = apply_filters( 'edd_wl_post_type_args' , array(
-	//	'labels'			  => array( 'name' => __( 'Wish Lists', 'edd-wish-lists' ) ),
-		'labels' 			=> $labels,
-		'public'			  => true,
-		'capability_type'	  => 'post',
-		'map_meta_cap' => true,
-		'show_ui' => true,
-		'hierarchical' => false,
-	//	'rewrite' => false,
-		'query_var' => true,
-	//	'has_archive'	=> true,
-
-
-	//	'exclude_from_search' => true,
-	//	'publicly_queryable'  => true,
-	//	'query_var'			  => true,
-	//	'query_var'			  => 'wishlist',
-	//	'rewrite'			  => true,
-	//	'rewrite'				=> array('slug' => $slug, 'with_front' => false),
+		'labels' 				=> $labels,
+		'public'			  	=> true,
+		'capability_type'	  	=> 'post',
+		'map_meta_cap' 			=> true,
+		'show_ui' 				=> true,
+		'hierarchical' 			=> false,
+		'query_var' 			=> true,
+		'exclude_from_search'	=> true,
 		'rewrite'				=> false,
-		
-		'supports'			  => array( 'title', 'editor' ),
-	//	'can_export'		  => true,
-		'show_in_menu' 		=> 'edit.php?post_type=download',
+		'supports'			  	=> array( 'title', 'editor' ),
+		'show_in_menu' 			=> 'edit.php?post_type=download',
 	));
 
 	register_post_type( 'edd_wish_list', $args );

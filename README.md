@@ -17,6 +17,11 @@ Demo: http://edd-wish-lists.sumobithemes.com/
 - [edd_wish_lists_add] shortcode for adding a “add to wish list” link on any page/post/download. Accepts “id” and “text” parameters.
 - Change the terminology through filter. Collection, Light Box, Watch List, Want List, Favourites, Bookmarks etc
 - Show a plain text link or button
+- Choose from 5 different web font icons or have no icon at all
+- Disable guests from creating wish lists
+- Modify the text for the “add to wish list” link
+- Modify the text for the “add to cart” links when adding items to the cart
+- Select the sharing services that should appear on individual lists
 - View and manage all lists from the WordPress admin.
 - Extremely flexible. Use any page on your website to display a user’s wish lists, display individual wish lists, edit wish lists, or create wish lists
 - Uses pretty permalinks and also supports non pretty permalinks
@@ -38,6 +43,7 @@ Demo: http://edd-wish-lists.sumobithemes.com/
 - Confirm delete dialog box instead of deleting list straight away
 - Delete data on plugin deletion.
 - Prevent admin from being able to create wish lists in the admin
+- Show “guest” in author column when list has been created by guest user
 
 **Possible Future Enhancements**
 - Reporting - See which downloads are the most popular by how many times they are stored on lists. 

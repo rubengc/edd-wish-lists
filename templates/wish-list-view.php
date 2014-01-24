@@ -6,7 +6,6 @@
  * @since 1.0
 */
 
-
 $list_id = get_query_var( 'view' );
 
 // gets the list
@@ -33,12 +32,8 @@ $privacy = get_post_status( $list_id );
 		echo edd_wl_add_all_to_cart_link( array( 'list_id' => $list_id ) );
 	?>
 
-	<?php 
-		$current_user_id = get_current_user_id();
-	?>
 	<ul class="edd-wish-list">
 		<?php foreach ( $downloads as $key => $item ) : ?>
-
 			<li>
 				<span class="edd-wish-list-item-title">
 				<?php
@@ -64,8 +59,8 @@ $privacy = get_post_status( $list_id );
 				<span class="edd-wish-list-item-purchase">
 					<?php echo edd_wl_wish_list_item_purchase( $item ); ?>
 				</span>
-
-				<?php if ( (int) $list->post_author === $current_user_id ) : ?>
+				
+				<?php if ( edd_wl_is_users_list( $list_id ) ) : ?>
 				<span class="edd-wish-list-item-remove">
 					<a title="<?php _e( 'Remove', 'edd-wish-lists' ); ?>" href="#" data-cart-item="<?php echo $key; ?>" data-download-id="<?php echo $item['id']; ?>" data-list-id="<?php echo $list_id; ?>" data-action="edd_remove_from_wish_list" class="edd-remove-from-wish-list">
 					<i class="glyphicon glyphicon-remove"></i>
@@ -74,7 +69,6 @@ $privacy = get_post_status( $list_id );
 				</span>
 				<?php endif; ?>
 			</li>
-
 		<?php endforeach; ?>
 	</ul>
 

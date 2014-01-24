@@ -54,3 +54,9 @@ function edd_wl_print_script() {
 
 }
 add_action( 'wp_footer', 'edd_wl_print_script' );
+
+/**
+ * Sprinkle of CSS to remove "add new" in admin
+ *
+ * @since 1.0
+*/
