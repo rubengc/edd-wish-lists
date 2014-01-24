@@ -14,7 +14,7 @@ $public 	= edd_wl_get_query( 'public' );
 */
 ?>
 <a class="button button-default edd-wl-action" href="<?php echo edd_wl_get_wish_list_create_uri(); ?>">
-	<?php echo sprintf( __( 'Create new %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ); ?>
+	<?php echo sprintf( __( 'Create new %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
 </a>
 
 <?php

@@ -145,7 +145,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 			'style'       	=> edd_get_option( 'edd_wl_button_style', 'plain' ),
 			'color'       	=> '',
 			'class'       	=> 'edd-wl-action',
-			'icon'			=> edd_get_option( 'edd_wl_icon', 'heart' ),
+			'icon'			=> edd_get_option( 'edd_wl_icon', 'gift' ),
 			'action'		=> '',
 			'link'			=> ''
 		) 
@@ -564,8 +564,8 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
 						<input type="text" id="list-name" name="list-name" placeholder="<?php _e( 'Title', 'edd-wish-lists' ); ?>">
 
 						<select id="list-status" name="list-status">
-							<option value="publish"><?php _e( 'Public - viewable by anyone', 'edd-wish-lists' ); ?></option>
 							<option value="private"><?php _e( 'Private - only viewable by you', 'edd-wish-lists' ); ?></option>
+							<option value="publish"><?php _e( 'Public - viewable by anyone', 'edd-wish-lists' ); ?></option>
 						</select>
 		            </p>
 

@@ -25,55 +25,55 @@ function edd_wl_settings( $settings ) {
 	$plugin_settings = array(
 		array(
 			'id' => 'edd_wl_header',
-			'name' => '<strong>' . __( 'Wish Lists', 'edd-wish-lists' ) . '</strong>',
+			'name' => '<strong>' . sprintf( __( '%s', 'edd-wish-lists' ), edd_wl_get_label_plural() ) . '</strong>',
 			'type' => 'header'
 		),
 		array(
 			'id' => 'edd_wl_page',
-			'name' => __( 'Wish Lists Page', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . __( 'Select the page where users will view their wish lists.', 'edd-wish-lists' ) . '</p>',
+			'name' => sprintf( __( '%s Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
+			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will view their %s. This page should include the [edd_wish_lists] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_plural( true ) ) . '</p>',
 			'type' => 'select',
 			'options' => $pages_options
 		),
 		array(
 			'id' => 'edd_wl_page_view',
-			'name' => __( 'Wish Lists View Page', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . __( 'Select the page where users will view a wish list.', 'edd-wish-lists' ) . '</p>',
+			'name' => sprintf( __( '%s View Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
+			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will view each %s. This page should include the [edd_wish_lists_view] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'select',
 			'options' => $pages_options
 		),
 		array(
 			'id' => 'edd_wl_page_edit',
-			'name' => __( 'Wish Lists Edit Page', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . __( 'Select the page where users will edit a wish list.', 'edd-wish-lists' ) . '</p>',
+			'name' => sprintf( __( '%s Edit Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
+			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will edit a %s. This page should include the [edd_wish_lists_edit] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'select',
 			'options' => $pages_options
 		),
 		array(
 			'id' => 'edd_wl_page_create',
-			'name' => __( 'Wish Lists Create Page', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . __( 'Select the page where users will create a wish list.', 'edd-wish-lists' ) . '</p>',
+			'name' => sprintf( __( '%s Create Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
+			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will create a %s. This page should include the [edd_wish_lists_create] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'select',
 			'options' => $pages_options
 		),
 		array(
 			'id' => 'edd_wl_add_to_wish_list',
-			'name' => __( 'Wish List Text', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . __( 'Enter the text you\'d like to appear for adding a product to the wish list', 'edd-wish-lists' ) . '</p>',
+			'name' => sprintf( __( '%s Text', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
+			'desc' => '<p class="description">' . sprintf( __( 'Enter the text you\'d like to appear for adding a %s to the %s', 'edd-wish-lists' ), edd_get_label_singular( true ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'text',
-			'std' => 'Add to wish list'
+			'std' => sprintf( __( 'Add to %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ),
 		),
 		array(
 			'id' => 'edd_wl_add_to_cart',
 			'name' => __( 'Add To Cart Text', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . __( 'Enter the text you\'d like to appear for adding a product from the wish list to the cart', 'edd-wish-lists' ) . '</p>',
+			'desc' => '<p class="description">' . sprintf( __( 'Enter the text you\'d like to appear for adding a %s from the %s to the cart', 'edd-wish-lists' ), edd_get_label_singular( true ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'text',
 			'std' => 'Add to cart'
 		),
 		array(
 			'id' => 'edd_wl_allow_guests',
-			'name' => __( 'Allow Guest List Creation', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . __( 'Allow guests to create a Wish List', 'edd-wish-lists' ) . '</p>',
+			'name' => sprintf( __( 'Allow Guest %s Creation', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
+			'desc' => '<p class="description">' . sprintf( __( 'Allow guests to create a %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ) . '</p>',
 			'type' => 'select',
 			'options' =>  array(
 				'yes' =>  __( 'Yes', 'edd-wish-lists' ),
@@ -83,8 +83,8 @@ function edd_wl_settings( $settings ) {
 		),
 		array(
 			'id' => 'edd_wl_redirect',
-			'name' => __( 'Redirect To Wish List', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . __( 'Customer will be redirected to their Wish List once download has been added', 'edd-wish-lists' ) . '</p>',
+			'name' => sprintf( __( 'Redirect To %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
+			'desc' => '<p class="description">' . sprintf( __( 'Customer will be redirected to their %s once download has been added', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'select',
 			'options' =>  array(
 				'yes' =>  __( 'Yes', 'edd-wish-lists' ),
@@ -95,15 +95,17 @@ function edd_wl_settings( $settings ) {
 		array(
 			'id' => 'edd_wl_icon',
 			'name' => __( 'Icon', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . __( 'The icon to show next to the add to wish list', 'edd-wish-lists' ) . '</p>',
+			'desc' => '<p class="description">' . sprintf( __( 'The icon to show next to the add to %s links', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'select',
-			'options' =>  array(
-				'gift' =>  __( 'Gift', 'edd-wish-lists' ),
-				'heart' =>  __( 'Heart', 'edd-wish-lists' ),
-				'star' =>  __( 'Star', 'edd-wish-lists' ),
-				'add' =>  __( 'Add', 'edd-wish-lists' ),
-				'bookmark' =>  __( 'Bookmark', 'edd-wish-lists' ),
-				'none' =>  __( 'No Icon', 'edd-wish-lists' ),
+			'options' =>  apply_filters( 'edd_wl_icons', 
+				array(
+					'gift' =>  __( 'Gift', 'edd-wish-lists' ),
+					'heart' =>  __( 'Heart', 'edd-wish-lists' ),
+					'star' =>  __( 'Star', 'edd-wish-lists' ),
+					'add' =>  __( 'Add', 'edd-wish-lists' ),
+					'bookmark' =>  __( 'Bookmark', 'edd-wish-lists' ),
+					'none' =>  __( 'No Icon', 'edd-wish-lists' ),
+				)
 			),
 			'std' => 'gift'
 		),

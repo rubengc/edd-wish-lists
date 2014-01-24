@@ -93,8 +93,8 @@ function edd_wl_form_list_edit() {
 
     <p>
       <select name="privacy">
-        <option value="publish" <?php selected( $privacy, 'publish' ); ?>><?php _e( 'Public', 'edd-wish-lists' ); ?></option>
         <option value="private" <?php selected( $privacy, 'private' ); ?>><?php _e( 'Private', 'edd-wish-lists' ); ?></option>
+        <option value="publish" <?php selected( $privacy, 'publish' ); ?>><?php _e( 'Public', 'edd-wish-lists' ); ?></option>
       </select>
     </p>
 
