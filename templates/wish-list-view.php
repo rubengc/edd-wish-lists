@@ -22,7 +22,7 @@ $privacy = get_post_status( $list_id );
 
 <?php if ( $downloads ) : ?>
 
-	<p><?php echo $list->post_title; ?></p>
+	<h2><?php echo $list->post_title; ?></h2>
 	<p><?php echo $list->post_content; ?></p>
 
 	<?php 

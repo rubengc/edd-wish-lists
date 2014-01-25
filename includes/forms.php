@@ -112,18 +112,8 @@ function edd_wl_form_list_edit() {
 
   </form>
 
-
-   <h3><?php printf( __( 'Delete %s', 'edd-wish-lists'), edd_wl_get_label_singular() ); ?></h3>
-
   <p>
-  <?php /*
-    <a id="edd-wish-lists-delete-list" href="<?php echo get_delete_post_link( $post_id, '', true ); ?>">
-      <?php _e( 'Delete this list', 'edd-wish-lists' ); ?>
-    </a>
-  */ ?>
- 
-    <a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo $post_id; ?>" class="eddwl-delete-list"><?php _e( 'delete list', 'edd-wish-lists' ); ?></a>
-
+    <a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo $post_id; ?>" class="eddwl-delete-list"><?php printf( __( 'Delete %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ); ?></a>
   </p>
 
  <?php 

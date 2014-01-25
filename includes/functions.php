@@ -335,23 +335,26 @@ function edd_wl_redirect_to_wish_list() {
 }
 
 /**
- * Add wish list title
+ * Filter title to include the list name on either the view or edit pages
  *
  * @since 1.0
 */
 function edd_wl_wp_title( $title, $sep ) {
-	$view_page = edd_get_option( 'edd_wl_page_view', null );
-				
-	// return if we're not on the wish list view page
-	if ( ! $view_page )
-		return;
+	$view_page = edd_get_option( 'edd_wl_page_view' );
+	$edit_page = edd_get_option( 'edd_wl_page_edit' );
+	
+	if ( is_page( $view_page ) || is_page( $edit_page ) ) {
+		if ( is_page( $view_page ) )
+			$list_id = get_query_var( 'view' );
+		elseif ( is_page( $edit_page ) )
+			$list_id = get_query_var( 'edit' );
 
-	$list_id = get_query_var( 'view' );
-	$list_title = get_the_title( $list_id );
+		$list_title = get_the_title( $list_id );
 
-	// Prepend the list name to the site title.
-	$title = $list_title . " $sep " . $title;
-
+		// Prepend the list name to the site title.
+		$title = $list_title . " $sep " . $title;
+	}
+	
 	return $title;
 }
 add_filter( 'wp_title', 'edd_wl_wp_title', 10, 2 );
