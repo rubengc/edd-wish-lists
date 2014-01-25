@@ -166,7 +166,7 @@
 .button {
   display: inline-block;
   padding: 6px 12px;
-  margin-bottom: 0;
+  margin-bottom: 16px;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.428571429;
@@ -183,12 +183,6 @@
   -o-user-select: none;
   user-select: none;
   outline: none;
-}
-.button.before {
-  margin-bottom: 8px;
-}
-.button.after {
-  margin-top: 24px;
 }
 .button:hover,
 .button:focus {
@@ -347,6 +341,12 @@ a.edd-wl-action {
   color: #606060;
   text-decoration: none;
   font-size: 14px;
+}
+a.edd-wl-action.before {
+  margin-bottom: 8px;
+}
+a.edd-wl-action.after {
+  margin-top: 24px;
 }
 a.edd-add-to-wish-list {
   display: none;

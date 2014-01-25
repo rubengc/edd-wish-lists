@@ -55,7 +55,7 @@ function edd_wl_load_wish_list_link() {
  * edd_after_download_content 			After download content, outside of form tag
  * your_own_custom_hook					Your own hook using do_action()
 */
-add_action( 'edd_purchase_link_end', 'edd_wl_load_wish_list_link' );
+add_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
 
 
 /**
@@ -103,7 +103,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 
 	$icon = $icon && 'none' != $icon ? '<i class="glyphicon glyphicon-' . $icon . '"></i>' : '';
 
-	$button_size = 'button' == edd_get_option( 'edd_wl_button_style', 'plain' ) ?  apply_filters( 'edd_wl_button_size', 'button-default' ) : '';	
+	$button_size = 'button' == edd_get_option( 'edd_wl_button_style' ) ? apply_filters( 'edd_wl_button_size', 'button-default' ) : '';
 	
 	// show the icon on either the left or right
 	$icon_position = apply_filters( 'edd_wl_icon_position' , 'left' );
@@ -291,7 +291,7 @@ function edd_wl_add_all_to_cart_link( $args = array() ) {
 		array(
 			'list_id'	=> $args['list_id'],
 			'text' 		=> __( 'Add all to cart', 'edd-wish-lists' ),
-			'style'		=> edd_get_option( 'edd_wl_button_style', 'button' ),
+			'style'		=> 'button button-default',
 			'color'		=> '',
 			'class'		=> 'edd-wl-action'
 		)
@@ -301,19 +301,15 @@ function edd_wl_add_all_to_cart_link( $args = array() ) {
 
 	extract( $args, EXTR_SKIP );
 
-	$button_size = 'button' == edd_get_option( 'edd_wl_button_style', 'plain' ) ?  apply_filters( 'edd_wl_button_size', 'button-default' ) : '';
-
 	// return if there's only 1 item in list
-	//if ( edd_wl_get_list( $list_id ) )
 	$list = edd_wl_get_wish_list( $list_id );
 	if ( count ( $list ) == 1 )
 		return;
 
 	printf(
-		'<a href="' . add_query_arg( array( 'edd_action' => 'wl_purchase_all', 'list_id' => $list_id ) ) . '" class="%1$s %3$s">%2$s</a>',
-		implode( ' ', array( $style, $color, trim( $class ) ) ),
-		esc_attr( $text ),
-		$button_size
+		'<a href="' . add_query_arg( array( 'edd_action' => 'wl_purchase_all', 'list_id' => $list_id ) ) . '" class="%1$s">%2$s</a>',
+		implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 1
+		esc_attr( $text )											// 2
 	);
 }
 
@@ -484,7 +480,8 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
         						'text' 			=> __( 'Save', 'edd-wish-lists' ),
         						'icon'			=> '',
         						'action'		=> 'edd_add_to_wish_list',
-        						'class'			=> 'edd-wish-list-save edd-wl-action'
+        						'class'			=> 'button-default edd-wish-list-save edd-wl-action',
+        						'style'			=> 'button'
         					);
         					edd_wl_wish_list_link( $args );
         				?>
