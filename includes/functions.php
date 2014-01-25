@@ -296,7 +296,7 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
  * 
  * @param  string  $shortcode
  * @return boolean
- * @since  2.0
+ * @since  1.0
  */
 function edd_wl_has_shortcode( $shortcode = '' ) {
 	global $post;

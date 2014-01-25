@@ -3,11 +3,6 @@
 @import 'buttons.less';
 @import 'icons.less';
 
-// *, *:before, *:after {
-//     -moz-box-sizing: border-box;
-// }
-
-
 @button-color: #f8f8f8;
 
 
@@ -103,7 +98,6 @@ a.edd-wish-list-save {
 // absolute link defaults so theme's don't show nasty colours
 a.edd-wl-action {
 	color: @dark-grey;
-	margin: 0 0 1em 0;
 	text-decoration: none;
 	font-size: 14px; // 14px regardless of plain or button
 }
@@ -349,26 +343,4 @@ a.edd-add-to-wish-list {
 			}
 		}
 	}
-}
-
-@media screen and ( min-width: 720px ) {
-
-	.edd-wish-list {
-		li {
-
-			&:hover {
-				span.edd-wish-list-item-remove {
-				//	display: inline-block;
-				}
-			}
-
-			span {
-				
-				&.edd-wish-list-item-remove {
-				//	margin-left: -24px;
-				}
-			}
-		}
-	}
-
 }

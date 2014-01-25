@@ -8,48 +8,6 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-
-
-/**
- * Add 'wish-list' body class to wish list page
- * @return [type] [description]
- */
-function edd_wl_body_class( $classes ) {
-	global $wp_query;
-
-//	if ( edd_wl_is_wish_list() ) {
-	// if ( edd_wl_is_wish_list_page() ) {
-	// 	$classes[] = apply_filters( 'edd_wl_body_class', 'eddwl-page' );
-	// }
-
-	// if ( isset( $wp_query->query_vars['view'] ) && '' != $wp_query->query_vars['view'] ) {
-	// 	$classes[] = 'wish-list-view';
-	// }
-
-	$view = edd_wl_get_page_slug( 'view' );
-//	$edit = edd_wl_get_page_slug( 'edit' );
-
-	// class for view wish list
-	// if ( isset( $wp_query->query_vars[ $view ] ) && '' != $wp_query->query_vars[ $view ] ) {
-	// 	$classes[] = 'wish-list-view';
-	// }
-
-		// //	add wishlist
-		// elseif ( isset( $wp_query->query_vars['add'] ) ) {
-		// 	$this->get_template_part( 'wish-list-add' );
-		// }
-		// // show wishlists
-		// else {
-		// 	$this->get_template_part( 'wish-lists' );
-		// }
-
-
-
-	return $classes;
-}
-// add body class
-//add_filter( 'body_class', 'edd_wl_body_class' );
-
 /**
  * Get number of items in list
  *
@@ -62,84 +20,49 @@ function edd_wl_get_item_count( $list_id ) {
 	return $count;
 }
 
-
 /**
  * Handles loading of the wish list link
  *
  * @since 1.0
 */
 function edd_wl_load_wish_list_link() {
-	// return if page has [downloads] shortcode
-	// try and fix this
-	// if ( edd_wl_has_shortcode( 'downloads' ) )
-	// 	return;
+	$classes = array();
+	// assign a class to the link depending on where it's hooked to
+	// this way we can control the margin needed at the top or bottom of the link
+	if( has_action( 'edd_purchase_link_end', 'edd_wl_load_wish_list_link' ) ) {
+		$classes[] = 'after';
+	}
+	elseif( has_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' ) ) {
+		$classes[] = 'before';
+	}
 
-
-
-	//add_filter( 'edd_purchase_download_form', 'edd_wl_wish_list_link' );
-
-	
-		
+	// default classes
+	$classes[] = 'edd-add-to-wish-list';
+	$classes[] = 'edd-wl-action';
 
 	$args = array(
-		'action'		=> 'edd_wl_open_modal',
-		'class'			=> 'edd-add-to-wish-list edd-wl-action'
+		'action'	=> 'edd_wl_open_modal',
+		'class'		=> implode( ' ', $classes ),
 	);
-	edd_wl_wish_list_link( $args );		
-
+	edd_wl_wish_list_link( $args );
 }
-//add_action( 'template_redirect', 'edd_wl_load_wish_list_link' );
-
-// after standard purchase button (used by shortcode and standard buttons) (displays within form tag). Will also show on a single page with purchase_link shortcode
-//add_action( 'edd_purchase_link_end', 'edd_wl_load_wish_list_link' );
-
-// before purchase button. Will also show on a single page with purchase_link shortcode
-//add_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
-
-// after download content (outside of form tag)
-add_action( 'edd_after_download_content', 'edd_wl_load_wish_list_link' );
-
-// or custom hook
-//add_action( 'edd_wl_test_hook', 'edd_wl_wish_list_link' );
-
 
 /**
- * loads Modal window on single download page
+ * Possible hooks this link could be loaded on
  *
- * @since 1.0
- * @todo  may load differently
+ * edd_purchase_link_end 				After standard purchase button which is used by shortcode and standard buttons. Displays within form tag. Will also show on a single page with purchase_link shortcode
+ * edd_purchase_link_top (default)		Before purchase button. Will also show on a single page with purchase_link shortcode
+ * edd_after_download_content 			After download content, outside of form tag
+ * your_own_custom_hook					Your own hook using do_action()
 */
-// function edd_wl_load_modal() {
-// 	echo edd_wl_modal();
-// }
-//add_action( 'edd_after_download_content', 'edd_wl_load_modal' );
+add_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
 
-// load in download grid
-//add_action( 'edd_wl_test_hook', 'edd_wl_wish_list_link' );
-
-
-/**
- * Remove link on view wish list template
- * 
- * Does security checks to make sure it can show
- *
- * @since 1.0
- * @todo  
-*/
-function edd_wl_remove_link( $args = array() ) {
-
-	// $defaults = array(
-	// 	'text' => '',
-	// );
-}
 
 /**
  * The Wish list link
- * Used by ...
  *
  * @since 1.0
 */
-
 function edd_wl_wish_list_link( $args = array() ) {
 	global $edd_options, $post;
 
@@ -148,7 +71,6 @@ function edd_wl_wish_list_link( $args = array() ) {
 
 	// load required scripts if template tag or shortcode has been used
 	$edd_wish_lists::$add_script = true;
-
 
 	$defaults = apply_filters( 'edd_wl_link_defaults', 
 		array(
@@ -163,52 +85,26 @@ function edd_wl_wish_list_link( $args = array() ) {
 		) 
 	);
 
-
-
 	// merge arrays
 	$args = wp_parse_args( $args, $defaults );
 
-	//	var_dump( $download_id );
-
 	// extract $args so we can use the variable names
 	extract( $args, EXTR_SKIP );
-	
-	// if ( edd_wl_has_shortcode( 'downloads' ) )
-	// 	return;
 
 	// prevent pages from showing add to wish list button and also being added to wishlist instead of real download id
 	if ( is_page() && edd_wl_has_shortcode( 'downloads' ) && $edd_wish_lists::$shortcode )
 		return;	
-	
-	// $edd_wish_lists::$shortcode && 
-	// if is page
 
 	$variable_pricing 	= edd_has_variable_prices( $args['download_id'] );
 	$data_variable  	= $variable_pricing ? ' data-variable-price=yes' : 'data-variable-price=no';
 	$type             	= edd_single_price_option_mode( $args['download_id'] ) ? 'data-price-mode=multi' : 'data-price-mode=single';
 
 	ob_start();
-?>
-	
-<?php /*
-<a class="edd-cart-saving-button edd-submit button<?php echo ' ' . $color; ?>" id="edd-restore-cart-button" href="<?php echo add_query_arg( array( 'edd_action' =>'view_wish_list', 'download_id' => get_the_ID() ) ) ?>"><?php _e( 'View Wish List', 'edd' ); ?></a>
-*/ ?>
-
-<?php /*
-<a class="edd-add-to-wish-list edd-submit button<?php echo ' ' . $color; ?>" id="edd-save-cart-button" href="<?php echo add_query_arg( array( 'edd_action' =>'add_wish_list', 'download_id' => get_the_ID() ) ) ?>"><?php _e( 'Add To Wish List', 'edd' ); ?></a>
-*/ ?>
-
-<?php 
-
 
 	$icon = $icon && 'none' != $icon ? '<i class="glyphicon glyphicon-' . $icon . '"></i>' : '';
 
 	$button_size = 'button' == edd_get_option( 'edd_wl_button_style', 'plain' ) ?  apply_filters( 'edd_wl_button_size', 'button-default' ) : '';	
-	?>
-
-
-	<?php
-
+	
 	// show the icon on either the left or right
 	$icon_position = apply_filters( 'edd_wl_icon_position' , 'left' );
 
@@ -222,34 +118,20 @@ function edd_wl_wish_list_link( $args = array() ) {
 	$loading = ! $link ? '<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>' : '';
 	$link = ! $link ? '#' : $link; 
 
-	//if ( edd_is_ajax_enabled() ) {
-		printf(
-			'<a href="%1$s" class="%2$s %3$s" data-action="%4$s" data-download-id="%5$s" %6$s %7$s>%8$s<span class="edd-add-to-wish-list-label">%9$s</span>%10$s%11$s</a>',
-			$link, 														// 1
-			implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 2
-			$button_size, 												// 3
-			$action, 													// 4
-			esc_attr( $args['download_id'] ), 							// 5
-			esc_attr( $data_variable ), 								// 6
-			esc_attr( $type ), 											// 7
-			$icon_left, 												// 8
-			esc_attr( $args['text'] ),									// 9
-			$loading, 													// 10
-			$icon_right 												// 11	
-		);	
-	//}
-
-	// this one is only shown when there is no JS
-	
-	// printf(
-	// 	'<input type="submit" class="edd-add-to-wish-list edd-no-js %1$s" name="edd_purchase_download" value="%2$s" data-action="edd_add_to_wish_list" data-download-id="%3$s" %4$s %5$s/>',
-	// 	implode( ' ', array( $args['style'], $args['color'], trim( $args['class'] ) ) ),
-	// 	esc_attr( $args['text'] ),
-	// 	esc_attr( $args['download_id'] ),
-	// 	esc_attr( $data_variable ),
-	// 	esc_attr( $type )
-	// );
-
+	printf(
+		'<a href="%1$s" class="%2$s %3$s" data-action="%4$s" data-download-id="%5$s" %6$s %7$s>%8$s<span class="edd-add-to-wish-list-label">%9$s</span>%10$s%11$s</a>',
+		$link, 														// 1
+		implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 2
+		$button_size, 												// 3
+		$action, 													// 4
+		esc_attr( $args['download_id'] ), 							// 5
+		esc_attr( $data_variable ), 								// 6
+		esc_attr( $type ), 											// 7
+		$icon_left, 												// 8
+		esc_attr( $args['text'] ),									// 9
+		$loading, 													// 10
+		$icon_right 												// 11	
+	);	
 
 	$html = apply_filters( 'edd_wl_link', ob_get_clean() );
 
@@ -279,7 +161,7 @@ function edd_wl_load_template( $type ) {
 }
 
 /**
- * Main Wish List function called by shortcode
+ * Main Wish List function called by [edd_wish_lists] shortcode
  * This template can be found in the /templates folder. 
  * Copy wish-list.php to your edd_templates folder in your child theme
  * Would be nice to use get_template_part but you cannot pass variables along
@@ -581,33 +463,6 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
 						</select>
 		            </p>
 
-					<?php 
-						// printf(
-						// '<a href="#" class="edd-submit button edd-wish-list-save" data-action="edd_add_to_wish_list" data-download-id="%1$s" %2$s %3$s><span class="edd-add-to-wish-list-label">Save</span><span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span></a>',
-						// esc_attr( $download_id ),
-						// esc_attr( $data_variable ),
-						// esc_attr( $type )
-						// );
-					?>
-
-					
-
-					<?php
-		    //           if ( edd_is_ajax_enabled() ) {
-						// printf(
-						// 	'<a href="#" class="edd-add-to-wish-list %1$s" data-action="edd_wl_open_modal" data-download-id="%3$s" %4$s %5$s %6$s>%7$s<span class="edd-add-to-wish-list-label">%2$s</span><span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span></a>',
-						// 	implode( ' ', array( $args['style'], $args['color'], trim( $args['class'] ) ) ),
-						// 	esc_attr( $args['text'] ),
-						// 	esc_attr( $args['download_id'] ),
-						// 	esc_attr( $data_variable ),
-						// 	esc_attr( $type ),
-						// 	$add_to_wish_list_display,
-						// 	$icon
-						// );	
-						// }
-
-					?>
-
 		              </div>
 
 		         <?php
@@ -624,7 +479,6 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
         				 * @todo  make text filterable
         				 */
         						
-        			//	echo $download_id;
         					$args = array(
         						'download_id' 	=> $download_id,
         						'text' 			=> __( 'Save', 'edd-wish-lists' ),
@@ -642,9 +496,6 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
  	
   </div>
 	<?php
-	//$items = get_post_meta( $download_id, 'edd_wish_list', true );
-
-	//$count = edd_wl_get_query()->found_posts;
 
 	$html = ob_get_clean();
 	return apply_filters( 'edd_wl_get_wish_lists', $html );
