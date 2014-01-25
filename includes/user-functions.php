@@ -70,6 +70,8 @@ function edd_wl_create_token( $list_id = '' ) {
  * @since 1.0
 */
 function edd_wl_is_users_list( $list_id ) {
+
+	$list = get_post( $list_id );
 	$current_user_id = get_current_user_id();
 
 	// should only be on view or edit page
