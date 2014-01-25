@@ -154,7 +154,8 @@ function edd_wl_load_template( $type ) {
 
 	edd_wl_print_messages( 'wish-list-' . $type );
 
-	edd_wl_get_template_part( 'wish-list-' . $type );
+//	edd_wl_get_template_part( 'wish-list-' . $type );
+	edd_get_template_part( 'wish-list-' . $type );
 
 	$template = ob_get_clean();
 	return apply_filters( 'edd_wl_load_template', $template );
@@ -186,7 +187,8 @@ function edd_wl_wish_list() {
 
 	ob_start();
 
-	edd_wl_get_template_part( 'wish-lists' );
+//	edd_wl_get_template_part( 'wish-lists' );
+	edd_get_template_part( 'wish-lists' );
 	
 	$html = ob_get_clean();
 	return apply_filters( 'edd_wl_wish_list', $html );
