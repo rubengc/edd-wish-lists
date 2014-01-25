@@ -55,7 +55,7 @@ function edd_wl_load_wish_list_link() {
  * edd_after_download_content 			After download content, outside of form tag
  * your_own_custom_hook					Your own hook using do_action()
 */
-add_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
+add_action( 'edd_purchase_link_end', 'edd_wl_load_wish_list_link' );
 
 
 /**
