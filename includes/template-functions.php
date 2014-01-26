@@ -372,28 +372,18 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
 
 <div class="modal-body">
 
- 	
-        
-
 	<?php if ( ! edd_wl_allow_guest_creation() ) : ?>
-
-
 		<?php echo '<p>' . apply_filters( 'edd_wl_no_guests', sprintf( __( 'Sorry, you must be logged in to create a %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ) ) . '</p>'; ?>
 
 	<?php else : ?>
-
-		
-		
-		
-
-		
-
 		
 		<?php
 			// get users public lists
 			$private  = edd_wl_get_query( 'private' );
 		  	$public   = edd_wl_get_query( 'public' );
-			
+				
+			$list_query = null != edd_wl_get_query() && edd_wl_get_query()->found_posts > 0 ? true : false;
+
 			$variable_pricing   = edd_has_variable_prices( $download_id );
 			$data_variable      = $variable_pricing ? ' data-variable-price=yes' : 'data-variable-price=no';
 			$type               = edd_single_price_option_mode( $download_id ) ? 'data-price-mode=multi' : 'data-price-mode=single';
@@ -401,7 +391,7 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
 
 		<form method="post" action="" class="form-modal">
 		      
-			<?php if ( edd_wl_get_query()->found_posts > 0 ) : // check that user has wish lists ?>
+			<?php if ( $list_query ) : ?>
 		            <p id="current_lists">
 		            <input type="radio" checked="" id="existing-list" value="existing-list" name="list-options">
 		            <label for="existing-list"><?php _e( 'Add to existing', 'edd-wish-lists' ); ?></label>
@@ -488,6 +478,10 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
         					edd_wl_wish_list_link( $args );
         				?>
 
+        				<a class="button button-default edd-wl-success edd-wl-action" href="#" data-dismiss="modal" style="display:none;">
+        				<?php _e( 'Great, I\'m done', 'edd-wish-lists' ); ?>
+        				</a>
+	
       				</div>
 
 		            </form>

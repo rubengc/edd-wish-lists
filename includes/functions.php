@@ -281,9 +281,9 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 
 	// initial query
 	$query = array(
-		'post_type' => 'edd_wish_list',
-		'posts_per_page' => '-1',
-		'post_status' => $status,
+		'post_type' 		=> 'edd_wish_list',
+		'posts_per_page' 	=> '-1',
+		'post_status' 		=> $status,
 	);
 
 	// get lists that belong to the currently logged in user 
@@ -294,8 +294,8 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 	// get token from cookie and lookup lists with that token
 	if ( ! is_user_logged_in() ) {
 		$query['meta_query'][] = array(
-			'key' => 'edd_wl_token',
-			'value'    => edd_wl_get_list_token()
+			'key' 		=> 'edd_wl_token',
+			'value'		=> edd_wl_get_list_token()
 		);
 	}
 
@@ -304,10 +304,8 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 	if ( isset( $lists->found_posts ) ) {
 		return $lists;
 	}
-	else {
-		return false;
-	}
 	
+	return null;
 }
 
 /**

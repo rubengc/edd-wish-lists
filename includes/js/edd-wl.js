@@ -246,6 +246,9 @@ jQuery(document).ready(function ($) {
     $('body').on('click.eddwlOpenModal', '.edd-add-to-wish-list', function (e) {
         e.preventDefault();
 
+         // hide the close button until download has been successfully added
+        
+
         // added
         var $this = $(this), 
             form = $this.closest('form'); // get the closest form element
@@ -355,20 +358,19 @@ jQuery(document).ready(function ($) {
 
     });
 
+   
 
-
-     // Processes the add to wish list request. Creates a new list or stores downloads into existing list
+    // Processes the add to wish list request. Creates a new list or stores downloads into existing list
 
     $('body').on('click.eddAddToWishList', '.edd-wish-list-save', function (e) {
-        console.log('add to wish list clicked');
+        console.log( 'save link clicked');
 
         e.preventDefault();
 
-         // Show the spinner
-        var $spinner = $(this).find('.edd-loading');
-
-        var spinnerWidth  = $spinner.width(),
-        spinnerHeight = $spinner.height();
+        var $spinner        = $(this).find('.edd-loading');
+        
+        var spinnerWidth    = $spinner.width(),
+        spinnerHeight       = $spinner.height();
 
         // Show the spinner
         $(this).attr('data-edd-loading', '');
@@ -381,15 +383,6 @@ jQuery(document).ready(function ($) {
 
         var $this = $(this), 
             form = $this.closest('form'); // get the closest form element
-
-        // find the purchase form
-       
-
-    // /    var container = $this.closest('div');
-
-    //    var form = $this.parents('form').last();
-        
-         // it can probably still get the right info, because it's essentially on the page anyway
 
         // set our form 
         var form = jQuery('.edd_download_purchase_form');
@@ -404,18 +397,11 @@ jQuery(document).ready(function ($) {
         if( variable_price == 'yes' ) {
 
             if( ! $('.edd_price_option_' + download + ':checked', form).length ) {
-  
-                 // hide the spinner
-             //   $this.removeAttr( 'data-edd-loading' );
+
                 alert( edd_scripts.select_option );
                 return;
             }
 
-            // price ids. We will change this
-            // $('.edd_price_option_' + download + ':checked', form).each(function( index ) {
-            //     item_price_ids[ index ] = $(this).val();
-            // });
-            
             // get the price IDs from the hidden inputs, rather than the checkboxes    
             $('input[name=edd-wish-lists-post-id]').each(function( index ) {
                 item_price_ids[ index ] = $(this).val();
@@ -428,11 +414,6 @@ jQuery(document).ready(function ($) {
         if ( 'existing-list' == jQuery( 'input:radio[name=list-options]:checked' ).val() ) {
             list_id = jQuery('#user-lists').val();
         }
-
-        // jQuery("form.form-modal").submit(function(event) {
-        //    event.preventDefault();
-        //    return false;
-        // });
 
 
         var action          = $this.data('action'),
@@ -449,7 +430,6 @@ jQuery(document).ready(function ($) {
                 list_name : list_name,              // the list name entered by the user
                 list_status : list_status,
                 nonce: edd_scripts.ajax_nonce      // nonce
-            //    post_data: $(form).serialize()      // serialize form
             };
 
         $.ajax({
@@ -459,17 +439,19 @@ jQuery(document).ready(function ($) {
             url: edd_scripts.ajaxurl,
             success: function (response) {
 
-                // close the modal window when the action has been completed
-                $('#edd-wl-modal').modal('toggle');
+                // hide the save button and show the close buttons
+                $('.edd-wish-list-save').hide();
+                $('.edd-wl-success').show();
+
+                // show the success msg along with a link to the list item/s were added to
+                $('.modal-body').html( response.success );
 
                 // list was created
                 if ( response.list_created == true ) {
-                    console.log( 'the list was created' );
+                    console.log( 'list was created' );
 
                     // clear field
                     $('#list-name').val('');
-
-                    // update select menu with new list name and ID
                 }
                 
                 // redirect to wish list if option is set
@@ -484,27 +466,11 @@ jQuery(document).ready(function ($) {
                         $(this).text(quantity);
                     });
 
-
-                    if( variable_price == 'no' || price_mode != 'multi' ) {
-                        // Switch purchase to checkout if a single price item or variable priced with radio buttons
-                      //  $('a.edd-wish-list-save', container).toggle();
-                      //  $('.edd-go-to-wish-list', container).css('display', 'inline-block');
-                    }
-
                     if ( price_mode == 'multi' ) {
                         // remove spinner for multi
                         $this.removeAttr( 'data-edd-loading' );
                     }
 
-
-                    // shows the added to cart message
-                    // if( response != 'incart' ) {
-                    //     // Show the added message
-                    //     $('.edd-cart-added-alert', container).fadeIn();
-                    //     setTimeout(function () {
-                    //         $('.edd-cart-added-alert', container).fadeOut();
-                    //     }, 3000);
-                    // }
                 }
             }
         }).fail(function (response) {

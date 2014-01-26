@@ -7,39 +7,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Determines if a user has a wishlist or not
- *
- * @since  1.0
- * @return boolean true if posts exist, false otherwise
- * @todo  modify to allow for detection of guest wishlists
- * @todo  delete - can just use edd_wl_get_query() to see if there are lists
- */
-function edd_wl_has_wish_lists() {
-	// if ( ! is_user_logged_in() )
-	// 	return;
-
-	global $current_user;
-	get_currentuserinfo();                      
-
-	$args =  array(
-		'post_type' => 'edd_wish_list',
-		'posts_per_page' => '-1',
-		'author' => $current_user->ID,
-	);
-
-	$posts = get_posts( $args );
-
-	// author has posts
-	if ( $posts )
-		return true;
-
-	return false;
-}
-
-
-
-
-/**
  * Create a token for logged out users
  *
  * @since 1.0

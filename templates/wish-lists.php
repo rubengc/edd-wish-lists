@@ -19,20 +19,6 @@ $public 	= edd_wl_get_query( 'public' );
 
 <?php
 /**
- * Example link call
-*/
-	// $args = array(
-	// 	'download_id' 	=> get_the_ID(),
-	// 	'text' 			=> 'Create new list',
-	// 	'icon'			=> 'add',
-	// 	'style'			=> 'button',
-	// 	'link'			=> edd_wl_get_wish_list_create_uri()
-	// );
-	// edd_wl_wish_list_link( $args );
-?>
-
-<?php
-/**
  * Public lists
 */
 if ( $public->have_posts() ) : ?>

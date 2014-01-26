@@ -154,50 +154,42 @@ function edd_ajax_add_to_wish_list() {
 
 		$list_id = isset( $_POST['list_id'] ) ? $_POST['list_id'] : '';
 
-			$return = array();
+		$return = array();
 
-			// create new list
-			if ( true == $create_list ) {
-				$args = array(
-					'post_title'    => $list_name,
-					'post_content'  => '',
-					'post_status'   => $list_status,
-					'post_type'     => 'edd_wish_list',
-				);
+		// create new list
+		if ( true == $create_list ) {
+			$args = array(
+				'post_title'    => $list_name,
+				'post_content'  => '',
+				'post_status'   => $list_status,
+				'post_type'     => 'edd_wish_list',
+			);
 
-				$list_id = wp_insert_post( $args );
+			$list_id = wp_insert_post( $args );
 
-			//	$list_created = $list_id ? true : false;
+			if ( $list_id ) {
+				$return['list_created'] = true;
+				$return['list_name'] = $list_name;
+			}
+		}
 
-				if ( $list_id ) {
-					$return['list_created'] = true;
-					$return['list_name'] = $list_name;
-				}
+		// add each download to wish list
+		foreach ( $to_add as $options ) {
+			if( $_POST['download_id'] == $options['price_id'] ) {
+				$options = array();
 			}
 
-			// add each download to wish list
-			foreach ( $to_add as $options ) {
-				if( $_POST['download_id'] == $options['price_id'] ) {
-					$options = array();
-				}
+			edd_wl_add_to_wish_list( $_POST['download_id'], $options, $list_id );
+		}
 
-				edd_wl_add_to_wish_list( $_POST['download_id'], $options, $list_id );
-			}
+		// get title of list
+		$title = get_the_title( $list_id );
+		// get URL of list
+		$url = get_permalink( $list_id );
 
-			$return['wishlist'] = 'Added to your Wish List';
+		$return['success'] = sprintf( __( 'Successfully added to <strong>%s</strong>', 'edd-wish-lists' ), '<a href="' . $url . '">' . $title . '</a>' );
 
-			// if ( $list_created ) {
-			// 	$return['list_created'] = $list_created;
-			// 	$return['list_name'] = $list_name;
-			// }
-
-			// $return = array(
-			// 	'wishlist' => 'Added to your Wish List',
-			// 	'list_created' => $list_created,
-			// );
-
-			echo json_encode( $return );
-
+		echo json_encode( $return );
 	}
 	edd_die();
 }
@@ -249,12 +241,13 @@ function edd_wl_open_modal() {
 		}
 
     // get wish lists and send price IDs + items array
-    $lists = edd_wl_get_wish_lists( $download_id, $price_ids, $items );
+    $lists 				= edd_wl_get_wish_lists( $download_id, $price_ids, $items );
+    $list_count 		= null != edd_wl_get_query() && edd_wl_get_query()->found_posts ? edd_wl_get_query()->found_posts : 0;
 
     $return = array(
-		'post_id'  => $download_id,
-		'list_count'	=> edd_wl_get_query()->found_posts,		// count how many lists the user has
-		'lists' => html_entity_decode( $lists, ENT_COMPAT, 'UTF-8' )
+		'post_id'  		=> $download_id,
+		'list_count'	=> $list_count,	// count how many lists the user has
+		'lists' 		=> html_entity_decode( $lists, ENT_COMPAT, 'UTF-8' )
 	);
 
 	echo json_encode( $return );
