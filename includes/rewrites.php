@@ -30,6 +30,12 @@ function edd_wl_plugin_settings_flush_rewrite() {
 }
 add_action( 'admin_init', 'edd_wl_plugin_settings_flush_rewrite' );
 
+function flush_my_rewrite_rules( $input ) {
+    edd_wl_rewrite_rules();
+    return $input;
+}
+//add_filter( 'edd_settings_extensions_sanitize', 'flush_my_rewrite_rules' );
+
 /**
  * Rewrite rules
  * @todo  don't fire on init hook

@@ -156,7 +156,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 
 			require_once( dirname( $this->file ) . '/includes/post-type.php' ); 
 			require_once( dirname( $this->file ) . '/includes/shortcodes.php' );
-			require_once( dirname( $this->file ) . '/includes/forms.php' );
+			require_once( dirname( $this->file ) . '/includes/form-processing.php' );
 			require_once( dirname( $this->file ) . '/includes/user-functions.php' );
 			require_once( dirname( $this->file ) . '/includes/functions.php' );
 			require_once( dirname( $this->file ) . '/includes/template-functions.php' );

@@ -37,6 +37,9 @@ Demo: http://edd-wish-lists.sumobithemes.com/
 - Delete Lists after X days (probably 30) for guests unless they register.
 - Admin improvements to item listings on edit/publish screens
 - Add Pinterest “pin it” as a sharing option
+- When list is created from create page, and user is redirected back to main list, show the name of the list they created in the message, with link back to list
+- When list is edited from edit page, and user is redirected back to main list, show the name of the list they edited in the message, with link back to list
+- Notify user in modal if item they are about to add exists in one of their lists
 - Sharing via email. Currently only sharing icons show
 - When a user goes to save a product to a list, it will display any lists that the product is already in.
 - Option to remove download from wish list when purchased
@@ -56,6 +59,7 @@ Demo: http://edd-wish-lists.sumobithemes.com/
 - Reporting - Export list data
 - Reporting - See which products were shared and to which social networks
 - Allow searching of public lists by first name, last name
+- Show total price of all items in wish list
 - When a download’s price has been lowered, automatically notify users that have the download in their list. Either notify through email (opt in) or show visually on the list.
 - Notify/remind the customer after X amount of time to rekindle interest with the items in their wish list.
 - Notify customer on their wish list pages when they are about to expire. Prompt them to register to store their list indefinitely

@@ -43,7 +43,12 @@ function edd_wl_edit_shortcode( $atts, $content = null ) {
 		), $atts, 'edd_wish_lists_edit' )
 	);
 
-	$content = edd_wl_form_list_edit();
+	edd_wl_print_messages( 'wish-list-edit-messages' );
+
+	if ( ! edd_wl_allow_guest_creation() )
+		return;
+
+	$content = edd_wl_load_template( 'edit' );
 
 	return $content;
 }
@@ -61,8 +66,13 @@ function edd_wl_create_shortcode( $atts, $content = null ) {
 		), $atts, 'edd_wish_lists_create' )
 	);
 
-	$content = edd_wl_form_list_create();
-	
+	edd_wl_print_messages( 'wish-list-create-messages' );
+ 
+	if ( ! edd_wl_allow_guest_creation() )
+		return;
+
+	$content = edd_wl_load_template( 'create' );
+
 	return $content;
 }
 add_shortcode( 'edd_wish_lists_create', 'edd_wl_create_shortcode' );
