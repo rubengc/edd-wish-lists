@@ -19,16 +19,16 @@ $privacy    = get_post_status( $post_id );
 <form action="<?php echo add_query_arg( 'updated', true ); ?>" class="wish-list-form" method="post">
 	<p>
 	    <label for="list-title"><?php _e( 'Title', 'edd-wish-lists' ); ?> <span class="required">*</span></label>
-	    <input type="text" name="list-title" id="list-title" value="<?php echo $title; ?>">
+	    <input type="text" name="list-title" id="list-title" value="<?php echo esc_attr( $title ); ?>">
 	</p>
 	<p>
 	    <label for="list-description"><?php _e( 'Description', 'edd-wish-lists' ); ?></label>
-	    <textarea name="list-description" id="list-description" rows="2" cols="30"><?php echo $content; ?></textarea>
+	    <textarea name="list-description" id="list-description" rows="2" cols="30"><?php echo esc_attr( $content ); ?></textarea>
 	</p>
 	<p>
 	  <select name="privacy">
-	    <option value="private" <?php selected( $privacy, 'private' ); ?>><?php _e( 'Private', 'edd-wish-lists' ); ?></option>
-	    <option value="publish" <?php selected( $privacy, 'publish' ); ?>><?php _e( 'Public', 'edd-wish-lists' ); ?></option>
+	    <option value="private" <?php selected( $privacy, 'private' ); ?>><?php _e( 'Private - only viewable by you', 'edd-wish-lists' ); ?></option>
+	    <option value="publish" <?php selected( $privacy, 'publish' ); ?>><?php _e( 'Public - viewable by anyone', 'edd-wish-lists' ); ?></option>
 	  </select>
 	</p>
 	<p> 
@@ -41,7 +41,7 @@ $privacy    = get_post_status( $post_id );
 </form>
 
 <p>
-	<a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo $post_id; ?>" class="eddwl-delete-list">
+	<a href="#" class="eddwl-delete-list">
 		<?php printf( __( 'Delete this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
 	</a>
 </p>

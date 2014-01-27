@@ -99,7 +99,6 @@ function edd_wl_delete_list() {
     }
 
 	echo json_encode( $return );
-	
 	edd_die();
 }
 add_action( 'wp_ajax_edd_wl_delete_list', 'edd_wl_delete_list' );
@@ -210,8 +209,6 @@ function edd_wl_open_modal() {
 
 			if( $download_id == $options['price_id'] )
 				$options = array();
-
-			//$key = edd_add_to_cart( $_POST['download_id'], $options );
 
 			$item = array(
 				'id'      =>  $download_id,

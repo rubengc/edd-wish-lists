@@ -49,12 +49,12 @@ function edd_wl_set_messages() {
 	/**
 	 * wish-list-create.php
 	*/
-
 	// must login
-	if ( ! edd_wl_allow_guest_creation() ) {
+	if ( edd_wl_is_page( 'create' ) && ! edd_wl_allow_guest_creation() ) {
+//	if ( ! edd_wl_allow_guest_creation() ) {
 		edd_wl_set_message( 'must-login', $messages['must-login'] );
 	}
-
+	
 	/**
 	 * wish-list-view.php
 	*/
@@ -79,6 +79,8 @@ function edd_wl_set_messages() {
 
 }
 add_action( 'template_redirect', 'edd_wl_set_messages' );
+
+
 
 /**
  * Print Messages
@@ -106,6 +108,9 @@ function edd_wl_print_messages() {
 		edd_wl_clear_messages();
 	}
 }
+
+// print messages inside the modal window
+add_action( 'edd_wl_modal_body', 'edd_wl_print_messages' );
 
 /**
  * Get Messages

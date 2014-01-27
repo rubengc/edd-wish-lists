@@ -79,6 +79,7 @@ function edd_wl_load_wish_list_link() {
 	// default classes
 	$classes[] = 'edd-add-to-wish-list';
 	$classes[] = 'edd-wl-action';
+	$classes[] = 'edd-wl-open-modal';
 
 	$args = array(
 		'action'	=> 'edd_wl_open_modal',
@@ -159,7 +160,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 	$link = ! $link ? '#' : $link; 
 
 	printf(
-		'<a href="%1$s" class="%2$s %3$s" data-action="%4$s" data-download-id="%5$s" %6$s %7$s>%8$s<span class="edd-add-to-wish-list-label">%9$s</span>%10$s%11$s</a>',
+		'<a href="%1$s" class="%2$s %3$s" data-action="%4$s" data-download-id="%5$s" %6$s %7$s>%8$s<span class="label">%9$s</span>%10$s%11$s</a>',
 		$link, 														// 1
 		implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 2
 		$button_size, 												// 3
@@ -284,31 +285,31 @@ function edd_wl_wish_list_item_purchase( $item, $args = array() ) {
 	?>
 
 	<form id="<?php echo $form_id; ?>" class="edd_download_purchase_form" method="post">
-	<div class="edd_purchase_submit_wrapper">
-	<?php 
-	printf(
-		'<a href="#" class="edd-add-to-cart-from-wish-list %1$s %8$s" data-action="edd_add_to_cart_from_wish_list" data-download-id="%3$s" %4$s %5$s %6$s %7$s><span class="edd-add-to-cart-label">%2$s</span></a>',
-		implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 1
-		esc_attr( $text ),											// 2
-		esc_attr( $download_id ),									// 3
-		esc_attr( $data_variable ),									// 4
-		esc_attr( $type ),											// 5
-		$button_display,											// 6
-		esc_attr( $data_price_option ),								// 7
-		$button_size 												// 8
-	);
+		<div class="edd_purchase_submit_wrapper">
+		<?php 
+		printf(
+			'<a href="#" class="edd-add-to-cart-from-wish-list %1$s %8$s" data-action="edd_add_to_cart_from_wish_list" data-download-id="%3$s" %4$s %5$s %6$s %7$s><span class="edd-add-to-cart-label">%2$s</span></a>',
+			implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 1
+			esc_attr( $text ),											// 2
+			esc_attr( $download_id ),									// 3
+			esc_attr( $data_variable ),									// 4
+			esc_attr( $type ),											// 5
+			$button_display,											// 6
+			esc_attr( $data_price_option ),								// 7
+			$button_size 												// 8
+		);
 
-	// checkout link that shows when item is added to the cart
-	printf(
-		'<a href="%1$s" class="%2$s %3$s" %4$s>' . $checkout_text . '</a>',
-		esc_url( edd_get_checkout_uri() ),
-		esc_attr( 'edd-go-to-checkout-from-wish-list' ),
-		implode( ' ', array( $style, $color, trim( $class ) ) ),
-		$checkout_display
-	);
+		// checkout link that shows when item is added to the cart
+		printf(
+			'<a href="%1$s" class="%2$s %3$s" %4$s>' . $checkout_text . '</a>',
+			esc_url( edd_get_checkout_uri() ),
+			esc_attr( 'edd-go-to-checkout-from-wish-list' ),
+			implode( ' ', array( $style, $color, trim( $class ) ) ),
+			$checkout_display
+		);
 
-	?>
-	</div>
+		?>
+		</div>
 	</form>
 	
 <?php 
@@ -357,13 +358,47 @@ function edd_wl_modal_window() {
 	?>
 	<div class="modal fade" id="edd-wl-modal" tabindex="-1" role="dialog" aria-labelledby="edd-wl-modal-label" aria-hidden="true">
 	  <div class="modal-dialog">
-	    <div class="modal-content"></div>
+	    <div class="modal-content">
+	    	<?php do_action( 'edd_wl_modal_content' ); ?>
+	    </div>
 	  </div>
 	</div>
 	<?php
 }
 add_action( 'wp_footer', 'edd_wl_modal_window', 100 );
 
+/**
+ * Confirm delete modal for edit wish list page
+ *
+ * @since 1.0
+*/
+function edd_wl_list_delete_confirm() { 
+	// only load on edit page
+	if ( ! edd_wl_is_page( 'edit' ) )
+		return;
+	?>
+	<div class="modal-header">
+		<h2 id="edd-wl-modal-label">
+			<?php printf( __( 'Delete %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+		</h2>
+		<a class="edd-wl-close" href="#" data-dismiss="modal">
+			<i class="glyphicon glyphicon-remove"></i>
+			<span class="hide-text"><?php _e( 'Close', 'edd-wish-lists' ); ?></span>
+		</a>
+	</div>
+	<div class="modal-body">
+		<p>
+			<?php printf( __( 'You are about to delete this %s, are you sure?', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo get_query_var( 'edit' ); ?>" class="button button-default edd-wl-action eddwl-delete-list-confirm">
+			<span class="label"><?php printf( __( 'Yes, delete this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?></span>
+			<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>
+		</a>
+	</div>
+<?php }
+add_action( 'edd_wl_modal_content', 'edd_wl_list_delete_confirm' );
 
 /**
  * Get lists for post ID
@@ -399,14 +434,20 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
         echo '<p>' . sprintf( '%1$s%2$s', $download, $options ) . '</p>';
     ?>
 
-	<a class="edd-wl-close" href="#" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i><span class="hide-text"><?php _e( 'Close', 'edd-wish-lists' ); ?></span></a>
+	<a class="edd-wl-close" href="#" data-dismiss="modal">
+		<i class="glyphicon glyphicon-remove"></i>
+		<span class="hide-text"><?php _e( 'Close', 'edd-wish-lists' ); ?></span>
+	</a>
 	
 </div>
 
 <div class="modal-body">
 
 	<?php if ( ! edd_wl_allow_guest_creation() ) : ?>
-		<?php echo '<p>' . apply_filters( 'edd_wl_no_guests', sprintf( __( 'Sorry, you must be logged in to create a %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ) ) . '</p>'; ?>
+		<?php
+			$messages = edd_wl_messages();
+			echo '<p>' . $messages['must-login'] . '</p>'; 
+		?>
 
 	<?php else : ?>
 		

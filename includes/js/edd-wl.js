@@ -14,37 +14,7 @@ jQuery(document).ready(function ($) {
     $('a.edd-add-to-wish-list').addClass('edd-has-js');
 
 
-    // delete list from edit screen
-     $('body').on('click.eddDeleteWishList', '.eddwl-delete-list', function (e) {  
-        e.preventDefault();
-     //   console.log('delete link clicked');
-
-        var data =  {
-            action:     $(this).data('action'),
-            post_id:    $(this).data('post-id'),
-            nonce:      edd_wl_scripts.ajax_nonce,
-        };
-
-        $.ajax({
-            type:       "POST",
-            data:       data,
-            dataType:   "json",
-            url:        edd_scripts.ajaxurl,
-            success: function (response) {
-                if( response.msg == 'success' ) {
-                    window.location = edd_wl_scripts.wish_list_page;
-                    console.log( 'list successfully deleted' );
-                }
-            }
-        })
-        .fail(function (response) {
-            console.log(response);
-        })
-        .done(function (response) {
-            console.log(response);
-        });
-
-    });
+  
 
 
 
@@ -240,10 +210,69 @@ jQuery(document).ready(function ($) {
     });
 
     
+      // load our modal window
+              
+      // open delete confirm modal
+       $('body').on('click.eddDeleteWishList', '.eddwl-delete-list', function (e) {  
+          e.preventDefault();
+
+          $('#edd-wl-modal').modal({
+              backdrop: 'static'
+          });
+
+      });
+
+         // delete list from edit screen
+     $('body').on('click.eddDeleteWishListConfirm', '.eddwl-delete-list-confirm', function (e) {  
+        e.preventDefault();
+     //   console.log('delete link clicked');
+
+        var $spinner = $(this).find('.edd-loading');
+        
+        var spinnerWidth    = $spinner.width(),
+        spinnerHeight       = $spinner.height();
+
+        // Show the spinner
+        $(this).attr('data-edd-loading', '');
+
+        $spinner.css({
+            'margin-left': spinnerWidth / -2,
+            'margin-top' : spinnerHeight / -2
+        });
+
+        var data =  {
+            action:     $(this).data('action'),
+            post_id:    $(this).data('post-id'),
+            nonce:      edd_wl_scripts.ajax_nonce,
+        };
+
+        $.ajax({
+            type:       "POST",
+            data:       data,
+            dataType:   "json",
+            url:        edd_scripts.ajaxurl,
+            success: function (response) {
+                if( response.msg == 'success' ) {
+                    window.location = edd_wl_scripts.wish_list_page;
+                    console.log( 'list successfully deleted' );
+                }
+            }
+        })
+        .fail(function (response) {
+            console.log(response);
+        })
+        .done(function (response) {
+            console.log(response);
+        });
+
+    });   
+
+  
+
 
 
     // opens the modal window when the add to wish list link is clicked 
-    $('body').on('click.eddwlOpenModal', '.edd-add-to-wish-list', function (e) {
+    $('body').on('click.eddwlOpenModal', '.edd-wl-open-modal', function (e) {
         e.preventDefault();
 
          // hide the close button until download has been successfully added
@@ -268,13 +297,21 @@ jQuery(document).ready(function ($) {
             'margin-top' : spinnerHeight / -2
         });
 
-        // added
+
+        // if ( $this.data('action') == ) {
+
+        // }
+        // else if( $this.data('action') ) {
+
+        // }
+
+        
         var form            = jQuery('.edd_download_purchase_form');
         var download        = $this.data('download-id');
         var variable_price  = $this.data('variable-price');
         var price_mode      = $this.data('price-mode');
         var item_price_ids  = [];
-        // added
+      
 
         if( variable_price == 'yes' ) {
             // might not need this
@@ -310,9 +347,9 @@ jQuery(document).ready(function ($) {
                 // populate modal window with data
                 $('#edd-wl-modal .modal-content').html( response.lists );
 
-                $('.edd-add-to-wish-list').removeAttr('data-edd-loading');
+                $('.edd-wl-open-modal').removeAttr('data-edd-loading');
 
-                $('a.edd-add-to-wish-list').addClass('edd-has-js');
+                $('a.edd-wl-open-modal').addClass('edd-has-js');
                 $('.edd-no-js').hide();
 
                 // hide create list field

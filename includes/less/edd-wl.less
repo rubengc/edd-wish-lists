@@ -49,8 +49,7 @@
 
 // spinner
 // combine these 2 classes
-a.edd-wish-list-save .edd-loading,
-a.edd-add-to-wish-list .edd-loading { 
+a.edd-wl-action .edd-loading { 
 	position: absolute; 
 	left: 50%; 
 	top: 50%;
@@ -59,10 +58,8 @@ a.edd-add-to-wish-list .edd-loading {
 }
 
 a.edd-add-to-wish-list .glyphicon,
-a.edd-wish-list-save .edd-add-to-wish-list-label, 
-a.edd-add-to-wish-list .edd-add-to-wish-list-label,
-a.edd-wish-list-save .edd-loading,
-a.edd-add-to-wish-list .edd-loading {
+a.edd-wl-action .label, 
+a.edd-wl-action .edd-loading {
   -webkit-transition: .25s  opacity !important;
   -moz-transition: .25s opacity !important;
   -ms-transition: .25s opacity !important;
@@ -71,22 +68,26 @@ a.edd-add-to-wish-list .edd-loading {
  }
 
 // hide icon also
-.edd-add-to-wish-list[data-edd-loading] .glyphicon,
-.edd-wish-list-save[data-edd-loading] .edd-add-to-wish-list-label,
-.edd-add-to-wish-list[data-edd-loading] .edd-add-to-wish-list-label { 
+.edd-wl-action[data-edd-loading] .label,
+.edd-add-to-wish-list[data-edd-loading] .glyphicon { 
 	opacity: 0; 
 	filter: alpha(opacity=0);
 }
 
-.edd-wish-list-save[data-edd-loading] .edd-loading,
-.edd-add-to-wish-list[data-edd-loading] .edd-loading { 
+.edd-wl-action[data-edd-loading] .edd-loading { 
 	opacity: 1; 
 	filter: alpha(opacity=100);
 }
 
-// combine with other button
-a.edd-wish-list-save {
+// make sure the spinner stays inside the button
+a.edd-wl-action {
 	position: relative;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	outline: none;
 }
 
 // absolute link defaults so theme's don't show nasty colours
@@ -111,12 +112,7 @@ a.edd-add-to-wish-list {
 	// hide button when there is no JS so we can show our input
 	display: none;
 	position: relative;
-	  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-       -o-user-select: none;
-          user-select: none;
-          outline: none;
+	
 
 	// show button when JS is enabled
 	&.edd-has-js {
