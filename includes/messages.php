@@ -100,7 +100,7 @@ function edd_wl_print_messages() {
 		) );
 		echo '<div class="' . implode( ' ', $classes ) . '">';
 		   foreach ( $messages as $msg_id => $msg ) {
-		        echo '<p class="edd-wl-msg" id="edd-wl-msg-' . $error_id . '">' . $msg . '</p>';
+		        echo '<p class="edd-wl-msg" id="edd-wl-msg-' . $msg_id . '">' . $msg . '</p>';
 		   }
 		echo '</div>';
 		edd_wl_clear_messages();
