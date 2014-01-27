@@ -290,6 +290,12 @@
 .edd-wl-service iframe {
   max-width: none;
 }
+.edd-wl-msgs {
+  padding: 0.5em 1em;
+}
+.edd-wl-msgs p {
+  margin-bottom: 0;
+}
 .edd-wl-already-exists {
   font-size: 0.85rem;
   margin: 1em 0;
