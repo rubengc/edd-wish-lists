@@ -8,46 +8,77 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Messages
+ *
+ * @since 1.0
+*/
+function edd_wl_messages() {
+	$messages = array(
+		'must-login' 	=> sprintf( __( 'Sorry, you must login to create a %s', 'edd-wish-lists' ), 		edd_wl_get_label_singular( true ) ),
+		'list-updated'	=> sprintf( __( '%s successfully updated', 'edd-wish-lists' ), 						edd_wl_get_label_singular() ),
+		'list-created'	=> sprintf( __( '%s successfully created', 'edd-wish-lists' ), 						edd_wl_get_label_singular() ),
+		'list-deleted'	=> sprintf( __( '%s successfully deleted', 'edd-wish-lists' ), 						edd_wl_get_label_singular() ),
+		'no-lists' 		=> sprintf( __( 'You currently have no %s', 'edd-wish-lists' ), 					edd_wl_get_label_plural( true ) ),
+		'no-downloads' 	=> sprintf( __( 'Nothing here yet, how about adding some %s?', 'edd-wish-lists' ), 	edd_get_label_plural( true ) ),
+	);
 
+	return apply_filters( 'edd_wl_messages', $messages );
+}
 
 /**
  * Set various messages
  *
  * @since 1.0
- * @todo  provide better filtering
+ * @todo  provide better filtering of messages
 */
 function edd_wl_set_messages() {
-	global $edd_options;
-	$token = edd_wl_get_list_token();
+	// get array of messages
+	$messages = edd_wl_messages();
+
+	/**
+	 * wish-lists.php
+	*/
 
 	// no lists
-	if ( $token ) {
-		$lists = edd_wl_get_guest_lists( $token );
-
-		// no lists
-		if ( ! $lists ) {
-			edd_wl_set_message( 'wish-list-messages', sprintf( __( 'You don\'t have any %s, why not create one?', 'edd-wish-lists' ), edd_wl_get_label_plural( true ) ) );
-		}
+	$list_query = null != edd_wl_get_query() && edd_wl_get_query()->found_posts > 0 ? true : false;
+	if ( ! $list_query && edd_wl_is_page( 'wish-lists' ) ) {
+		edd_wl_set_message( 'no-lists', $messages['no-lists'] );
 	}
 
-	// must login to create list
+	/**
+	 * wish-list-create.php
+	*/
+
+	// must login
 	if ( ! edd_wl_allow_guest_creation() ) {
-		edd_wl_set_message( 'wish-list-create-messages', sprintf( __( 'Sorry, you must login to create a %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) );
+		edd_wl_set_message( 'must-login', $messages['must-login'] );
 	}
 
-	// no products in list
-	$wish_list_view_id = isset( $edd_options['edd_wl_page_view'] ) ? $edd_options['edd_wl_page_view'] : false;
-	if ( is_page( $wish_list_view_id ) ) {
-		
+	/**
+	 * wish-list-view.php
+	*/
+	if ( edd_wl_is_page( 'view' ) ) {
 		$downloads = edd_wl_get_wish_list( get_query_var( 'view' ) );
 
-		if ( ! $downloads ) {
-			edd_wl_set_message( 'wish-list-view', sprintf( __( 'Nothing here yet, how about adding some %s?', 'edd-wish-lists' ), edd_get_label_plural( true ) ) );
+		// no downloads
+		if ( empty( $downloads ) ) {
+			edd_wl_set_message( 'no-downloads', $messages['no-downloads'] );
+		}
+
+		// list updated
+		if ( isset( $_GET['list'] ) && $_GET['list'] == 'updated' ) {
+			edd_wl_set_message( 'list-updated', $messages['list-updated'] );
+		}
+
+		// list created
+		if ( isset( $_GET['list'] ) && $_GET['list'] == 'created' ) {
+			edd_wl_set_message( 'list-created', $messages['list-created'] );
 		}
 	}
+
 }
 add_action( 'template_redirect', 'edd_wl_set_messages' );
-
 
 /**
  * Print Messages
@@ -60,27 +91,22 @@ add_action( 'template_redirect', 'edd_wl_set_messages' );
  * @uses edd_wl_clear_errors()
  * @return void
  */
-function edd_wl_print_messages( $message_id = '' ) {
-	$msgs = edd_wl_get_messages();
-
-	$message_to_show = $msgs && array_key_exists( $message_id, $msgs ) ? $msgs[ $message_id ] : '';
-
-	if ( $message_to_show ) {
-
-		$classes = apply_filters( 'edd_wl_msg_class', 
-			array(
-				'edd-wl-msgs'
-			)
-		);
-
+function edd_wl_print_messages() {
+	$errors = edd_wl_get_messages();
+	if ( $errors ) {
+		$classes = apply_filters( 'edd_error_class', array(
+			'edd_errors', 
+			'edd-wl-msgs',
+		) );
 		echo '<div class="' . implode( ' ', $classes ) . '">';
-		        echo '<p class="edd-wl-msg">' . $msgs[ $message_id ] . '</p>';
+		    // Loop error codes and display errors
+		   foreach ( $errors as $error_id => $error ) {
+		        echo '<p class="edd_error" id="edd_error_' . $error_id . '">' . $error . '</p>';
+		   }
 		echo '</div>';
-
 		edd_wl_clear_messages();
 	}
 }
-
 
 /**
  * Get Messages
@@ -131,7 +157,7 @@ function edd_wl_clear_messages() {
 /**
  * Removes (unsets) a stored message
  *
- * @since 1.3.4
+ * @since 1.0
  * @uses EDD_Session::set()
  * @param int $msg_id ID of the error being set
  * @return void

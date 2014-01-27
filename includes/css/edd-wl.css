@@ -290,16 +290,6 @@
 .edd-wl-service iframe {
   max-width: none;
 }
-.edd-wl-msg {
-  border: 1px solid #E6DB55;
-  margin: 0 0 1em 0;
-  background: #FFFFE0;
-  color: #333;
-  padding: 0.5em 1em;
-}
-.edd-wl-msg p {
-  margin-bottom: 0;
-}
 .edd-wl-already-exists {
   font-size: 0.85rem;
   margin: 1em 0;

@@ -21,6 +21,46 @@ function edd_wl_get_item_count( $list_id ) {
 }
 
 /**
+ * Filter title to include the list name on either the view or edit pages
+ *
+ * @since 1.0
+*/
+function edd_wl_wp_title( $title, $sep ) {
+	$view_page = edd_get_option( 'edd_wl_page_view' );
+	$edit_page = edd_get_option( 'edd_wl_page_edit' );
+	
+	if ( is_page( $view_page ) || is_page( $edit_page ) ) {
+		if ( is_page( $view_page ) )
+			$list_id = get_query_var( 'view' );
+		elseif ( is_page( $edit_page ) )
+			$list_id = get_query_var( 'edit' );
+
+		$list_title = get_the_title( $list_id );
+
+		// Prepend the list name to the site title.
+		$title = $list_title . " $sep " . $title;
+	}
+	
+	return $title;
+}
+add_filter( 'wp_title', 'edd_wl_wp_title', 10, 2 );
+
+/**
+ * Filter the page titles
+ *
+ * @since 1.0
+*/
+function edd_wl_the_title( $title, $id ) {
+	// View page - replace the main page title with the name of the list
+	if ( get_query_var( 'view' ) && in_the_loop() && $id == get_the_ID() ) {
+		$title = get_the_title( get_query_var( 'view' ) );
+	}	
+
+    return $title;
+}
+add_filter( 'the_title', 'edd_wl_the_title', 10, 2 );
+
+/**
  * Handles loading of the wish list link
  *
  * @since 1.0
@@ -152,8 +192,11 @@ function edd_wl_wish_list_link( $args = array() ) {
 function edd_wl_load_template( $type ) {
 	ob_start();
 
-	edd_wl_print_messages( 'wish-list-' . $type );
+	// display messages
+//	edd_wl_print_messages( 'wish-list-' . $type );
+	edd_wl_print_messages();
 
+	// get template
 	edd_get_template_part( 'wish-list-' . $type );
 
 	$template = ob_get_clean();
@@ -174,23 +217,14 @@ function edd_wl_wish_list() {
 	$edd_wish_lists = edd_wish_lists();
 	$edd_wish_lists::$add_script = true;
 
-	edd_wl_print_messages( 'wish-list-messages' );
-
-	$private 	= edd_wl_get_query( 'private' );
-	$public 	= edd_wl_get_query( 'public' );
-
-	// return if no query. Does a bit of security in there also
-	if ( ! ( $private || $public ) ) {
-		return;
-	}
-
 	ob_start();
 
-//	edd_wl_get_template_part( 'wish-lists' );
+//	edd_wl_print_messages( 'wish-lists' );
+	edd_wl_print_messages();
+
 	edd_get_template_part( 'wish-lists' );
 	
-	$html = ob_get_clean();
-	return apply_filters( 'edd_wl_wish_list', $html );
+	return ob_get_clean();
 }
 
 /**
@@ -349,24 +383,24 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items ) {
 		<?php echo esc_attr( $text ); ?>
 	</h2>
 
+   <?php
+        $download = $download_id ? get_the_title( $download_id ) : '';
+
+        // price variations
+        if ( edd_has_variable_prices( $download_id ) ) {
+            $options = ' - ' . implode( ', ', array_map( function ( $item ) {
+				  return edd_get_price_name( $item['id'], $item['options'] );
+			}, $items ) );
+    	}
+
+    	$options = isset( $options ) ? $options : '';
+
+        // show user what they have selected
+        echo '<p>' . sprintf( '%1$s%2$s', $download, $options ) . '</p>';
+    ?>
+
 	<a class="edd-wl-close" href="#" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i><span class="hide-text"><?php _e( 'Close', 'edd-wish-lists' ); ?></span></a>
 	
-	       <?php
-	            $download = $download_id ? get_the_title( $download_id ) : '';
-
-	            // price variations
-	            if ( edd_has_variable_prices( $download_id ) ) {
-		            $options = ' - ' . implode( ', ', array_map( function ( $item ) {
-						  return edd_get_price_name( $item['id'], $item['options'] );
-					}, $items ) );
-	        	}
-
-	        	$options = isset( $options ) ? $options : '';
-
-	            // show user what they have selected
-		        printf( '%1$s%2$s', $download, $options );
-	        ?>
-
 </div>
 
 <div class="modal-body">

@@ -4,10 +4,7 @@
 @import 'icons.less';
 
 @button-color: #f8f8f8;
-
-
 @light-grey: #c4c4c4;
-
 @dark-grey: #606060;
 
 
@@ -22,6 +19,7 @@
 	}
 }
 
+// sharing
 .edd-wl-service { 
 	display: inline-block; margin: 0 1em 1em 0; 
 	vertical-align: top;
@@ -32,17 +30,13 @@
 }
 
 // messages
-.edd-wl-msg { 
-	border: 1px solid #E6DB55;
-	margin: 0 0 1em 0; 
-	background: #FFFFE0; 
-	color: #333;
-	padding: 0.5em 1em;
+// .edd-wl-msgs { 
+// 	padding: 0.5em 1em;
 
-	p {
-		margin-bottom: 0;
-	}
-}
+// 	p {
+// 		margin-bottom: 0;
+// 	}
+// }
 
 
 // add to wish list button
@@ -128,26 +122,6 @@ a.edd-add-to-wish-list {
 	&.edd-has-js {
 		display: inline-block;
 	}
-
-	// when set to button
-	&.button {
-		// background: #f8f8f8;
-		// padding: 0.25rem 0.5rem;
-		// border: 1px solid darken( @button-color, 4%);
-	}
-
-	.icon {
-		// margin-right: 4px;
-		// margin-right: 0.25rem;
-		// font-size: 20px;
-		// font-size: 1.25rem;
-		// vertical-align: middle;
-	}
-
-	&:hover {
-		// text-decoration: none;
-		// color: darken( @dark-grey, 20% );
-	}
 }
 
 
@@ -156,9 +130,6 @@ a.edd-add-to-wish-list {
 	clip: rect(1px, 1px, 1px, 1px);
     position: absolute !important;
 }
-
-
-
 
 // widget styles
 .widget_edd-wish-lists {
@@ -178,13 +149,10 @@ a.edd-add-to-wish-list {
 
 
 .edd-wish-list {
-//	background: #f8f8f8;
 	margin: 0 0 1em 0;
 	padding: 0;
 	list-style-type: none;
 	
-
-
 	.icon-remove {
 		font-size: 0.75rem;
 	}
@@ -193,35 +161,19 @@ a.edd-add-to-wish-list {
 		list-style-type: none;
 
 		&.header span {
-		//	background: red;
 			text-transform: uppercase;
 			font-size: 14px;
 		}
 		
-		//background: #f8f8f8;
 		margin: 0 0 24px 0;
 		margin: 0 0 0.5rem 0;
 		padding: 0 0 24px 0;
 		padding: 0 0 0.5rem 0;
-		
 		border-bottom: 1px solid #eee;
 
-		// > span {
-			
-		// }
-
 		span { 
-		//	display: block;
-			
-		//	margin: 0 1em 1em 0;
 			position: relative;
 			
-
-			// why did i add this
-			a {
-			//	vertical-align: middle;
-			}
-
 			.edd-remove-from-wish-list {
 				color: @light-grey;
 				&:hover {
@@ -277,15 +229,12 @@ a.edd-add-to-wish-list {
 					position: absolute;
 					right: 0;
 					top: 0;
-				//	float: right;
 				}
 
 				
 			}
 		}
 	}
-
-
 
 }
 
@@ -345,11 +294,6 @@ a.edd-add-to-wish-list {
 				 &.edd-wish-list-edit {
 				 	text-align: right;
 				 }
-
-				// &.edd-wish-list-edit,
-				// &.edd-wish-list-status {
-				// 	width: 10%;
-				// }
 			}
 		}
 	}

@@ -3,6 +3,13 @@
  * Create Wish List template
 */
 ?>
+
+<?php 
+/**
+ * Add new list button
+ * Only shows if guests are allowed to create lists
+*/
+if ( edd_wl_allow_guest_creation() ) : ?>		
 <form action="<?php echo add_query_arg( 'created', true ); ?>" class="wish-list-form" method="post">
 	<p>
 	    <label for="list-title"><?php _e( 'Title:', 'edd-wish-lists' ); ?></label>
@@ -26,3 +33,4 @@
 
 	<?php wp_nonce_field( 'list_nonce', 'list_nonce_field' ); ?>
 </form>
+<?php endif; ?>

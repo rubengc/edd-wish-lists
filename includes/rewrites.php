@@ -93,27 +93,3 @@ function edd_wl_add_rewrite_tag() {
     add_rewrite_tag( '%edit%', '([^/]+)');
 }
 add_action( 'init', 'edd_wl_add_rewrite_tag' );
-
-/**
- * Add 'view' to query vars
- *
- * @since 1.0
-*/
-function themeslug_query_vars( $qvars ) {
-    array_push( $qvars, 'test' );
- //   array_push( $qvars, 'edit' );
-    return $qvars;
-}
-//add_filter( 'query_vars', 'themeslug_query_vars' , 10, 1 );
-
-
-/**
- * Endpoints for viewing Wishlist
- *
- * @todo  make filterable
- * @since 1.0
-*/
-function edd_wl_rewrite_endpoints( $rewrite_rules ) {
-	add_rewrite_endpoint( 'list', EP_ALL );
-}
-add_action( 'init', 'edd_wl_rewrite_endpoints' );

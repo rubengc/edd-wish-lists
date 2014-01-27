@@ -1,6 +1,6 @@
 <?php
 /**
- * Forms
+ * Form processing
 */
 
 // Exit if accessed directly
@@ -16,7 +16,6 @@ function edd_wl_process_form_requests() {
   global $edd_options;
 
   // if not users list, redirect to homepage
-  // make this into reusable function
   if ( isset( $edd_options['edd_wl_page_edit'] ) && is_page ( $edd_options['edd_wl_page_edit'] ) ) {
     if ( ! edd_wl_is_users_list( get_query_var( 'edit' ) ) ) {
       wp_redirect( site_url() ); exit;
@@ -49,12 +48,9 @@ function edd_wl_process_form_requests() {
         if ( $post_id ) {
           // create token for logged user user and store against list
           edd_wl_create_token( $post_id );
-          // set message
-        //  edd_wl_set_message( 'list-created', __( 'Wish List successfully created', 'edd-wish-lists' ) );
-          edd_wl_set_message( 'wish-list-messages', sprintf( __( '%s successfully created', 'edd-wish-lists' ), edd_wl_get_label_singular() ) );
 
-          // redirect user to success page
-          wp_redirect( edd_wl_get_wish_list_success_uri( 'created' ) ); exit;
+          // redirect to newly created list
+         wp_redirect( add_query_arg( 'list', 'created', get_permalink( $post_id ) ) ); exit;
         }
       }
       // update form
@@ -71,14 +67,15 @@ function edd_wl_process_form_requests() {
           'post_status'   => $_POST['privacy'],
         );
 
-        $update_list = wp_update_post( $args );
+        $updated_post_id = wp_update_post( $args );
 
         //  redirect to success page
-        if ( $update_list ) {
-          // set message
-          edd_wl_set_message( 'wish-list-messages', sprintf( __( '%s successfully updated', 'edd-wish-lists' ), edd_wl_get_label_singular() ) );
-           // redirect user to success page
-          wp_redirect( edd_wl_get_wish_list_success_uri( 'updated' ) ); exit;
+        if ( $updated_post_id ) {
+          $messages = edd_wl_messages();
+          // redirect user back to list they just updated
+          wp_redirect( add_query_arg( 'list', 'updated', get_permalink( $updated_post_id ) ) ); exit;
+      //     wp_redirect( edd_wl_get_wish_list_success_uri( $updated_post_id, 'updated' ) ); exit;
+
         }
       } // end edit form process
     } // end has error

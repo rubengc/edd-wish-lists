@@ -19,11 +19,9 @@ $title = get_the_title( $list_id );
 $privacy = get_post_status( $list_id );
 
 ?>
+<p><?php echo $list->post_content; ?></p>
 
 <?php if ( $downloads ) : ?>
-
-	<h2><?php echo $list->post_title; ?></h2>
-	<p><?php echo $list->post_content; ?></p>
 
 	<?php 
 		/**
@@ -72,8 +70,6 @@ $privacy = get_post_status( $list_id );
 		<?php endforeach; ?>
 	</ul>
 
-
-
 	<?php 
 	/**
 	 * Sharing - only shown for public lists
@@ -88,4 +84,13 @@ $privacy = get_post_status( $list_id );
 		<?php echo edd_wl_sharing_services(); ?>
 	<?php endif; ?>
 
+<?php endif; ?>
+
+<?php 
+/**
+ * Edit list
+*/
+if ( edd_wl_is_users_list( $list_id ) ) : ?>
+
+	<a href="<?php echo edd_wl_get_wish_list_edit_uri( $list_id ); ?>"><?php printf( __( 'Edit this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?></a>
 <?php endif; ?>

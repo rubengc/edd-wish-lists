@@ -31,8 +31,8 @@ add_filter( 'edd_template_paths', 'edd_wl_edd_template_paths' );
 
 /**
  * Get a specific wish list
- * @param  int $wish_list_id the ID of the wish list
- * @return array               the contents of the wish list
+ * @param  int $wish_list_id 	the ID of the wish list
+ * @return array               	the contents of the wish list
  */
 function edd_wl_get_wish_list( $wish_list_id ) {
 	// retrieve the wish list
@@ -92,35 +92,38 @@ function edd_wl_get_list_statuses() {
 }
 
 /**
- * Check if we're on the wish list page
+ * Check if we're on a certain page
  * @return boolean true|false
  */
-function edd_wl_is_wish_list() {
+function edd_wl_is_page( $page = '' ) {
 	global $edd_options;
 
-	if ( isset( $edd_options['edd_wl_page'] ) && is_page ( $edd_options['edd_wl_page'] ) ) {
+	switch ( $page ) {
+		case 'wish-lists':
+			$id = isset( $edd_options['edd_wl_page'] ) ? $edd_options['edd_wl_page'] : false;
+		break;
+
+		case 'view':
+			$id = isset( $edd_options['edd_wl_page_view'] ) ? $edd_options['edd_wl_page_view'] : false;
+		break;
+
+		case 'edit':
+			$id = isset( $edd_options['edd_wl_page_edit'] ) ? $edd_options['edd_wl_page_edit'] : false;
+		break;
+
+		case 'create':
+			$id = isset( $edd_options['edd_wl_page_create'] ) ? $edd_options['edd_wl_page_create'] : false;
+		break;
+	}
+
+	if ( is_page( $id ) ) {
 		return true;	
 	}
 	
 	return false;
 }
 
-/**
- * Check if we're on any of the wish list pages
- * @return boolean true|false
- */
-function edd_wl_is_wish_list_page() {
-	global $edd_options;
 
-	$main = edd_get_option( 'edd_wl_page', '' );
-	$view = edd_get_option( 'edd_wl_page_view', '' );
-
-	if ( is_page ( $main ) || is_page ( $view ) || is_singular( 'download' ) || edd_wl_has_shortcode( 'downloads' ) ) {
-		return true;
-	}
-	
-	return false;
-}
 
 /**
  * Get Wish List URI
@@ -218,23 +221,6 @@ function edd_wl_get_wish_list_create_uri() {
 }
 
 /**
- * Get Wish List Success URI
- * @return string
- */
-function edd_wl_get_wish_list_success_uri( $type = '' ) {
-	global $edd_options;
-
-	$uri = isset( $edd_options['edd_wl_page'] ) ? get_permalink( $edd_options['edd_wl_page'] ) : false;
-
-	if ( edd_wl_has_pretty_permalinks() ) {
-		return apply_filters( 'edd_wl_get_wish_list_success_uri', edd_wl_get_wish_list_uri() . 'list/' . $type );
-	}
-	else {
-		return apply_filters( 'edd_wl_get_wish_list_success_uri', add_query_arg( 'list', true, $uri ) );
-	}
-}
-
-/**
  * Returns the URL to remove an item from the wish list
  *
  * @since 1.0
@@ -261,10 +247,9 @@ function edd_wl_remove_item_url( $cart_key, $post, $ajax = false ) {
 
 /**
  * The query to return the posts on the main wish lists page
- *
+ * retrieves post object for either logged in user or logged out
+ * 
  * @since 1.0
- * @todo  make filterable
- * @todo  make sure users get right posts
 */
 function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 
@@ -334,47 +319,6 @@ function edd_wl_has_shortcode( $shortcode = '' ) {
 	// return our final results
 	return $found;
 }
-
-/**
- * Redirect to Wish List
- * @return [type] [description]
- */
-function edd_wl_redirect_to_wish_list() {
-	global $edd_options;
-
-	// return true if 'allow guests' is enabled
-	if ( isset( $edd_options['edd_wl_redirect'] ) && 'yes' == $edd_options['edd_wl_redirect'] ) {
-		return true;	
-	}
-	
-	return false;
-	
-}
-
-/**
- * Filter title to include the list name on either the view or edit pages
- *
- * @since 1.0
-*/
-function edd_wl_wp_title( $title, $sep ) {
-	$view_page = edd_get_option( 'edd_wl_page_view' );
-	$edit_page = edd_get_option( 'edd_wl_page_edit' );
-	
-	if ( is_page( $view_page ) || is_page( $edit_page ) ) {
-		if ( is_page( $view_page ) )
-			$list_id = get_query_var( 'view' );
-		elseif ( is_page( $edit_page ) )
-			$list_id = get_query_var( 'edit' );
-
-		$list_title = get_the_title( $list_id );
-
-		// Prepend the list name to the site title.
-		$title = $list_title . " $sep " . $title;
-	}
-	
-	return $title;
-}
-add_filter( 'wp_title', 'edd_wl_wp_title', 10, 2 );
 
 
 /**

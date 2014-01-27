@@ -25,6 +25,8 @@ function edd_wl_view_shortcode( $atts, $content = null ) {
 	$edd_wish_lists = edd_wish_lists();
   	$edd_wish_lists::$add_script = true;
   	
+// 	edd_wl_print_messages( 'wish-list-view' );
+
 	$content = edd_wl_load_template( 'view' );
 
 	return $content;
@@ -43,10 +45,7 @@ function edd_wl_edit_shortcode( $atts, $content = null ) {
 		), $atts, 'edd_wish_lists_edit' )
 	);
 
-	edd_wl_print_messages( 'wish-list-edit-messages' );
-
-	if ( ! edd_wl_allow_guest_creation() )
-		return;
+//	edd_wl_print_messages( 'wish-list-edit-messages' );
 
 	$content = edd_wl_load_template( 'edit' );
 
@@ -66,11 +65,8 @@ function edd_wl_create_shortcode( $atts, $content = null ) {
 		), $atts, 'edd_wish_lists_create' )
 	);
 
-	edd_wl_print_messages( 'wish-list-create-messages' );
+//	edd_wl_print_messages( 'wish-list-create-messages' );
  
-	if ( ! edd_wl_allow_guest_creation() )
-		return;
-
 	$content = edd_wl_load_template( 'create' );
 
 	return $content;
@@ -93,8 +89,8 @@ function edd_wl_shortcode( $atts, $content = null ) {
 	// 	), $atts, 'edd_wish_list' )
 	// );
 
-	// Load the Wish Lists class
-//	$content = edd_wl_wish_list( $id, $title );
+//	edd_wl_print_messages( 'wish-lists' );
+
 	$content = edd_wl_wish_list();
 
 	return $content;

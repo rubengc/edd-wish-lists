@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return void
  */
 function edd_ajax_add_to_cart_from_wish_list() {
-
 	if ( isset( $_POST['download_id'] ) && check_ajax_referer( 'edd_ajax_nonce', 'nonce' ) ) {
 		global $post;
 
@@ -25,23 +24,6 @@ function edd_ajax_add_to_cart_from_wish_list() {
 			}
 		}
 
-		/* 
-		
-		$to_add = array( 
-			0 = array(
-				'price_id' => 2 
-			),
-			1 = array(
-				'price_id' => 5 
-			),
-			2 = array(
-				'price_id' => 3 
-			),
-		)
-
-		*/
-		
-		
 		foreach ( $to_add as $options ) {
 
 			if( $_POST['download_id'] == $options['price_id'] )
@@ -109,10 +91,10 @@ function edd_wl_delete_list() {
     $list_id = intval( $_POST['post_id'] );
 
     if ( wp_delete_post( $list_id ) === false ) {
-    	edd_wl_set_message( 'wish-list-messages', sprintf( __( 'Sorry, an error occured while trying to delete this %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ) );
         $return['msg'] = 'failed';
     } else {
-    	edd_wl_set_message( 'wish-list-messages', sprintf( __( '%s successfully deleted', 'edd-wish-lists' ), edd_wl_get_label_singular() ) );
+    	$messages = edd_wl_messages();
+    	edd_wl_set_message( 'list-deleted', $messages['list-deleted'] );
         $return['msg'] = 'success';
     }
 

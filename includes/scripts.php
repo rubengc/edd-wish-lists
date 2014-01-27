@@ -44,7 +44,6 @@ function edd_wl_print_script() {
 	wp_enqueue_script( 'edd-wish-lists-modal' );
 
 	wp_localize_script( 'edd-wish-lists', 'edd_wl_scripts', array(
-		 'redirect_to_wish_list'    => ( edd_wl_redirect_to_wish_list() || edd_wl_is_wish_list() ) ? '1' : '0',
 		 'wish_list_page'           => edd_wl_get_wish_list_uri(),
 		 'wish_list_add'           => edd_wl_get_wish_list_create_uri(),
 		 'ajax_nonce'              => wp_create_nonce( 'edd_wl_ajax_nonce' ),
