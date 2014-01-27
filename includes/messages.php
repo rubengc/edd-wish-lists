@@ -92,16 +92,15 @@ add_action( 'template_redirect', 'edd_wl_set_messages' );
  * @return void
  */
 function edd_wl_print_messages() {
-	$errors = edd_wl_get_messages();
-	if ( $errors ) {
-		$classes = apply_filters( 'edd_error_class', array(
+	$messages = edd_wl_get_messages();
+	if ( $messages ) {
+		$classes = apply_filters( 'edd_wl_classes', array(
 			'edd_errors', 
 			'edd-wl-msgs',
 		) );
 		echo '<div class="' . implode( ' ', $classes ) . '">';
-		    // Loop error codes and display errors
-		   foreach ( $errors as $error_id => $error ) {
-		        echo '<p class="edd_error" id="edd_error_' . $error_id . '">' . $error . '</p>';
+		   foreach ( $messages as $msg_id => $msg ) {
+		        echo '<p class="edd_wl_msg" id="edd_wl_msg_' . $error_id . '">' . $msg . '</p>';
 		   }
 		echo '</div>';
 		edd_wl_clear_messages();
