@@ -116,7 +116,7 @@ function edd_wl_add_to_list_shortcode( $atts, $content = null ) {
 		'icon'			=> $icon,
 		'style'			=> $style,
 		'action'		=> 'edd_wl_open_modal',
-		'class'			=> 'edd-wl-open-modal edd-wl-action',
+		'class'			=> 'edd-wl-open-modal edd-wl-action before',
 		'price_option'	=> $option,
 	);
 

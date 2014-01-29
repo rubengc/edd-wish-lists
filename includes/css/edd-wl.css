@@ -183,10 +183,6 @@
   user-select: none;
   outline: none;
 }
-.button,
-.plain {
-  margin-bottom: 16px;
-}
 .plain {
   display: inline-block;
 }
