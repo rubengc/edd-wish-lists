@@ -164,6 +164,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 			require_once( dirname( $this->file ) . '/includes/ajax-functions.php' );
 			require_once( dirname( $this->file ) . '/includes/scripts.php' );
 			require_once( dirname( $this->file ) . '/includes/sharing.php' );
+			require_once( dirname( $this->file ) . '/includes/modals.php' );
 			require_once( dirname( $this->file ) . '/includes/rewrites.php' );
 			require_once( dirname( $this->file ) . '/includes/actions.php' );
 			require_once( dirname( $this->file ) . '/includes/messages.php' );

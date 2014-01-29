@@ -195,32 +195,35 @@ function edd_wl_open_modal() {
     // get price IDs
     $price_ids = isset( $_POST['price_ids'] ) && is_array( $_POST['price_ids'] ) ? $_POST['price_ids'] : '';
 
-		$to_add = array();
+    // single price option (shortcode)
+    $price_option_single = isset( $_POST['price_option_single'] ) ? $_POST['price_option_single'] : '';
 
-		if ( isset( $_POST['price_ids'] ) && is_array( $_POST['price_ids'] ) ) {
-			foreach ( $_POST['price_ids'] as $price ) {
-				$to_add[] = array( 'price_id' => $price );
-			}
+	$to_add = array();
+
+	if ( isset( $_POST['price_ids'] ) && is_array( $_POST['price_ids'] ) ) {
+		foreach ( $_POST['price_ids'] as $price ) {
+			$to_add[] = array( 'price_id' => $price );
 		}
+	}
 
-		$items = '';
+	$items = '';
 
-		foreach ( $to_add as $options ) {
+	foreach ( $to_add as $options ) {
 
-			if( $download_id == $options['price_id'] )
-				$options = array();
+		if( $download_id == $options['price_id'] )
+			$options = array();
 
-			$item = array(
-				'id'      =>  $download_id,
-				'options' => $options
-			);
+		$item = array(
+			'id'      =>  $download_id,
+			'options' => $options
+		);
 
-			// add each item to array
-			$items[] = $item;
-		}
+		// add each item to array
+		$items[] = $item;
+	}
 
     // get wish lists and send price IDs + items array
-    $lists 				= edd_wl_get_wish_lists( $download_id, $price_ids, $items );
+    $lists 				= edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_single );
     $list_count 		= null != edd_wl_get_query() && edd_wl_get_query()->found_posts ? edd_wl_get_query()->found_posts : 0;
 
     $return = array(

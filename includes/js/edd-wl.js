@@ -225,7 +225,6 @@ jQuery(document).ready(function ($) {
          // delete list from edit screen
      $('body').on('click.eddDeleteWishListConfirm', '.eddwl-delete-list-confirm', function (e) {  
         e.preventDefault();
-     //   console.log('delete link clicked');
 
         var $spinner = $(this).find('.edd-loading');
         
@@ -267,10 +266,6 @@ jQuery(document).ready(function ($) {
 
     });   
 
-  
-
-
-
     // opens the modal window when the add to wish list link is clicked 
     $('body').on('click.eddwlOpenModal', '.edd-wl-open-modal', function (e) {
         e.preventDefault();
@@ -297,25 +292,21 @@ jQuery(document).ready(function ($) {
             'margin-top' : spinnerHeight / -2
         });
 
-
-        // if ( $this.data('action') == ) {
-
-        // }
-        // else if( $this.data('action') ) {
-
-        // }
-
-        
         var form            = jQuery('.edd_download_purchase_form');
         var download        = $this.data('download-id');
         var variable_price  = $this.data('variable-price');
         var price_mode      = $this.data('price-mode');
+        var price_option    = $this.data('price-option');   // specified as shortcode parameter
         var item_price_ids  = [];
       
+         // if price option manually set within shortcode
+        if ( price_option >= 0 ) {
+           item_price_ids[0] = price_option;
 
-        if( variable_price == 'yes' ) {
+        } else if( variable_price == 'yes' ) {
+            
             // might not need this
-            if( ! $('.edd_price_option_' + download + ':checked', form).length ) {
+            if( ! $('.edd_price_option_' + download + ':checked', form).length  ) {
                  // hide the spinner
                 $(this).removeAttr( 'data-edd-loading' );
                 alert( edd_scripts.select_option );
@@ -326,17 +317,23 @@ jQuery(document).ready(function ($) {
             $('.edd_price_option_' + download + ':checked', form).each(function( index ) {
                 item_price_ids[ index ] = $(this).val();
             });
-
+            
         } else {
             item_price_ids[0] = download;
         }
 
-        var data =  {
+       
+
+        var data = {
             action:     $(this).data('action'),
             post_id:    $(this).data('download-id'),
             price_ids:  item_price_ids,
             nonce:      edd_wl_scripts.ajax_nonce,
         };
+
+        if ( price_option >= 0 ) {
+          data['price_option_single'] = true;
+        } 
 
         $.ajax({
             type:       "POST",
@@ -431,10 +428,17 @@ jQuery(document).ready(function ($) {
         var price_mode     = $this.data('price-mode');
         var item_price_ids = [];
 
-        if( variable_price == 'yes' ) {
-
-            if( ! $('.edd_price_option_' + download + ':checked', form).length ) {
-
+        // single_price_option mode (from shortcode)
+        var single_price_option = $('input[name=edd-wl-single-price-option]').val();
+        
+        if ( single_price_option == 'yes' ) {
+           item_price_ids[0] = $('input[name=edd-wish-lists-post-id]').val();
+            console.log( 'first' );
+        }
+        else if( variable_price == 'yes' ) {
+             console.log( 'second' );
+            if( ! $('.edd_price_option_' + download + ':checked', form).length  ) {
+                $(this).removeAttr( 'data-edd-loading' );
                 alert( edd_scripts.select_option );
                 return;
             }
@@ -444,9 +448,13 @@ jQuery(document).ready(function ($) {
                 item_price_ids[ index ] = $(this).val();
             });
 
+            
+
         } else {
             item_price_ids[0] = download;
+             console.log( 'third' );
         }
+        
 
         if ( 'existing-list' == jQuery( 'input:radio[name=list-options]:checked' ).val() ) {
             list_id = jQuery('#user-lists').val();
