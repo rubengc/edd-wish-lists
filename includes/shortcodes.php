@@ -23,6 +23,10 @@ function edd_wl_view_shortcode( $atts, $content = null ) {
 	$edd_wish_lists = edd_wish_lists();
   	$edd_wish_lists::$add_script = true;
 
+  	// prevent list from displaying if it's private
+	if ( edd_wl_is_private_list() )
+		return;
+
 	$content = edd_wl_load_template( 'view' );
 
 	return $content;
@@ -40,6 +44,10 @@ function edd_wl_edit_shortcode( $atts, $content = null ) {
 			'title' => '',
 		), $atts, 'edd_wish_lists_edit' )
 	);
+
+	// prevent list from displaying if it's private
+	if ( edd_wl_is_private_list() )
+		return;
 
 	$content = edd_wl_load_template( 'edit' );
 

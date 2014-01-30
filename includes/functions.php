@@ -54,6 +54,30 @@ function edd_wl_has_pretty_permalinks() {
 }
 
 /**
+ * List is private
+ *
+ * This is used to redirect, or prevent viewing or editing of private lists
+ * @return [type]
+ */
+function edd_wl_is_private_list() {
+	if ( get_query_var( 'view' ) )
+		$list_id = get_query_var( 'view' );
+	elseif ( get_query_var( 'edit' ) )
+		$list_id = get_query_var( 'edit' );
+	else
+		$list_id = '';
+
+	if ( ! $list_id )
+		return;
+
+	$list_status = get_post_status( $list_id );
+
+	if ( 'private' == $list_status && ! edd_wl_is_users_list( $list_id ) && ( edd_wl_is_page( 'view' ) || edd_wl_is_page( 'edit' ) ) )
+		return true;
+}
+
+
+/**
  * Get the status of a list (post)
  *
  * @since 1.0

@@ -30,10 +30,17 @@ function edd_wl_wp_title( $title, $sep ) {
 	$edit_page = edd_get_option( 'edd_wl_page_edit' );
 	
 	if ( is_page( $view_page ) || is_page( $edit_page ) ) {
-		if ( is_page( $view_page ) )
+		
+		// prevent the title from changing
+		if ( edd_wl_is_private_list() )
+			return $title;
+
+		if ( is_page( $view_page ) ) {
 			$list_id = get_query_var( 'view' );
-		elseif ( is_page( $edit_page ) )
+		}
+		elseif ( is_page( $edit_page ) ) {
 			$list_id = get_query_var( 'edit' );
+		}
 
 		$list_title = get_the_title( $list_id );
 
@@ -51,6 +58,11 @@ add_filter( 'wp_title', 'edd_wl_wp_title', 10, 2 );
  * @since 1.0
 */
 function edd_wl_the_title( $title, $id ) {
+
+	// prevent the title from changing
+	if ( edd_wl_is_private_list() )
+		return $title;
+
 	// View page - replace the main page title with the name of the list
 	if ( get_query_var( 'view' ) && in_the_loop() && $id == get_the_ID() ) {
 		$title = get_the_title( get_query_var( 'view' ) );

@@ -13,14 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 */
 function edd_wl_process_form_requests() {
 
-  global $edd_options;
-
-  // if not users list, redirect to homepage
-  if ( isset( $edd_options['edd_wl_page_edit'] ) && is_page ( $edd_options['edd_wl_page_edit'] ) ) {
-    if ( ! edd_wl_is_users_list( get_query_var( 'edit' ) ) ) {
-      wp_redirect( site_url() ); exit;
-    }
-  }
 
  
   if ( isset( $_POST['submitted'] ) && isset( $_POST['list_nonce_field'] ) && wp_verify_nonce( $_POST['list_nonce_field'], 'list_nonce' ) ) {

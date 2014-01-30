@@ -59,7 +59,6 @@ function edd_wl_set_messages() {
 	*/
 	// must login
 	if ( edd_wl_is_page( 'create' ) && ! edd_wl_allow_guest_creation() ) {
-//	if ( ! edd_wl_allow_guest_creation() ) {
 		edd_wl_set_message( 'must_login', $messages['must_login'] );
 	}
 	

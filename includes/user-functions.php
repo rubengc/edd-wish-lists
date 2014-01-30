@@ -32,7 +32,7 @@ function edd_wl_create_token( $list_id = '' ) {
 }
 
 /**
- * Check if the list belongs to the current user. If it does, they are allowed to remove it
+ * Check if the list belongs to the current user.
  *
  * @since 1.0
 */
@@ -54,8 +54,6 @@ function edd_wl_is_users_list( $list_id ) {
 		// get token
 		$token = edd_wl_get_list_token();
 		$token = isset( $token ) ? $token : '';
-
-	//	var_dump( $token );
 
 		if ( $token ) {
 			// get custom meta of post
