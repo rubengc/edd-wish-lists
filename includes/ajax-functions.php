@@ -177,8 +177,6 @@ function edd_ajax_add_to_wish_list() {
 add_action( 'wp_ajax_edd_add_to_wish_list', 'edd_ajax_add_to_wish_list' );
 add_action( 'wp_ajax_nopriv_edd_add_to_wish_list', 'edd_ajax_add_to_wish_list' );
 
-
-
 /**
  * Open Modal
  *

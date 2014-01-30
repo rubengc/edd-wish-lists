@@ -347,6 +347,37 @@ function edd_wl_add_all_to_cart( $list_id ) {
 	}
 }
 
+/**
+ * Show which lists the current item is already added to
+ *
+ * @since 1.0
+ * @uses edd_wl_item_in_wish_list()
+ */
+function edd_wl_lists_included( $download_id, $options ) {
+	ob_start();
+
+	$found_lists = edd_wl_item_in_wish_list( $download_id, $options );
+
+	if ( $found_lists ) {
+		$messages = edd_wl_messages();
+		echo '<p>';
+		echo $messages['lists-included'];
+
+		$list_names = array();
+
+		foreach ( $found_lists as $list_id ) {
+			$list_names[] = get_the_title( $list_id );
+		}
+
+		// comma separate
+		echo implode(', ', $list_names );
+
+		echo '</p>';
+	}
+
+	$html = ob_get_clean();
+	return apply_filters( 'edd_wl_lists_included', $html );
+}
 
 /**
  * Checks the see if an item is already in the wish_list and returns a boolean. Modelled from edd_item_in_cart()
@@ -359,28 +390,55 @@ function edd_wl_add_all_to_cart( $list_id ) {
  * @todo  modify function to accept list ID, or run a search with get_posts or osmething
  */
 function edd_wl_item_in_wish_list( $download_id = 0, $options = array() ) {
-//	$cart_items = edd_wl_get_contents();
-//	$cart_items = get_post_meta( $list_id, 'edd_wish_list', true );
 
-	$ret = false;
+	$posts = edd_wl_get_query()->posts;
 
-	if ( is_array( $cart_items ) ) {
-		foreach ( $cart_items as $item ) {
-			if ( $item['id'] == $download_id ) {
-				if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
-					if ( $options['price_id'] == $item['options']['price_id'] ) {
-						$ret = true;
-						break;
-					}
-				} else {
-					$ret = true;
-					break;
-				}
-			}
+	if ( $posts ) {
+		$ids = array();
+
+		foreach ( $posts as $post ) {
+			$ids[] = $post->ID;
 		}
+
 	}
 
-	return (bool) apply_filters( 'edd_wl_item_in_wish_list', $ret, $download_id, $options );
+	if ( $ids ) {
+
+		$found_ids = array();
+
+		foreach ( $ids as $id ) {
+
+			$cart_items = get_post_meta( $id, 'edd_wish_list', true );
+			$found = false;
+
+			foreach ( $cart_items as $item ) {
+			//	var_dump( $item );
+				if ( $item['id'] == $download_id ) {
+					if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
+						if ( $options['price_id'] == $item['options']['price_id'] ) {
+							$found = true;
+							break;
+						}
+					} 
+					else {
+						$found = true;
+						break;
+					}
+				}
+			}
+
+			// add each found id to array
+			if ( $found ) {
+				$found_ids[] = $id;
+			}
+
+		}
+
+		return $found_ids;
+	}
+
+//	return (bool) apply_filters( 'edd_wl_item_in_wish_list', $ret, $download_id, $options );
+//	return apply_filters( 'edd_wl_item_in_wish_list', $found, $download_id, $options );
 }
 
 /**

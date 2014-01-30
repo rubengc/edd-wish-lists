@@ -46,7 +46,7 @@ function edd_remove_from_wish_list( $wish_list_key, $list_id ) {
  * @return string Cart key of the new item
  */
 function edd_wl_add_to_wish_list( $download_id, $options = array(), $list_id ) {
-//	
+	
 	// get current post meta for wish list	
 	$list = get_post_meta( $list_id, 'edd_wish_list', true );
 

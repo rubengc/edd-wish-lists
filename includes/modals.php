@@ -97,9 +97,15 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 		<span class="hide-text"><?php _e( 'Close', 'edd-wish-lists' ); ?></span>
 	</a>
 	
+
 </div>
 
 <div class="modal-body">
+
+	<?php
+		// show lists this item is already included in
+		echo edd_wl_lists_included( $download_id, $items[0]['options'] );
+	?>
 
 	<?php if ( ! edd_wl_allow_guest_creation() ) : ?>
 		<?php
@@ -111,11 +117,9 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 		
 		<?php
 			// get users public lists
-			$private  = edd_wl_get_query( 'private' );
-		  	$public   = edd_wl_get_query( 'public' );
-				
-			$list_query = null != edd_wl_get_query() && edd_wl_get_query()->found_posts > 0 ? true : false;
-
+			$private  			= edd_wl_get_query( 'private' );
+		  	$public   			= edd_wl_get_query( 'public' );
+			$list_query 		= null != edd_wl_get_query() && edd_wl_get_query()->found_posts > 0 ? true : false;
 			$variable_pricing   = edd_has_variable_prices( $download_id );
 			$data_variable      = $variable_pricing ? ' data-variable-price=yes' : 'data-variable-price=no';
 			$type               = edd_single_price_option_mode( $download_id ) ? 'data-price-mode=multi' : 'data-price-mode=single';
