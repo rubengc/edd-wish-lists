@@ -376,9 +376,9 @@ function edd_wl_add_all_to_cart_link( $args = array() ) {
 		array(
 			'list_id'	=> $args['list_id'],
 			'text' 		=> __( 'Add all to cart', 'edd-wish-lists' ),
-			'style'		=> 'button button-default',
+			'style'		=> 'button',
 			'color'		=> '',
-			'class'		=> 'edd-wl-action'
+			'class'		=> 'edd-wl-action edd-wl-add-all-to-cart button-default'
 		)
 	);
 
@@ -391,9 +391,11 @@ function edd_wl_add_all_to_cart_link( $args = array() ) {
 	if ( count ( $list ) == 1 )
 		return;
 
-	printf(
+	$button = sprintf(
 		'<a href="' . add_query_arg( array( 'edd_action' => 'wl_purchase_all', 'list_id' => $list_id ) ) . '" class="%1$s">%2$s</a>',
 		implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 1
 		esc_attr( $text )											// 2
 	);
+
+	return $button;
 }

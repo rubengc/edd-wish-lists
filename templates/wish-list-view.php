@@ -27,7 +27,7 @@ $privacy = get_post_status( $list_id );
 		/**
 		 * All all items in list to cart
 		*/
-		echo edd_wl_add_all_to_cart_link( array( 'list_id' => $list_id ) );
+		echo '<p>' . edd_wl_add_all_to_cart_link( array( 'list_id' => $list_id ) ) . '</p>';
 	?>
 
 	<ul class="edd-wish-list">
