@@ -97,7 +97,6 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 		<span class="hide-text"><?php _e( 'Close', 'edd-wish-lists' ); ?></span>
 	</a>
 	
-
 </div>
 
 <div class="modal-body">
