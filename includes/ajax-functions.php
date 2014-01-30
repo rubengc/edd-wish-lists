@@ -94,7 +94,7 @@ function edd_wl_delete_list() {
         $return['msg'] = 'failed';
     } else {
     	$messages = edd_wl_messages();
-    	edd_wl_set_message( 'list-deleted', $messages['list-deleted'] );
+    	edd_wl_set_message( 'list_deleted', $messages['list_deleted'] );
         $return['msg'] = 'success';
     }
 

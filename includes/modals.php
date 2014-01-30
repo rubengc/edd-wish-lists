@@ -65,6 +65,7 @@ add_action( 'edd_wl_modal_content', 'edd_wl_list_delete_confirm' );
 */
 function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_single ) {
 	ob_start();
+	$messages = edd_wl_messages();
 
 	global $edd_options;
 	$text = ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : __( 'Add To Wish List', 'edd-wish-lists' );
@@ -100,18 +101,13 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 </div>
 
 <div class="modal-body">
-
 	<?php
 		// show lists this item is already included in
 		echo edd_wl_lists_included( $download_id, $items[0]['options'] );
 	?>
 
 	<?php if ( ! edd_wl_allow_guest_creation() ) : ?>
-		<?php
-			$messages = edd_wl_messages();
-			echo '<p>' . $messages['must-login'] . '</p>'; 
-		?>
-
+		<?php echo '<p>' . $messages['must_login'] . '</p>'; ?>
 	<?php else : ?>
 		
 		<?php
@@ -129,7 +125,7 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 			<?php if ( $list_query ) : ?>
 		            <p id="current_lists">
 		            <input type="radio" checked="" id="existing-list" value="existing-list" name="list-options">
-		            <label for="existing-list"><?php _e( 'Add to existing', 'edd-wish-lists' ); ?></label>
+		            <label for="existing-list"><?php echo $messages['modal_option_add_to_existing']; ?></label>
 
 		              <select id="user-lists" name="user-lists">
 		            	
@@ -176,13 +172,13 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 
 		             <p>
 						<input type="radio" id="new-list" value="new-list" name="list-options">
-						<label for="new-list"><?php _e( 'Add to new', 'edd-wish-lists' ); ?></label>
+						<label for="new-list"><?php echo $messages['modal_option_add_new']; ?></label>
 
-						<input type="text" id="list-name" name="list-name" placeholder="<?php _e( 'Title', 'edd-wish-lists' ); ?>">
+						<input type="text" id="list-name" name="list-name" placeholder="<?php echo $messages['modal_option_title']; ?>">
 
 						<select id="list-status" name="list-status">
-							<option value="private"><?php _e( 'Private - only viewable by you', 'edd-wish-lists' ); ?></option>
-							<option value="publish"><?php _e( 'Public - viewable by anyone', 'edd-wish-lists' ); ?></option>
+							<option value="private"><?php echo $messages['list_option_private']; ?></option>
+							<option value="publish"><?php echo $messages['list_option_public']; ?></option>
 						</select>
 		            </p>
 
@@ -204,7 +200,7 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
         				<?php
         					$args = array(
         						'download_id' 	=> $download_id,
-        						'text' 			=> __( 'Save', 'edd-wish-lists' ),
+        						'text' 			=> $messages['modal_option_save'],
         						'icon'			=> '',
         						'action'		=> 'edd_add_to_wish_list',
         						'class'			=> 'edd-wish-list-save edd-wl-action',
@@ -214,7 +210,7 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
         				?>
 
         				<a class="button button-default edd-wl-success edd-wl-action" href="#" data-dismiss="modal" style="display:none;">
-        				<?php _e( 'Great, I\'m done', 'edd-wish-lists' ); ?>
+        				<?php echo $messages['modal_option_close']; ?>
         				</a>
 	
       				</div>

@@ -361,7 +361,7 @@ function edd_wl_lists_included( $download_id, $options ) {
 	if ( $found_lists ) {
 		$messages = edd_wl_messages();
 		echo '<p>';
-		echo $messages['lists-included'];
+		echo $messages['lists_included'];
 
 		$list_names = array();
 
