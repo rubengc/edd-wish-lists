@@ -34,14 +34,11 @@ Demo: http://edd-wish-lists.sumobithemes.com/
 - Edit the main wish lists page and view list pages through template files.
 
 **To do**
-- Delete Lists after X days (probably 30) for guests unless they register.
 - Admin improvements to item listings on edit/publish screens
 - Add Pinterest “pin it” as a sharing option
 - Sharing via email. Currently only sharing icons show
-- When a user goes to save a product to a list, it will display any lists that the product is already in.
 - Option to remove download from wish list when purchased
 - Delete data on plugin deletion.
-- Prevent admin from being able to create wish lists in the admin
 - Show “guest” in author column when list has been created by guest user
 
 **Possible Future Enhancements**
