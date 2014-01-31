@@ -172,6 +172,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 			if ( ! is_admin() )
 				return;
 
+			require_once( dirname( $this->file ) . '/includes/cron.php' );
 			require_once( dirname( $this->file ) . '/includes/metabox.php' );
 			require_once( dirname( $this->file ) . '/includes/admin-settings.php' );
 			require_once( dirname( $this->file ) . '/includes/dashboard-columns.php' );
