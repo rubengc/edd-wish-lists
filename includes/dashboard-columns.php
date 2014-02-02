@@ -17,8 +17,8 @@ function edd_wl_admin_columns( $download_columns ) {
 	$download_columns = array(
 		'cb'                => '<input type="checkbox"/>',
 		'title'             => __( 'Title', 'edd-wish-lists' ),
-		'downloads'         => __( 'Downloads', 'edd-wish-lists' ),
-		'author'            => __( 'Author', 'edd-wish-lists' ),
+		'downloads'  => __( 'Downloads', 'edd-wish-lists' ),
+		'list_author'     => __( 'Author', 'edd-wish-lists' ),
 		'date'              => __( 'Date', 'edd-wish-lists' )
 	);
 
@@ -47,6 +47,18 @@ function edd_wl_render_admin_columns( $column_name, $post_id ) {
 				} else {
 					echo 0;
 				}
+			break;
+
+			case 'list_author':
+				$post = get_post();
+				if ( 0 == $post->post_author )
+					echo __( 'Guest', 'edd-wish-lists' );
+				 else {
+				 	printf( '<a href="%s">%s</a>',
+				 		esc_url( add_query_arg( array( 'post_type' => $post->post_type, 'author' => get_the_author_meta( 'ID' ) ), 'edit.php' )),
+				 		get_the_author()
+				 	);
+				 }
 			break;
 
 		}
