@@ -24,36 +24,25 @@ jQuery(document).ready(function ($) {
     $('body').on('click.eddAddToCartFromWishList', '.edd-add-to-cart-from-wish-list', function (e) {
         e.preventDefault();
 
+        console.log( 'added to cart' );
+
         var $this = $(this);
-     //   var form = $this.closest('form');
 
-
-        // if( 'straight_to_gateway' == form.find('.edd_action_input').val() ) {
-        //     form.submit();
-        //     return true; // Submit the form
-        // }
-
-      //  var $spinner = $this.find('.edd-loading');
         var container = $this.closest('div');
 
-        // var spinnerWidth  = $spinner.width(),
-        //     spinnerHeight = $spinner.height();
+        // spinner
+        var $spinner = $(this).find('.edd-loading');
+        
+        var spinnerWidth    = $spinner.width(),
+        spinnerHeight       = $spinner.height();
 
         // Show the spinner
-     //   $this.attr('data-edd-loading', '');
+        $this.attr('data-edd-loading', '');
 
-        // $spinner.css({
-        //     'margin-left': spinnerWidth / -2,
-        //     'margin-top' : spinnerHeight / -2
-        // });
-
-   //     var form           = $this.parents('form').last();
-        //var form = jQuery('.edd_download_purchase_form');
-    //     var form           = $this.parents('form').last();
-
-    //      console.log( form );
-           
-           console.log( 'added to cart' );
+        $spinner.css({
+            'margin-left': spinnerWidth / -2,
+            'margin-top' : spinnerHeight / -2
+        });
 
         var download       = $this.data('download-id');
         var variable_price = $this.data('variable-price');

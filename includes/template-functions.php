@@ -223,7 +223,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 		$loading, 													// 10
 		$icon_right, 												// 11
 		$price_option 												// 12
-	);	
+	);
 
 	$html = apply_filters( 'edd_wl_link', ob_get_clean() );
 
@@ -329,7 +329,7 @@ function edd_wl_wish_list_item_purchase( $item, $args = array() ) {
 	}
 
 	$button_size = 'button' == edd_get_option( 'edd_wl_button_style', 'plain' ) ? apply_filters( 'edd_wl_button_size', 'button-default' ) : '';
-
+	$loading = '<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>';
 	$form_id = ! empty( $form_id ) ? $form_id : 'edd_purchase_' . $download_id;
 	?>
 
@@ -337,7 +337,7 @@ function edd_wl_wish_list_item_purchase( $item, $args = array() ) {
 		<div class="edd_purchase_submit_wrapper">
 		<?php 
 		printf(
-			'<a href="#" class="edd-add-to-cart-from-wish-list %1$s %8$s" data-action="edd_add_to_cart_from_wish_list" data-download-id="%3$s" %4$s %5$s %6$s %7$s><span class="edd-add-to-cart-label">%2$s</span></a>',
+			'<a href="#" class="edd-add-to-cart-from-wish-list %1$s %8$s" data-action="edd_add_to_cart_from_wish_list" data-download-id="%3$s" %4$s %5$s %6$s %7$s><span class="label">%2$s</span>%9$s</a>',
 			implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 1
 			esc_attr( $text ),											// 2
 			esc_attr( $download_id ),									// 3
@@ -345,16 +345,21 @@ function edd_wl_wish_list_item_purchase( $item, $args = array() ) {
 			esc_attr( $type ),											// 5
 			$button_display,											// 6
 			esc_attr( $data_price_option ),								// 7
-			$button_size 												// 8
+			$button_size, 												// 8
+			$loading 													// 9
 		);
+
+	
+
 
 		// checkout link that shows when item is added to the cart
 		printf(
-			'<a href="%1$s" class="%2$s %3$s" %4$s>' . $checkout_text . '</a>',
-			esc_url( edd_get_checkout_uri() ),
-			esc_attr( 'edd-go-to-checkout-from-wish-list' ),
-			implode( ' ', array( $style, $color, trim( $class ) ) ),
-			$checkout_display
+			'<a href="%1$s" class="%2$s %3$s %5$s" %4$s>' . $checkout_text . '</a>',
+			esc_url( edd_get_checkout_uri() ),									// 1
+			esc_attr( 'edd-go-to-checkout-from-wish-list' ),					// 2
+			implode( ' ', array( $style, $color, trim( $class ) ) ),			// 3
+			$checkout_display,													// 4
+			$button_size 														// 5
 		);
 
 		?>
