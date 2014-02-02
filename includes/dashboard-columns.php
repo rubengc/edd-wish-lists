@@ -17,8 +17,8 @@ function edd_wl_admin_columns( $download_columns ) {
 	$download_columns = array(
 		'cb'                => '<input type="checkbox"/>',
 		'title'             => __( 'Title', 'edd-wish-lists' ),
-		'downloads'  => __( 'Downloads', 'edd-wish-lists' ),
-		'list_author'     => __( 'Author', 'edd-wish-lists' ),
+		'downloads'  		=> __( 'Downloads', 'edd-wish-lists' ),
+		'list_author'     	=> __( 'Author', 'edd-wish-lists' ),
 		'date'              => __( 'Date', 'edd-wish-lists' )
 	);
 

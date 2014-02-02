@@ -39,7 +39,6 @@ Demo: http://edd-wish-lists.sumobithemes.com/
 - Sharing via email. Currently only sharing icons show
 - Option to remove download from wish list when purchased
 - Delete data on plugin deletion.
-- Show “guest” in author column when list has been created by guest user
 
 **Possible Future Enhancements**
 - Reporting - See which downloads are the most popular by how many times they are stored on lists. 
