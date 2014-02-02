@@ -435,22 +435,23 @@ function edd_wl_item_in_wish_list( $download_id = 0, $options = array() ) {
 			$cart_items = get_post_meta( $id, 'edd_wish_list', true );
 			$found = false;
 
-			foreach ( $cart_items as $item ) {
-			//	var_dump( $item );
-				if ( $item['id'] == $download_id ) {
-					if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
-						if ( $options['price_id'] == $item['options']['price_id'] ) {
+			if ( $cart_items ) {
+				foreach ( $cart_items as $item ) {
+					if ( $item['id'] == $download_id ) {
+						if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
+							if ( $options['price_id'] == $item['options']['price_id'] ) {
+								$found = true;
+								break;
+							}
+						} 
+						else {
 							$found = true;
 							break;
 						}
-					} 
-					else {
-						$found = true;
-						break;
 					}
 				}
 			}
-
+			
 			// add each found id to array
 			if ( $found ) {
 				$found_ids[] = $id;
@@ -461,8 +462,6 @@ function edd_wl_item_in_wish_list( $download_id = 0, $options = array() ) {
 		return $found_ids;
 	}
 
-//	return (bool) apply_filters( 'edd_wl_item_in_wish_list', $ret, $download_id, $options );
-//	return apply_filters( 'edd_wl_item_in_wish_list', $found, $download_id, $options );
 }
 
 /**
