@@ -72,10 +72,8 @@ function edd_wl_rewrite_rules() {
  * @since 1.0
 */
 function edd_wl_post_type_link( $post_link, $post, $leavename, $sample ) {
-    if ( edd_wl_has_pretty_permalinks() ) {
-        if ( $post->post_type == 'edd_wish_list' ) {
-            return edd_wl_get_wish_list_view_uri( $post->ID );
-        }
+    if ( $post->post_type == 'edd_wish_list' ) {
+        return edd_wl_get_wish_list_view_uri( $post->ID );
     }
 
     return $post_link;

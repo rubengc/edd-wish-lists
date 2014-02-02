@@ -42,6 +42,6 @@ $privacy    = get_post_status( $post_id );
 
 <p>
 	<a href="#" class="eddwl-delete-list">
-		<?php printf( __( 'Delete this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+		<?php printf( __( 'Delete %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
 	</a>
 </p>

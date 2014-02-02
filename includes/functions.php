@@ -156,9 +156,14 @@ function edd_wl_is_page( $page = '' ) {
 function edd_wl_get_wish_list_uri() {
 	global $edd_options;
 
-	$uri = isset( $edd_options['edd_wl_page'] ) ? trailingslashit( get_permalink( $edd_options['edd_wl_page'] ) ) : false;
+	$uri = isset( $edd_options['edd_wl_page'] ) ?  get_permalink( $edd_options['edd_wl_page'] ) : false;
 
-	return apply_filters( 'edd_wl_get_wish_list_uri', $uri );
+	if ( edd_wl_has_pretty_permalinks() ) {
+		return apply_filters( 'edd_wl_get_wish_list_uri', trailingslashit( $uri ) );
+	}		
+	else {
+		return apply_filters( 'edd_wl_get_wish_list_uri', $uri );
+	}
 }
 
 /**
@@ -196,6 +201,24 @@ function edd_wl_get_wish_list_edit_uri( $id = '') {
 }
 
 /**
+ * Get Wish List create URI
+ * @return string
+ */
+function edd_wl_get_wish_list_create_uri() {
+	global $edd_options;
+
+	$uri = isset( $edd_options['edd_wl_page_create'] ) ? get_permalink( $edd_options['edd_wl_page_create'] ) : false;
+
+	if ( edd_wl_has_pretty_permalinks() ) {
+		return apply_filters( 'edd_wl_get_wish_list_create_uri', trailingslashit( $uri )  );
+	}		
+	else {
+		return apply_filters( 'edd_wl_get_wish_list_create_uri', $uri );
+	}
+
+}
+
+/**
  * Returns the slug of the page selected for view
  *
  * @since 1.0
@@ -226,23 +249,7 @@ function edd_wl_get_page_slug( $page_name = '' ) {
 	return $slug;
 }
 
-/**
- * Get Wish List create URI
- * @return string
- */
-function edd_wl_get_wish_list_create_uri() {
-	global $edd_options;
 
-	$uri = isset( $edd_options['edd_wl_page_create'] ) ? get_permalink( $edd_options['edd_wl_page_create'] ) : false;
-
-	if ( edd_wl_has_pretty_permalinks() ) {
-		return apply_filters( 'edd_wl_get_wish_list_create_uri', trailingslashit( $uri )  );
-	}		
-	else {
-		return apply_filters( 'edd_wl_get_wish_list_create_uri', $uri );
-	}
-
-}
 
 /**
  * Returns the URL to remove an item from the wish list
