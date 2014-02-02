@@ -135,7 +135,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 		array(
 			'download_id' 	=> isset( $post->ID ) ? $post->ID : '',
 			'text'        	=> ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : __( 'Add To Wish List', 'edd-wish-lists' ),
-			'style'       	=> edd_get_option( 'edd_wl_button_style', 'plain' ),
+			'style'       	=> edd_get_option( 'edd_wl_button_style', 'button' ),
 			'color'       	=> '',
 			'class'       	=> 'edd-wl-action',
 			'icon'			=> edd_get_option( 'edd_wl_icon', 'gift' ),
@@ -328,7 +328,7 @@ function edd_wl_wish_list_item_purchase( $item, $args = array() ) {
 		$checkout_display = 'style="display:none;"';
 	}
 
-	$button_size = 'button' == edd_get_option( 'edd_wl_button_style', 'plain' ) ? apply_filters( 'edd_wl_button_size', 'button-default' ) : '';
+	$button_size = 'button' == edd_get_option( 'edd_wl_button_style', 'button' ) ? apply_filters( 'edd_wl_button_size', 'button-default' ) : '';
 	$loading = '<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>';
 	$form_id = ! empty( $form_id ) ? $form_id : 'edd_purchase_' . $download_id;
 	?>
