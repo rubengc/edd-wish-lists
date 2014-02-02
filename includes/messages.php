@@ -89,8 +89,6 @@ function edd_wl_set_messages() {
 }
 add_action( 'template_redirect', 'edd_wl_set_messages' );
 
-
-
 /**
  * Print Messages
  *
