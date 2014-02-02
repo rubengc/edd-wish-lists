@@ -30,11 +30,22 @@ function edd_wl_plugin_settings_flush_rewrite() {
 }
 add_action( 'admin_init', 'edd_wl_plugin_settings_flush_rewrite' );
 
-function flush_my_rewrite_rules( $input ) {
-    edd_wl_rewrite_rules();
-    return $input;
+/**
+ * Run edd_wl_rewrite_rules() function when permalinks have been updated
+ * This is so view/edit pages can safely be shown
+ * 
+ * @return void
+ * @since  1.0
+ * @uses   edd_wl_rewrite_rules()
+ */
+function edd_wl_save_permalinks() {
+    global $pagenow;
+
+    if ( $pagenow == 'options-permalink.php' && ( isset( $_GET['settings-updated'] ) && 'true' == $_GET['settings-updated'] ) ) {
+        edd_wl_rewrite_rules();
+    }
 }
-//add_filter( 'edd_settings_extensions_sanitize', 'flush_my_rewrite_rules' );
+add_action( 'admin_init', 'edd_wl_save_permalinks' );
 
 /**
  * Rewrite rules
