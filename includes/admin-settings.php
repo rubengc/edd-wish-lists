@@ -6,6 +6,116 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+function edd_dropdown_pages_callback( $args ) {
+	global $edd_options;
+
+	$defaults = array(
+		'depth' => 0, 
+		'child_of' => 0,
+		'selected' => 0, 
+		'echo' => 1,
+		'name' => 'page_id', 
+		'id' => '',
+		'show_option_none' => __( 'No page selected', 'edd-wish-lists' ), 
+		'show_option_no_change' => '',
+		'option_none_value' => 'none'
+	);
+
+	$r = wp_parse_args( $args, $defaults );
+	extract( $r, EXTR_SKIP );
+
+	$pages = get_pages($r);
+	$output = '';
+	// Back-compat with old system where both id and name were based on $name argument
+	if ( empty($id) )
+		$id = $name;
+
+
+	if ( ! empty( $pages ) ) {
+		$output = '<select name="edd_settings[' . $args['id'] . ']" id="edd_settings[' . $args['id'] . ']">';
+		if ( $show_option_no_change )
+			$output .= "\t<option value=\"-1\">$show_option_no_change</option>";
+		if ( $show_option_none )
+			$output .= "\t<option value=\"" . esc_attr($option_none_value) . "\">$show_option_none</option>\n";
+		$output .= edd_wl_walk_page_dropdown_tree( $pages, $depth, $r, $args);
+		$output .= "</select>\n";
+		$output .= '<label for="edd_settings[' . $args['id'] . ']"> '  . $args['desc'] . '</label>';
+	}
+
+	if ( $echo )
+		echo $output;
+
+	return $output;
+}
+
+
+/**
+ * Retrieve HTML dropdown (select) content for page list.
+ *
+ * @uses Walker_PageDropdown to create HTML dropdown content.
+ * @since 2.1.0
+ * @see Walker_PageDropdown::walk() for parameters and return description.
+ */
+function edd_wl_walk_page_dropdown_tree() {
+	$args = func_get_args();
+
+	$walker = new EDD_Wish_Lists_Walker_PageDropdown;
+
+	return call_user_func_array(array($walker, 'walk'), $args);
+}
+
+
+/**
+ * Create HTML dropdown list of pages.
+ *
+ * @package WordPress
+ * @since 2.1.0
+ * @uses Walker
+ */
+class EDD_Wish_Lists_Walker_PageDropdown extends Walker {
+	/**
+	 * @see Walker::$tree_type
+	 * @since 2.1.0
+	 * @var string
+	 */
+	var $tree_type = 'page';
+
+	/**
+	 * @see Walker::$db_fields
+	 * @since 2.1.0
+	 * @todo Decouple this
+	 * @var array
+	 */
+	var $db_fields = array ('parent' => 'post_parent', 'id' => 'ID');
+
+	/**
+	 * @see Walker::start_el()
+	 * @since 2.1.0
+	 *
+	 * @param string $output Passed by reference. Used to append additional content.
+	 * @param object $page Page data object.
+	 * @param int $depth Depth of page in reference to parent pages. Used for padding.
+	 * @param array $args Uses 'selected' argument for selected page to set selected HTML attribute for option element.
+	 * @param int $id
+	 */
+	function start_el( &$output, $page, $depth = 0, $args = array(), $id = 0 ) {
+
+		$pad = str_repeat('&nbsp;', $depth * 3);
+		global $edd_options;
+		$output .= "\t<option class=\"level-$depth\" value=\"$page->ID\"";
+		
+		$option = $edd_options[$args['id']];
+
+		$selected = selected( $option, $page->ID, false );
+		$output .= $selected;
+
+		$output .= '>';
+		$title = $page->post_title;
+		$output .= $pad . esc_html( $title );
+		$output .= "</option>\n";
+	}
+}
+
 /**
  * Settings
  *
@@ -13,15 +123,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 */
 function edd_wl_settings( $settings ) {
 	
-	$pages = get_pages();
-	$pages_options = array( 0 => '' ); // Blank option
-
-	if ( $pages ) {
-		foreach ( $pages as $page ) {
-			$pages_options[ $page->ID ] = $page->post_title;
-		}
-	}
-
 	$plugin_settings = array(
 		array(
 			'id' => 'edd_wl_header',
@@ -32,29 +133,25 @@ function edd_wl_settings( $settings ) {
 			'id' => 'edd_wl_page',
 			'name' => sprintf( __( '%s Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
 			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will view their %s. This page should include the [edd_wish_lists] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_plural( true ) ) . '</p>',
-			'type' => 'select',
-			'options' => $pages_options
+			'type' => 'dropdown_pages',
 		),
 		array(
 			'id' => 'edd_wl_page_view',
 			'name' => sprintf( __( '%s View Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
 			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will view each %s. This page should include the [edd_wish_lists_view] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
-			'type' => 'select',
-			'options' => $pages_options
+			'type' => 'dropdown_pages',
 		),
 		array(
 			'id' => 'edd_wl_page_edit',
 			'name' => sprintf( __( '%s Edit Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
 			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will edit a %s. This page should include the [edd_wish_lists_edit] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
-			'type' => 'select',
-			'options' => $pages_options
+			'type' => 'dropdown_pages',
 		),
 		array(
 			'id' => 'edd_wl_page_create',
 			'name' => sprintf( __( '%s Create Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
 			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will create a %s. This page should include the [edd_wish_lists_create] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
-			'type' => 'select',
-			'options' => $pages_options
+			'type' => 'dropdown_pages',
 		),
 		array(
 			'id' => 'edd_wl_add_to_wish_list',
@@ -81,17 +178,6 @@ function edd_wl_settings( $settings ) {
 			),
 			'std' => 'yes'
 		),
-		// array(
-		// 	'id' => 'edd_wl_redirect',
-		// 	'name' => sprintf( __( 'Redirect To %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
-		// 	'desc' => '<p class="description">' . sprintf( __( 'Customer will be redirected to their %s once download has been added', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
-		// 	'type' => 'select',
-		// 	'options' =>  array(
-		// 		'yes' =>  __( 'Yes', 'edd-wish-lists' ),
-		// 		'no' =>  __( 'No', 'edd-wish-lists' ),
-		// 	),
-		// 	'std' => 'no'
-		// ),
 		array(
 			'id' => 'edd_wl_icon',
 			'name' => __( 'Icon', 'edd-wish-lists' ),
