@@ -239,7 +239,7 @@ function edd_wl_get_wish_list_create_uri() {
 		return apply_filters( 'edd_wl_get_wish_list_create_uri', trailingslashit( $uri )  );
 	}		
 	else {
-		return apply_filters( 'edd_wl_get_wish_list_create_uri', add_query_arg( 'create', $uri ) );
+		return apply_filters( 'edd_wl_get_wish_list_create_uri', $uri );
 	}
 
 }
