@@ -89,6 +89,10 @@ function edd_wl_shortcode( $atts, $content = null ) {
 		), $atts, 'edd_wish_lists' )
 	);
 
+	// if no wish list view page is set in options, don't show lists at all
+	if ( ! edd_wl_get_page_slug( 'view' ) )
+		return;
+
 	$content = edd_wl_wish_list();
 
 	return $content;
