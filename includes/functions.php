@@ -231,15 +231,15 @@ function edd_wl_get_page_slug( $page_name = '' ) {
 
 	switch ( $page_name ) {
 		case 'view':
-			$page_id = isset( $edd_options['edd_wl_page_view'] ) ? $edd_options['edd_wl_page_view'] : null;
+			$page_id = isset( $edd_options['edd_wl_page_view'] ) && 'none' != $edd_options['edd_wl_page_view'] ? $edd_options['edd_wl_page_view'] : null;
 			break;
 		
 		case 'edit':
-			$page_id = isset( $edd_options['edd_wl_page_edit'] ) ? $edd_options['edd_wl_page_edit'] : null;
+			$page_id = isset( $edd_options['edd_wl_page_edit'] ) && 'none' != $edd_options['edd_wl_page_edit'] ? $edd_options['edd_wl_page_edit'] : null;
 			break;
 
 		case 'create':
-			$page_id = isset( $edd_options['edd_wl_page_create'] ) ? $edd_options['edd_wl_page_create'] : null;
+			$page_id = isset( $edd_options['edd_wl_page_create'] ) && 'none' != $edd_options['edd_wl_page_create'] ? $edd_options['edd_wl_page_create'] : null;
 			break;	
 	}
 
