@@ -62,8 +62,9 @@ function edd_wl_is_users_list( $list_id ) {
 		if ( $token ) {
 			// get custom meta of post
 			$current_list_meta = get_post_custom( $list_id );
+			$current_list_token = isset ( $current_list_meta['edd_wl_token'][0] ) ? $current_list_meta['edd_wl_token'][0] : '';
 			// if token matches the edd_wl_token then this list belongs to user
-			if ( $token === $current_list_meta['edd_wl_token'][0] )	{
+			if ( $token === $current_list_token ) {
 				return true;
 			}
 		}
