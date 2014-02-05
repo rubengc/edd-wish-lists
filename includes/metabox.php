@@ -34,17 +34,27 @@ add_action( 'add_meta_boxes', 'edd_wl_add_meta_box' );
  * @return void
  */
 function edd_wl_items_in_list_meta_box() {
-
 	$items = get_post_meta( get_the_ID(), 'edd_wish_list', true );
 
 	if ( $items ) {
 		foreach ( $items as $item ) {
-			$item_option 		= ! empty( $item['options'] ) ? '<span class="edd-wish-list-item-title-option">' . edd_get_cart_item_price_name( $item ) . '</span>' : '';
+			$item_option = ! empty( $item['options'] ) ? '<span class="edd-wish-list-item-title-option"> &ndash; ' . edd_get_cart_item_price_name( $item ) . '</span>' : '';
+		?>
+			<p>
+				<a href="<?php echo admin_url( 'post.php?post=' . $item['id'] . '&action=edit' ) ;?>"><?php echo get_the_title( $item['id'] ); ?></a>
 
-			echo '<a href="' . admin_url( 'post.php?post=' . $item['id'] . '&action=edit' ) . '">' . get_the_title( $item['id'] ) . '</a>' . ' &ndash; ' . $item_option . ' &ndash; ' . edd_cart_item_price( $item['id'], $item['options'] ) .  '<br/>';
-		}
+				<?php echo $item_option; ?>
+
+				<?php echo '<br />' . edd_cart_item_price( $item['id'], $item['options'] ); ?>
+			</p>
+		<?php }
 	} else {
 		_e( 'No items have been added yet', 'edd-wish-lists' );
 	}
 
+	?>
+
+
+
+<?php
 }
