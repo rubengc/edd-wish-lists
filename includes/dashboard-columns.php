@@ -19,6 +19,7 @@ function edd_wl_admin_columns( $download_columns ) {
 		'title'             => __( 'Title', 'edd-wish-lists' ),
 		'downloads'  		=> __( 'Downloads', 'edd-wish-lists' ),
 		'list_author'     	=> __( 'Author', 'edd-wish-lists' ),
+		'total'     		=> __( 'Total', 'edd-wish-lists' ),
 		'date'              => __( 'Date', 'edd-wish-lists' )
 	);
 
@@ -47,6 +48,10 @@ function edd_wl_render_admin_columns( $column_name, $post_id ) {
 				} else {
 					echo 0;
 				}
+			break;
+
+			case 'total':
+				echo edd_wl_get_list_total( get_the_ID() );
 			break;
 
 			case 'list_author':
