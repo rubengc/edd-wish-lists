@@ -33,13 +33,6 @@ Demo: http://edd-wish-lists.sumobithemes.com/
 - Easily remove CSS or JS
 - Edit the main wish lists page and view list pages through template files.
 
-**To do**
-- Admin improvements to item listings on edit/publish screens
-- Add Pinterest “pin it” as a sharing option
-- Sharing via email. Currently only sharing icons show
-- Option to remove download from wish list when purchased
-- Delete data on plugin deletion.
-
 **Possible Future Enhancements**
 - Reporting - See which downloads are the most popular by how many times they are stored on lists. 
 - - Knowing this can allow you to further invest time on the more popular downloads

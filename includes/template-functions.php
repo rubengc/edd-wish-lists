@@ -21,6 +21,20 @@ function edd_wl_get_item_count( $list_id ) {
 }
 
 /**
+ * Displays the total price of downloads in a wishlist
+ * @param  int $list_id ID of lsit
+ * @return string total
+ * @uses  edd_wl_get_list_total()
+ * @since  1.0
+ */
+function edd_wl_list_total( $list_id ) {
+	// get the list total
+	$total = edd_wl_get_list_total( $list_id );
+
+	echo apply_filters( 'edd_wl_list_total', '<p>' . __( ' Total: ', 'edd-wish-lists' ) . $total . '</p>' );
+}
+
+/**
  * Filter title to include the list name on either the view or edit pages
  *
  * @since 1.0

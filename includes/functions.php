@@ -486,29 +486,32 @@ function edd_wl_allow_guest_creation() {
 	return true;
 }
 
-
 /**
- * Determines if the current user is on their sharing URL
- * @return boolean [description]
- * @todo  might not need this
+ * Total price of items in wish list
+ * 
+ * Used on front end and also admin
+ * @since 1.0
+ * @param $list_id ID of list
+ * @todo  update total as items are removed from list via ajax
  */
-function edd_wl_is_share_url() {
-	global $current_user, $wp;
+function edd_wl_get_list_total( $list_id ) {
+	// get contents of cart
+	$list_items = get_post_meta( $list_id, 'edd_wish_list', true );
 
-	// get username from query var
-	//$username = get_query_var( 'wishlist_user' );
+	$total = array();
 
-	//$username = $current_user->user_login;
-
-	// sharing URL. Constructed for the currently logged in user
-	//$share_url = site_url('/') . edd_get_option( 'edd_wl_sharing_slug', 'wishlists' ) . '/' . $username;
-
-	// current URL
-	$current_url = home_url( add_query_arg( array(), $wp->request ) );
-
-	if ( $current_url == $share_url ) {
-		return true;
+	if ( $list_items ) {
+		foreach ( $list_items as $item ) {
+			$item_price = edd_get_cart_item_price( $item['id'], $item['options'] );
+			$item_price = round( $item_price, 2 );
+			$total[] = $item_price;
+		}
 	}
 
-	return false;
+	// add up values
+	$total = array_sum( $total );
+
+	$total = esc_html( edd_currency_filter( edd_format_amount( $total ) ) );
+
+	return apply_filters( 'edd_wl_list_total', $total );
 }
