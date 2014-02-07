@@ -408,6 +408,10 @@ a.edd-add-to-wish-list.edd-has-js {
   font-size: 12px;
   line-height: 1.4;
 }
+.edd-wish-list li span.edd-wl-item-purchased {
+  color: #ababab;
+}
+.edd-wish-list li span.edd-wl-item-purchased,
 .edd-wish-list li span.edd-wish-list-item-title-option {
   display: block;
 }

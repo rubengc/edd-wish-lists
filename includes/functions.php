@@ -515,3 +515,62 @@ function edd_wl_get_list_total( $list_id ) {
 
 	return apply_filters( 'edd_wl_list_total', $total );
 }
+
+/**
+ * Let the customer know they have already purchased a particular download
+ * @param  [type] $download_id       [description]
+ * @param  [type] $variable_price_id [description]
+ * @since  1.0
+ * @return string
+ */
+function edd_wl_has_purchased( $download_id, $variable_price_id ) {
+	global $user_ID;
+
+	$has_purchased = edd_wl_get_purchases( $user_ID, $download_id, $variable_price_id );
+
+	if ( $has_purchased ) 
+		return apply_filters( 'edd_wl_has_purchased', '<span class="edd-wl-item-purchased">Already purchased</span>' );
+	
+	return null;
+}
+
+/**
+ * Get a customer's purchases
+ * @param  [type] $user_id           [description]
+ * @param  [type] $download_id       [description]
+ * @param  [type] $variable_price_id [description]
+ * @since  1.0
+ * @return [type]                    [description]
+ */
+function edd_wl_get_purchases( $user_id, $download_id, $variable_price_id = null ) {
+	$users_purchases = edd_get_users_purchases( $user_id );
+
+	$return = false;
+
+	if ( $users_purchases ) {
+		foreach ( $users_purchases as $purchase ) {
+			$purchased_files = edd_get_payment_meta_downloads( $purchase->ID );
+
+			if ( is_array( $purchased_files ) ) {
+				foreach ( $purchased_files as $download ) {
+					$variable_prices = edd_has_variable_prices( $download['id'] );
+
+					if ( $variable_prices && ! is_null( $variable_price_id ) && $variable_price_id !== false ) {
+						if ( isset( $download['options']['price_id'] ) && $variable_price_id == $download['options']['price_id'] ) {
+							$return = true;
+							break 2;
+						} 
+						else {
+							$return = false;
+						}
+					} 
+					elseif ( $download_id == $download['id']) {
+						$return = true;
+					}
+				}
+			}
+		}
+	}
+
+	return $return;
+}

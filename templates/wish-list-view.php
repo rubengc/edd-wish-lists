@@ -37,11 +37,13 @@ $privacy = get_post_status( $list_id );
 				<?php
 					$item_option 		= ! empty( $item['options'] ) ? '<span class="edd-wish-list-item-title-option">' . edd_get_cart_item_price_name( $item ) . '</span>' : '';
 					$variable_pricing 	= edd_has_variable_prices( $item['id'] );
+					$variable_price_id = isset( $item['options']['price_id'] ) ? $item['options']['price_id'] : '';
 				?>
 					<a href="<?php echo post_permalink( $item['id'] ); ?>" title="<?php echo the_title_attribute( array( 'post' => $item['id'] ) ); ?>">
 						<?php echo get_the_title( $item['id'] ); ?>
 					</a>
-					<?php echo $item_option; ?>
+					<?php echo $item_option; /* The item's price option is variable pricing is enabled */ ?>
+					<?php echo edd_wl_has_purchased( $item['id'], $variable_price_id ); /* Shows "Already purchased" */ ?>
 				</span>
 
 				<span class="edd-wish-list-item-image">
