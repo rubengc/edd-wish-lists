@@ -20,76 +20,80 @@ function edd_wl_install() {
 	if( ! class_exists( 'Easy_Digital_Downloads' ) )
 		return;
 
-	global $wpdb;
+	global $wpdb, $edd_options;
 
 	// Flush the rewrite rules
 	flush_rewrite_rules();
 
-	// wishlist
-	$wishlist = wp_insert_post( 
-		array(
-			'post_title'     	=> __( 'Wish Lists', 'edd-wish-lists' ),
-			'post_content'   	=> '[edd_wish_lists]',
-			'post_status'    	=> 'publish',
-			'post_author'    	=> 1,
-			'post_type'      	=> 'page',
-			'comment_status' 	=> 'closed'
-		)
-	);
+	// only run if wish list page has not already been set
+	if ( ! isset( $edd_options['edd_wl_page'] ) ) {
 
-	// view
-	$view = wp_insert_post( 
-		array(
-			'post_title'     	=> __( 'View', 'edd-wish-lists' ),
-			'post_content'   	=> '[edd_wish_lists_view]',
-			'post_status'    	=> 'publish',
-			'post_author'    	=> 1,
-			'post_parent'		=> $wishlist,
-			'post_type'      	=> 'page',
-			'comment_status' 	=> 'closed'
-		)
-	);
+		// wishlist
+		$wishlist = wp_insert_post( 
+			array(
+				'post_title'     	=> __( 'Wish Lists', 'edd-wish-lists' ),
+				'post_content'   	=> '[edd_wish_lists]',
+				'post_status'    	=> 'publish',
+				'post_author'    	=> 1,
+				'post_type'      	=> 'page',
+				'comment_status' 	=> 'closed'
+			)
+		);
 
-	// edit
-	$edit = wp_insert_post( 
-		array(
-			'post_title'     	=> __( 'Edit', 'edd-wish-lists' ),
-			'post_content'   	=> '[edd_wish_lists_edit]',
-			'post_status'    	=> 'publish',
-			'post_author'    	=> 1,
-			'post_parent'		=> $wishlist,
-			'post_type'      	=> 'page',
-			'comment_status' 	=> 'closed'
-		)
-	);
+		// view
+		$view = wp_insert_post( 
+			array(
+				'post_title'     	=> __( 'View', 'edd-wish-lists' ),
+				'post_content'   	=> '[edd_wish_lists_view]',
+				'post_status'    	=> 'publish',
+				'post_author'    	=> 1,
+				'post_parent'		=> $wishlist,
+				'post_type'      	=> 'page',
+				'comment_status' 	=> 'closed'
+			)
+		);
 
-	// create
-	$create = wp_insert_post( 
-		array(
-			'post_title'     	=> __( 'Create', 'edd-wish-lists' ),
-			'post_content'   	=> '[edd_wish_lists_create]',
-			'post_status'    	=> 'publish',
-			'post_author'    	=> 1,
-			'post_parent'		=> $wishlist,
-			'post_type'      	=> 'page',
-			'comment_status' 	=> 'closed'
-		)
-	);
+		// edit
+		$edit = wp_insert_post( 
+			array(
+				'post_title'     	=> __( 'Edit', 'edd-wish-lists' ),
+				'post_content'   	=> '[edd_wish_lists_edit]',
+				'post_status'    	=> 'publish',
+				'post_author'    	=> 1,
+				'post_parent'		=> $wishlist,
+				'post_type'      	=> 'page',
+				'comment_status' 	=> 'closed'
+			)
+		);
 
-	// Store our page IDs
-	$options = array(
-		'edd_wl_page' 			=> $wishlist,
-		'edd_wl_page_view'  	=> $view,
-		'edd_wl_page_edit'  	=> $edit,
-		'edd_wl_page_create'  	=> $create
-	);
+		// create
+		$create = wp_insert_post( 
+			array(
+				'post_title'     	=> __( 'Create', 'edd-wish-lists' ),
+				'post_content'   	=> '[edd_wish_lists_create]',
+				'post_status'    	=> 'publish',
+				'post_author'    	=> 1,
+				'post_parent'		=> $wishlist,
+				'post_type'      	=> 'page',
+				'comment_status' 	=> 'closed'
+			)
+		);
 
-	// get EDD options
-	$edd_options = get_option( 'edd_settings' );
+		// Store our page IDs
+		$options = array(
+			'edd_wl_page' 			=> $wishlist,
+			'edd_wl_page_view'  	=> $view,
+			'edd_wl_page_edit'  	=> $edit,
+			'edd_wl_page_create'  	=> $create
+		);
 
-	// our options
-	$options = array_merge( $options, $edd_options );
+		// get EDD options
+		$edd_options = get_option( 'edd_settings' );
 
-	// update the plugin settings to show these pages
-	update_option( 'edd_settings', $options );
+		// our options
+		$options = array_merge( $options, $edd_options );
+
+		// update the plugin settings to show these pages
+		update_option( 'edd_settings', $options );
+	}
 }
