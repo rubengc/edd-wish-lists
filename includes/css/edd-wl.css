@@ -418,6 +418,8 @@ a.edd-add-to-wish-list.edd-has-js {
 @media screen and (max-width: 479px) {
   .edd-wish-list li {
     position: relative;
+    margin: 0 0 24px 0;
+    padding: 0 0 24px 0;
   }
   .edd-wish-list li span.edd-wish-list-status,
   .edd-wish-list li span.edd-wish-list-edit {
@@ -426,8 +428,12 @@ a.edd-add-to-wish-list.edd-has-js {
   .edd-wish-list li span.edd-wish-list-item-image {
     display: none;
   }
+  .edd-wish-list li span.edd-wish-list-item-purchase,
   .edd-wish-list li span.edd-wish-list-item-price {
     display: block;
+  }
+  .edd-wish-list li span.edd-wish-list-item-purchase {
+    margin-top: 12px;
   }
   .edd-wish-list li span.edd-wish-list-item-remove {
     position: absolute;
