@@ -95,5 +95,10 @@ function edd_wl_install() {
 
 		// update the plugin settings to show these pages
 		update_option( 'edd_settings', $options );
+
+
 	}
+
+	// add rewrite rules on plugin activation
+	edd_wl_rewrite_rules();
 }

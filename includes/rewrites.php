@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 1.0
 */
-function edd_wl_plugin_settings_flush_rewrite() {
+function edd_wl_plugin_settings_save() {
     global $pagenow, $typenow;
 
     // check that the extensions tab has been updated
@@ -28,7 +28,7 @@ function edd_wl_plugin_settings_flush_rewrite() {
     }
 
 }
-add_action( 'admin_init', 'edd_wl_plugin_settings_flush_rewrite' );
+add_action( 'admin_init', 'edd_wl_plugin_settings_save' );
 
 /**
  * Run edd_wl_rewrite_rules() function when permalinks have been updated
