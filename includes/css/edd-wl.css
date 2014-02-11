@@ -1,6 +1,7 @@
 #edd-wl-modal {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 16px;
+  z-index: 10000;
 }
 #edd-wl-modal h2 {
   color: #222;
@@ -283,6 +284,9 @@
 .wish-list-form input[type="text"],
 .wish-list-form textarea {
   width: 100%;
+}
+html {
+  overflow-y: inherit;
 }
 .edd-wl-service {
   display: inline-block;

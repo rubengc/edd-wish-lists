@@ -125,9 +125,6 @@ function edd_wl_new_user_registration( $user_id ) {
 	// get user's token if present
 	$lists = edd_wl_get_guest_lists( edd_wl_get_list_token() );
 
-
-//	var_dump( $lists ); wp_die();
-
 	// attribute posts to new author
 	if ( $lists ) {
 		
@@ -148,4 +145,3 @@ function edd_wl_new_user_registration( $user_id ) {
 	setcookie( 'edd_wl_token', '', time()-3600, COOKIEPATH, COOKIE_DOMAIN );
 }
 add_action( 'user_register', 'edd_wl_new_user_registration', 10, 1 );
-//add_action( 'wpmu_new_user', 'edd_wl_new_user_registration', 10, 1 );
