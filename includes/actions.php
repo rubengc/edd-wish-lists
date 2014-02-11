@@ -38,5 +38,11 @@ function edd_wl_redirects() {
 		wp_redirect( $redirect );
 		edd_die();	
 	}
+
+	// redirect if edit or view page is accessed but edit/view query_var does not exist
+	if ( ( edd_wl_is_page( 'view' ) && ! get_query_var( 'view' ) ) || ( edd_wl_is_page( 'edit' ) && ! get_query_var( 'edit' ) ) ) {
+		wp_redirect( edd_wl_get_wish_list_uri() );
+		edd_die();
+	}
 }
 add_action( 'template_redirect', 'edd_wl_redirects' );

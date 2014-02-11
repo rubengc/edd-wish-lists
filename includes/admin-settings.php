@@ -30,7 +30,6 @@ function edd_dropdown_pages_callback( $args ) {
 	if ( empty($id) )
 		$id = $name;
 
-
 	if ( ! empty( $pages ) ) {
 		$output = '<select name="edd_settings[' . $args['id'] . ']" id="edd_settings[' . $args['id'] . ']">';
 		if ( $show_option_no_change )
@@ -53,7 +52,7 @@ function edd_dropdown_pages_callback( $args ) {
  * Retrieve HTML dropdown (select) content for page list.
  *
  * @uses Walker_PageDropdown to create HTML dropdown content.
- * @since 2.1.0
+ * @since 1.0
  * @see Walker_PageDropdown::walk() for parameters and return description.
  */
 function edd_wl_walk_page_dropdown_tree() {
@@ -69,35 +68,13 @@ function edd_wl_walk_page_dropdown_tree() {
  * Create HTML dropdown list of pages.
  *
  * @package WordPress
- * @since 2.1.0
+ * @since 1.0
  * @uses Walker
  */
 class EDD_Wish_Lists_Walker_PageDropdown extends Walker {
-	/**
-	 * @see Walker::$tree_type
-	 * @since 2.1.0
-	 * @var string
-	 */
 	var $tree_type = 'page';
-
-	/**
-	 * @see Walker::$db_fields
-	 * @since 2.1.0
-	 * @todo Decouple this
-	 * @var array
-	 */
 	var $db_fields = array ('parent' => 'post_parent', 'id' => 'ID');
 
-	/**
-	 * @see Walker::start_el()
-	 * @since 2.1.0
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param object $page Page data object.
-	 * @param int $depth Depth of page in reference to parent pages. Used for padding.
-	 * @param array $args Uses 'selected' argument for selected page to set selected HTML attribute for option element.
-	 * @param int $id
-	 */
 	function start_el( &$output, $page, $depth = 0, $args = array(), $id = 0 ) {
 
 		$pad = str_repeat('&nbsp;', $depth * 3);
