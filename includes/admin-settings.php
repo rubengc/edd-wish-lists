@@ -132,8 +132,8 @@ function edd_wl_settings( $settings ) {
 		),
 		array(
 			'id' => 'edd_wl_add_to_wish_list',
-			'name' => sprintf( __( '%s Text', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
-			'desc' => '<p class="description">' . sprintf( __( 'Enter the text you\'d like to appear for adding a %s to the %s', 'edd-wish-lists' ), edd_get_label_singular( true ), edd_wl_get_label_singular( true ) ) . '</p>',
+			'name' => sprintf( __( 'Add To %s Text', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
+			'desc' => '<p class="description">' . sprintf( __( 'Enter the text you\'d like to appear for adding a %s to a %s', 'edd-wish-lists' ), edd_get_label_singular( true ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'text',
 			'std' => sprintf( __( 'Add to %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ),
 		),
@@ -174,7 +174,7 @@ function edd_wl_settings( $settings ) {
 		),
 		array(
 			'id' => 'edd_wl_button_style',
-			'name' => __( 'Default Button Style', 'edd-wish-lists' ),
+			'name' => __( 'Button Style', 'edd-wish-lists' ),
 			'desc' => '<p class="description">' . __( 'Display a button or a plain text link', 'edd-wish-lists' ) . '</p>',
 			'type' => 'select',
 			'options' =>  array(

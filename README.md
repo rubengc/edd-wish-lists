@@ -15,7 +15,7 @@ Demo: http://edd-wish-lists.sumobithemes.com/
 
 **For Shop Manager/admins**
 - [edd_wish_lists_add] shortcode for adding a “add to wish list” link on any page/post/download. Accepts “id” and “text” parameters.
-- Change the terminology through filter. Collection, Light Box, Watch List, Want List, Favourites, Bookmarks etc
+- Change the terminology through filter. Collection, Light Box, Watch List, Want List etc
 - Show a plain text link or button
 - Choose from 5 different web font icons or have no icon at all
 - Disable guests from creating wish lists

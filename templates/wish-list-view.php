@@ -94,5 +94,5 @@ $privacy = get_post_status( $list_id );
 */
 if ( edd_wl_is_users_list( $list_id ) ) : ?>
 
-	<a href="<?php echo edd_wl_get_wish_list_edit_uri( $list_id ); ?>"><?php printf( __( 'Edit %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?></a>
+	<p><a href="<?php echo edd_wl_get_wish_list_edit_uri( $list_id ); ?>"><?php printf( __( 'Edit %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?></a></p>
 <?php endif; ?>

@@ -2,7 +2,7 @@
 /*
 Plugin Name: Easy Digital Downloads - Wish Lists
 Plugin URI: https://easydigitaldownloads.com/extensions/edd-wish-lists/
-Description: Allow your customers to create a wish list
+Description: Allow your customers to create wish lists
 Version: 1.0
 Author: Andrew Munro, Sumobi
 Author URI: http://sumobi.com/
