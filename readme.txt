@@ -9,6 +9,9 @@ Requires Easy Digital Downloads 1.9 or greater
 == Demo ==
 http://edd-wish-lists.sumobithemes.com/
 
+== Documentation ==
+http://sumobi.com/edd-wish-lists/
+
 == Installation ==
 
 1. Unpack the entire contents of this plugin zip file into your `wp-content/plugins/` folder locally

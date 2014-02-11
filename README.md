@@ -5,6 +5,8 @@ Allow users on your website to store products into public/private lists.
 
 Demo: http://edd-wish-lists.sumobithemes.com/
 
+Documentation: http://sumobi.com/edd-wish-lists/
+
 **For users**
 - Quickly add a product to a wish list, and create new wish lists without leaving the product’s page.
 - Create an unlimited number of wish lists. Guest users can store a list for 30 days (or until cookies are cleared). Registered users can store lists indefinitely

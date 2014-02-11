@@ -14,12 +14,6 @@ jQuery(document).ready(function ($) {
     $('a.edd-add-to-wish-list').addClass('edd-has-js');
 
 
-  
-
-
-
-
-
     // Send Add to Cart request
     $('body').on('click.eddAddToCartFromWishList', '.edd-add-to-cart-from-wish-list', function (e) {
         e.preventDefault();
@@ -53,17 +47,6 @@ jQuery(document).ready(function ($) {
         if( variable_price == 'yes' ) {
 
             console.log( 'data price option is: ' + price_option );
-            // if( ! $('.edd_price_option_' + download + ':checked', form).length ) {
-            //      // hide the spinner
-            //     $this.removeAttr( 'data-edd-loading' );
-            //     alert( edd_scripts.select_option );
-            //     return;
-            // }
-
-         //   $('.edd_price_option_' + download + ':checked', form).each(function( index ) {
-             //   item_price_ids[ index ] = $(this).val();
-                
-         //   });
 
             item_price_ids[0] = price_option;
 
@@ -78,7 +61,6 @@ jQuery(document).ready(function ($) {
             download_id: download,
             price_ids : item_price_ids,
             nonce: edd_scripts.ajax_nonce,
-        //    post_data: $(form).serialize()
         };
 
         $.ajax({

@@ -29,7 +29,7 @@ function edd_wl_install() {
 	if ( ! isset( $edd_options['edd_wl_page'] ) ) {
 
 		// wishlist
-		$wishlist = wp_insert_post( 
+		$wishlist = wp_insert_post(
 			array(
 				'post_title'     	=> __( 'Wish Lists', 'edd-wish-lists' ),
 				'post_content'   	=> '[edd_wish_lists]',
@@ -41,7 +41,7 @@ function edd_wl_install() {
 		);
 
 		// view
-		$view = wp_insert_post( 
+		$view = wp_insert_post(
 			array(
 				'post_title'     	=> __( 'View', 'edd-wish-lists' ),
 				'post_content'   	=> '[edd_wish_lists_view]',
