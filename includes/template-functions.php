@@ -148,7 +148,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 	$defaults = apply_filters( 'edd_wl_link_defaults', 
 		array(
 			'download_id' 	=> isset( $post->ID ) ? $post->ID : '',
-			'text'        	=> ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : __( 'Add To Wish List', 'edd-wish-lists' ),
+			'text'        	=> ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : sprintf( __( 'Add to %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ),
 			'style'       	=> edd_get_option( 'edd_wl_button_style', 'button' ),
 			'color'       	=> '',
 			'class'       	=> 'edd-wl-action',

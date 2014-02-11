@@ -68,7 +68,7 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 	$messages = edd_wl_messages();
 
 	global $edd_options;
-	$text = ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : __( 'Add To Wish List', 'edd-wish-lists' );
+	$text = ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : sprintf( __( 'Add to %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) );
 ?>
 
 <div class="modal-header">

@@ -26,7 +26,7 @@ function edd_wl_messages() {
 		'modal_option_close'			=> __( 'Great, I\'m done', 'edd-wish-lists' ),
 		'modal_option_add_new'			=> __( 'Add to new', 'edd-wish-lists' ),
 		'modal_option_add_to_existing'	=> __( 'Add to existing', 'edd-wish-lists' ),
-		'modal_option_title'			=> __( 'Title:', 'edd-wish-lists' ),
+		'modal_option_title'			=> __( 'Title', 'edd-wish-lists' ),
 		'list_option_private'			=> __( 'Private - only viewable by you', 'edd-wish-lists' ),
 		'list_option_public'			=> __( 'Public - viewable by anyone', 'edd-wish-lists' ),
 	);

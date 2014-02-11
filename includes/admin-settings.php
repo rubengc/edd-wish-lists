@@ -134,15 +134,13 @@ function edd_wl_settings( $settings ) {
 			'id' => 'edd_wl_add_to_wish_list',
 			'name' => sprintf( __( 'Add To %s Text', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
 			'desc' => '<p class="description">' . sprintf( __( 'Enter the text you\'d like to appear for adding a %s to a %s', 'edd-wish-lists' ), edd_get_label_singular( true ), edd_wl_get_label_singular( true ) ) . '</p>',
-			'type' => 'text',
-			'std' => sprintf( __( 'Add to %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ),
+			'type' => 'text'
 		),
 		array(
 			'id' => 'edd_wl_add_to_cart',
 			'name' => __( 'Add To Cart Text', 'edd-wish-lists' ),
 			'desc' => '<p class="description">' . sprintf( __( 'Enter the text you\'d like to appear for adding a %s from the %s to the cart', 'edd-wish-lists' ), edd_get_label_singular( true ), edd_wl_get_label_singular( true ) ) . '</p>',
-			'type' => 'text',
-			'std' => 'Add to cart'
+			'type' => 'text'
 		),
 		array(
 			'id' => 'edd_wl_allow_guests',
