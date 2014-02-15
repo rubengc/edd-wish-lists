@@ -136,14 +136,11 @@ add_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
 function edd_wl_wish_list_link( $args = array() ) {
 	global $edd_options, $post;
 
-
-
 	// get main wish list class
 	$edd_wish_lists = edd_wish_lists();
 
 	// load required scripts if template tag or shortcode has been used
 	$edd_wish_lists::$add_script = true;
-
 
 	$defaults = apply_filters( 'edd_wl_link_defaults', 
 		array(
@@ -160,23 +157,13 @@ function edd_wl_wish_list_link( $args = array() ) {
 		) 
 	);
 
-	// change download ID if on page
-	// if ( is_page() )
-	// 	$download_id = 
-
 	// merge arrays
 	$args = wp_parse_args( $args, $defaults );
 
 	// extract $args so we can use the variable names
 	extract( $args, EXTR_SKIP );
 
-	// prevent pages from showing add to wish list button and also being added to wishlist instead of real download id
-	// if ( is_page() && edd_wl_has_shortcode( 'downloads' ) && $edd_wish_lists::$shortcode )
-	// 	return;	
-
 	// manually select price option for shortcode
-
-
 	$price_opt 				= isset( $price_option ) ? ( $price_option - 1 ) : ''; // so user can enter in 1, 2,3 instead of 0, 1, 2 as option
 	$price_option 			= $price_option ? ' data-price-option="' . $price_opt . '"' : '';
 

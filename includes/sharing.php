@@ -7,6 +7,45 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * Share via email button
+ * @return string
+ */
+function edd_wl_share_via_email_link() {
+	ob_start();
+	?>
+
+	<a class="edd-wl-action button button-default" href="#" data-toggle="modal" data-target="#edd-wl-modal"><?php _e( 'Share via email', 'edd-wish-lists' ); ?></a>
+	<?php
+
+	$html = ob_get_clean();
+	return apply_filters( 'edd_wl_share_via_email', $html );
+}
+
+/**
+ * Default Email Template Body
+ *
+ * @since 1.0
+ * @return string $default_email_body Body of the email
+ */
+function edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message ) {
+	// Email body
+	$default_email_body = __( "Hi!", "edd-wish-lists" ) . "<br/><br/>";
+	$default_email_body .= sprintf( __( "%s has suggested you look at this item from %s:", "edd-wish-lists" ), $sender_name, get_bloginfo( 'name' ) ) . "<br/>";
+	$default_email_body .= $shortlink . "<br/><br/>";
+
+	if ( $message )
+		$default_email_body .= $message . "<br/><br/>";
+	
+	$default_email_body .= sprintf( __( "Reply to %s by emailing %s", "edd-wish-lists" ), $sender_name, '<a href="mailto:' . $sender_email . '" title="' . $sender_email . '">' . $sender_email . '</a>' ) . "<br/><br/>";
+	$default_email_body .= get_bloginfo('name') . "<br/>";
+	$default_email_body .= '<a title="' . get_bloginfo( 'name' ) . '" href="' . get_bloginfo( 'url' ) . '">' . get_bloginfo( 'url' ) . '</a>';
+
+	$default_email_body = apply_filters( 'edd_wl_share_via_email_message', $default_email_body );
+
+	return $default_email_body;
+}
+
+/**
  * Check that each social network is enabled
  * @param  string  $network
  * @return boolean

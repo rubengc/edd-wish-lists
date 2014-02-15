@@ -574,3 +574,37 @@ function edd_wl_get_purchases( $user_id, $download_id, $variable_price_id = null
 
 	return $return;
 }
+
+/**
+ * Validate emails used in the email share box
+ * @param  string $emails string to emails to check
+ * @return boolean true if all emails are valid, false if one is not valid
+ */
+function edd_wl_validate_share_emails( $emails ) {
+
+	// explode string into array
+	$emails = explode( ',', $emails );
+
+	// remove whitespace and clean
+	$emails = array_filter( array_map( 'trim', $emails ) );
+
+	if ( $emails ) {
+		foreach ( $emails as $email ) {
+
+			if ( ! is_email( $email ) ) {
+				$valid_email = false;
+				break;
+			}
+			else {
+				$valid_email = true;
+				continue;
+			}
+
+		}
+	}
+
+	if ( $valid_email )
+		return $valid_email;
+	
+	return null;
+}

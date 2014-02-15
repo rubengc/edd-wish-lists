@@ -1,14 +1,12 @@
 jQuery(document).ready(function ($) {
 
-
-    // disable enter key to submit form on modal window. Our form is processed with ajax for now
-    $(window).keydown(function(event){
-        if(event.keyCode == 13) {
-            event.preventDefault();
+    // Prevent the checkout form from submitting when hitting Enter in the list name field
+    $('#edd-wl-modal').on('keypress', '#list-name', function (event) {
+        if (event.keyCode == '13') {
             return false;
         }
     });
-    
+
     // Hide unneeded elements. These are things that are required in case JS breaks or isn't present
     $('.edd-no-js').hide();
     $('a.edd-add-to-wish-list').addClass('edd-has-js');
@@ -241,14 +239,9 @@ jQuery(document).ready(function ($) {
     $('body').on('click.eddwlOpenModal', '.edd-wl-open-modal', function (e) {
         e.preventDefault();
 
-         // hide the close button until download has been successfully added
-        
-
-        // added
         var $this = $(this), 
             form = $this.closest('form'); // get the closest form element
-        // added
-
+      
         var $spinner = $(this).find('.edd-loading');
         var container = $(this).closest('div');
 
@@ -363,8 +356,7 @@ jQuery(document).ready(function ($) {
 
     });
 
-   
-
+    
     // Processes the add to wish list request. Creates a new list or stores downloads into existing list
 
     $('body').on('click.eddAddToWishList', '.edd-wish-list-save', function (e) {

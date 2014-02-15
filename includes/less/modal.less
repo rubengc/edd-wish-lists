@@ -34,6 +34,10 @@
   .modal-body {
     position: relative;
     padding: 24px;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .modal-footer {
@@ -53,6 +57,11 @@
     font-size: 14px;
   }
 
+  label.edd_errors {
+    padding: 12px;
+    margin-top: 5px;
+  }
+
   input[type="radio"] {
     padding: 0;
     margin: 0 5px 0 0;
@@ -63,12 +72,24 @@
     display: block;
   }
 
+  textarea {
+    width: 100%;
+  }
+  
+  input[type="email"],
   input[type="text"] {
     width: 100%;
     padding: 12px;
     background: #fff;
      display: block;
      margin-top: 10px;
+  }
+
+  .edd-description { 
+    color: darken( @light-grey, 20%); 
+    font-size: 80%; 
+    display: block; 
+    margin: 0 0 5px 0;
   }
 
   p:last-child {

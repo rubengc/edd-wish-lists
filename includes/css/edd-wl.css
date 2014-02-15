@@ -30,6 +30,9 @@
   position: relative;
   padding: 24px;
 }
+#edd-wl-modal .modal-body p:last-child {
+  margin-bottom: 0;
+}
 #edd-wl-modal .modal-footer {
   padding: 24px;
   text-align: right;
@@ -44,6 +47,10 @@
   margin-top: 10px;
   font-size: 14px;
 }
+#edd-wl-modal label.edd_errors {
+  padding: 12px;
+  margin-top: 5px;
+}
 #edd-wl-modal input[type="radio"] {
   padding: 0;
   margin: 0 5px 0 0;
@@ -52,12 +59,22 @@
 #edd-wl-modal select {
   display: block;
 }
+#edd-wl-modal textarea {
+  width: 100%;
+}
+#edd-wl-modal input[type="email"],
 #edd-wl-modal input[type="text"] {
   width: 100%;
   padding: 12px;
   background: #fff;
   display: block;
   margin-top: 10px;
+}
+#edd-wl-modal .edd-description {
+  color: #919191;
+  font-size: 80%;
+  display: block;
+  margin: 0 0 5px 0;
 }
 #edd-wl-modal p:last-child {
   margin-bottom: 0;

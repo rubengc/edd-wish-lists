@@ -236,3 +236,57 @@ function edd_wl_open_modal() {
 }
 add_action( 'wp_ajax_edd_wl_open_modal', 'edd_wl_open_modal' );
 add_action( 'wp_ajax_nopriv_edd_wl_open_modal', 'edd_wl_open_modal' );
+
+
+/**
+ * Share via email
+ *
+ * @since 1.0
+*/
+function edd_wl_share_via_email() {
+	check_ajax_referer( 'edd_wl_ajax_nonce', 'nonce' );
+
+	global $edd_options;
+
+	if ( ! isset( $_POST['post_id'] ) )
+		return;
+
+	// sender details
+	$sender_name 	= isset( $_POST['from_name'] ) ? $_POST['from_name'] : '';
+	$sender_email 	= isset( $_POST['from_email'] ) ? $_POST['from_email'] : '';
+
+	$emails 		= isset( $_POST['emails'] ) ? $_POST['emails'] : '';
+	$post_id 		= isset( $_POST['post_id'] ) ? $_POST['post_id'] : '';
+	$from_name 		= isset( $edd_options['from_name'] ) ? $edd_options['from_name'] : get_bloginfo('name');
+	$from_email 	= isset( $edd_options['from_email'] ) ? $edd_options['from_email'] : get_option('admin_email');
+
+	$message 		= isset( $_POST['message'] ) ? $_POST['message'] : '';
+
+    // validation
+    if ( ! ( $sender_name || $sender_email || ! edd_wl_validate_share_emails( $emails ) ) ) {
+        $has_error = true;
+    }
+
+	if ( ! isset( $has_error ) ) {
+		$shortlink = wp_get_shortlink( $post_id ); // shortlink
+
+		$subject = apply_filters( 'edd_wl_share_via_email_subject', sprintf( __( '%s has suggested you look at this Wish List from %s', 'edd-wish-lists' ), $sender_name, get_bloginfo('name') ) );
+		$message = edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message );
+
+		$headers = "From: " . stripslashes_deep( html_entity_decode( $from_name, ENT_COMPAT, 'UTF-8' ) ) . " <$from_email>\r\n";
+		$headers .= "Reply-To: ". $sender_email . "\r\n";
+		$headers .= "Content-Type: text/html; charset=utf-8\r\n";
+		$headers = apply_filters( 'edd_wl_share_via_email_headers', $headers );
+
+		// send email
+		wp_mail( $emails, $subject, $message, $headers );
+	}
+
+	$return['success'] = edd_wl_modal_share_via_email_success();
+ 
+	echo json_encode( $return );
+	
+	edd_die();
+}
+add_action( 'wp_ajax_edd_wl_share_via_email', 'edd_wl_share_via_email' );
+add_action( 'wp_ajax_nopriv_edd_wl_share_via_email', 'edd_wl_share_via_email' );

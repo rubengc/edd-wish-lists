@@ -26,11 +26,98 @@ function edd_wl_modal_window() {
 add_action( 'wp_footer', 'edd_wl_modal_window', 100 );
 
 /**
+ * Share list via email
+ *
+ * @since 1.0
+*/
+function edd_wl_modal_share_via_email() {
+	// only load on view page, add check for email
+	if ( ! edd_wl_is_page( 'view' ) )
+		return;
+
+	$list_id = get_query_var( 'view' );
+	?>
+	<form class="wish-list-form" id="edd-wl-share-email-form" method="get" action="">
+	<div class="modal-header">
+		<h2 id="edd-wl-modal-label">
+			<?php printf( __( 'Share this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+		</h2>
+		<a class="edd-wl-close" href="#" data-dismiss="modal">
+			<i class="glyphicon glyphicon-remove"></i>
+			<span class="hide-text"><?php _e( 'Close', 'edd-wish-lists' ); ?></span>
+		</a>
+	</div>
+	<div class="modal-body">
+	
+	<?php
+		// get template
+		edd_get_template_part( 'wish-list-email-share' );
+	?>
+
+	<input type="hidden" name="submitted" id="submitted" value="true">
+
+	<?php wp_nonce_field( 'share_via_email_nonce', 'share_via_email_nonce_field' ); ?>
+
+	</div>
+	<div class="modal-footer">
+		<?php /*
+	<input type="submit" data-action="edd_wl_share_via_email" data-post-id="<?php echo $list_id; ?>" class="button button-default edd-wl-action edd-wl-share-via-email" />
+*/?>
+		
+		<a href="#" data-action="edd_wl_share_via_email" data-post-id="<?php echo $list_id; ?>" class="button button-default edd-wl-action edd-wl-share-via-email">
+			<span class="label"><?php _e( 'Send Now', 'edd-wish-lists' ); ?></span>
+			<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>
+		</a>
+
+	</div>
+	</form>
+<?php }
+add_action( 'edd_wl_modal_content', 'edd_wl_modal_share_via_email' );
+
+/**
+ * Share list via email thanks message
+ *
+ * @since 1.0
+*/
+function edd_wl_modal_share_via_email_success() {
+	$messages = edd_wl_messages();
+
+	ob_start();
+	?>
+	<div class="modal-header">
+		<h2 id="edd-wl-modal-label">
+			<?php printf( __( 'Share this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+		</h2>
+		<a class="edd-wl-close" href="#" data-dismiss="modal">
+			<i class="glyphicon glyphicon-remove"></i>
+			<span class="hide-text"><?php _e( 'Close', 'edd-wish-lists' ); ?></span>
+		</a>
+	</div>
+	<div class="modal-body">
+	<p>Successfully shared.</p>
+	
+	</div>
+
+	<div class="modal-footer">
+
+	<a class="button button-default edd-wl-success edd-wl-action edd-wl-email-share-success" href="#" data-dismiss="modal">
+		<?php echo $messages['modal_option_close']; ?>
+	</a>
+	</div>
+
+	<?php
+		$html = ob_get_clean();
+		return apply_filters( 'edd_wl_modal_share_via_email_success', $html );
+	?>
+
+<?php }
+
+/**
  * Confirm delete modal for edit wish list page
  *
  * @since 1.0
 */
-function edd_wl_list_delete_confirm() { 
+function edd_wl_list_delete_confirm() {
 	// only load on edit page
 	if ( ! edd_wl_is_page( 'edit' ) )
 		return;

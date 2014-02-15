@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 */
 function edd_wl_process_form_requests() {
 
+  // create and update forms
   if ( isset( $_POST['submitted'] ) && isset( $_POST['list_nonce_field'] ) && wp_verify_nonce( $_POST['list_nonce_field'], 'list_nonce' ) ) {
 
     // list title
@@ -69,5 +70,6 @@ function edd_wl_process_form_requests() {
       } // end edit form process
     } // end has error
   }
+
 }
 add_action( 'template_redirect', 'edd_wl_process_form_requests' );

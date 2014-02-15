@@ -83,6 +83,9 @@ $privacy = get_post_status( $list_id );
 		<p>
 			<?php echo wp_get_shortlink( $list_id ); ?>
 		</p>
+		<p>
+			<?php echo edd_wl_share_via_email_link(); ?>
+		</p>
 		<?php echo edd_wl_sharing_services(); ?>
 	<?php endif; ?>
 
