@@ -246,7 +246,7 @@ function edd_wl_load_template( $type ) {
 	ob_start();
 
 	// display messages
-	edd_wl_print_messages();
+	echo edd_wl_print_messages();
 
 	// get template
 	edd_get_template_part( 'wish-list-' . $type );
@@ -271,7 +271,7 @@ function edd_wl_wish_list() {
 
 	ob_start();
 
-	edd_wl_print_messages();
+	echo edd_wl_print_messages();
 
 	edd_get_template_part( 'wish-lists' );
 	

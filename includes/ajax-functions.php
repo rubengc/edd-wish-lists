@@ -65,9 +65,18 @@ function edd_ajax_remove_from_wish_list() {
 		
 		edd_remove_from_wish_list( $_POST['cart_item'], $_POST['list_id'] );
 		
+		$list = get_post_meta( $_POST['list_id'], 'edd_wish_list', true );
+		
 		$return = array(
-			'removed'  => 1,
+			'removed'  => true,
 		);
+
+		// list is empty
+		if ( ! $list ) {
+			$messages = edd_wl_messages();
+			edd_wl_set_message( 'list_empty', $messages['no_downloads'] );
+			$return['message'] = html_entity_decode( edd_wl_print_messages(), ENT_COMPAT, 'UTF-8' );
+		}
 
 		echo json_encode( $return );
 

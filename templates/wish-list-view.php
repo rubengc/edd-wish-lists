@@ -72,36 +72,39 @@ $privacy = get_post_status( $list_id );
 		<?php endforeach; ?>
 	</ul>
 
+
 	<?php 
 	/**
 	 * Sharing - only shown for public lists
 	*/
 	if ( 'private' !== get_post_status( $list_id ) ) : ?>
-		<h3>
-			<?php _e( 'Share', 'edd-wish-lists' ); ?>
-		</h3>
-		<p>
+		<div class="edd-wl-sharing">
+			<h3>
+				<?php _e( 'Share', 'edd-wish-lists' ); ?>
+			</h3>
+			<p>
+				<?php 
+				/**
+				 * Shortlink to share
+				 */
+				echo wp_get_shortlink( $list_id ); 
+				?>
+			</p>
+			<p>
+				<?php 
+				/**
+				 * Share via email
+				 */
+				echo edd_wl_share_via_email_link(); 
+				?>
+			</p>
 			<?php 
-			/**
-			 * Shortlink to share
-			 */
-			echo wp_get_shortlink( $list_id ); 
+				/**
+				 * Social sharing services
+				 */
+				echo edd_wl_sharing_services(); 
 			?>
-		</p>
-		<p>
-			<?php 
-			/**
-			 * Share via email
-			 */
-			echo edd_wl_share_via_email_link(); 
-			?>
-		</p>
-		<?php 
-			/**
-			 * Social sharing services
-			 */
-			echo edd_wl_sharing_services(); 
-		?>
+		</div>
 	<?php endif; ?>
 
 <?php endif; ?>

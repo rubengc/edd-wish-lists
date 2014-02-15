@@ -15,17 +15,20 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function edd_remove_from_wish_list( $wish_list_key, $list_id ) {
 
+	// get list
 	$wish_list = get_post_meta( $list_id, 'edd_wish_list', true );
 
 	do_action( 'edd_wl_pre_remove_from_wish_list', $wish_list_key );
 
 	if ( ! is_array( $wish_list ) ) {
 		return true; // Empty cart
-	} else {
+	} 
+	else {
 		$item_id = isset( $wish_list[ $wish_list_key ][ 'id' ] ) ? $wish_list[ $wish_list_key ][ 'id' ] : null;
 		unset( $wish_list[ $wish_list_key ] );
 	}
 
+	// update list
 	update_post_meta( $list_id, 'edd_wish_list', $wish_list );
 
 	do_action( 'edd_wl_post_remove_from_wish_list', $wish_list_key, $item_id );

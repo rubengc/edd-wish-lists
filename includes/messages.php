@@ -102,6 +102,7 @@ add_action( 'template_redirect', 'edd_wl_set_messages' );
  * @return void
  */
 function edd_wl_print_messages() {
+	ob_start();
 	$messages = edd_wl_get_messages();
 	if ( $messages ) {
 		$classes = apply_filters( 'edd_wl_classes', array(
@@ -115,10 +116,9 @@ function edd_wl_print_messages() {
 		echo '</div>';
 		edd_wl_clear_messages();
 	}
-}
 
-// print messages inside the modal window
-add_action( 'edd_wl_modal_body', 'edd_wl_print_messages' );
+	return ob_get_clean();
+}
 
 /**
  * Get Messages

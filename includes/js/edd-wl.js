@@ -137,21 +137,27 @@ jQuery(document).ready(function ($) {
             dataType: "json",
             url: edd_scripts.ajaxurl,
             success: function (response) {
-
-                if (response.removed) {
-
-                    console.log('removed');
+                if ( response.removed ) {
+                    console.log('item removed');
 
                     if ( parseInt( edd_scripts.position_in_cart, 10 ) === parseInt( item, 10 ) ) {
                         window.location = window.location;
                         return false;
                     }
+                    
+                    if ( response.message ) {
+                        // show message once all items have been removed
+                        $('ul.edd-wish-list').parent().prepend( response.message );
+                        
+                        // remove add all to cart button
+                        $('.edd-wl-add-all-to-cart').parent().remove();
+                        // remove sharing
+                        $('.edd-wl-sharing').remove();
+                    }
 
                     // Remove the selected wish list item
                     $('.edd-wish-list').find("[data-cart-item='" + item + "']").parent().parent().remove();
-
                 }
-
             }
 
         }).fail(function (response) {
@@ -381,10 +387,8 @@ jQuery(document).ready(function ($) {
         
         if ( single_price_option == 'yes' ) {
            item_price_ids[0] = $('input[name=edd-wish-lists-post-id]').val();
-            console.log( 'first' );
         }
         else if( variable_price == 'yes' ) {
-             console.log( 'second' );
             if( ! $('.edd_price_option_' + download + ':checked', form).length  ) {
                 $(this).removeAttr( 'data-edd-loading' );
                 alert( edd_scripts.select_option );
@@ -396,11 +400,8 @@ jQuery(document).ready(function ($) {
                 item_price_ids[ index ] = $(this).val();
             });
 
-            
-
         } else {
             item_price_ids[0] = download;
-             console.log( 'third' );
         }
         
 
