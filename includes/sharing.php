@@ -11,6 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return string
  */
 function edd_wl_share_via_email_link() {
+	// get main wish list class
+	$edd_wish_lists = edd_wish_lists();
+
+	// load required scripts if template tag or shortcode has been used
+	$edd_wish_lists::$add_email_sharing_script = true;
+
 	ob_start();
 	?>
 

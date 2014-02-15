@@ -81,12 +81,27 @@ $privacy = get_post_status( $list_id );
 			<?php _e( 'Share', 'edd-wish-lists' ); ?>
 		</h3>
 		<p>
-			<?php echo wp_get_shortlink( $list_id ); ?>
+			<?php 
+			/**
+			 * Shortlink to share
+			 */
+			echo wp_get_shortlink( $list_id ); 
+			?>
 		</p>
 		<p>
-			<?php echo edd_wl_share_via_email_link(); ?>
+			<?php 
+			/**
+			 * Share via email
+			 */
+			echo edd_wl_share_via_email_link(); 
+			?>
 		</p>
-		<?php echo edd_wl_sharing_services(); ?>
+		<?php 
+			/**
+			 * Social sharing services
+			 */
+			echo edd_wl_sharing_services(); 
+		?>
 	<?php endif; ?>
 
 <?php endif; ?>

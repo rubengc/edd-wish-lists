@@ -91,17 +91,8 @@ jQuery(document).ready(function ($) {
                         $('.edd-cart-number-of-items').show('slow');
                     }
 
-                    // Switch purchase to checkout if a single price item or variable priced with radio buttons
-                 //   if( variable_price == 'no' || price_mode != 'multi' ) {
-                 //   if( variable_price == 'no' ) {
-                        $('a.edd-add-to-cart-from-wish-list', container).toggle();
-                        $('.edd-go-to-checkout-from-wish-list', container).css('display', 'inline-block');
-                  //  }
-
-                    // if ( price_mode == 'multi' ) {
-                    //     // remove spinner for multi
-                    //     $this.removeAttr( 'data-edd-loading' );
-                    // }
+                    $('a.edd-add-to-cart-from-wish-list', container).toggle();
+                    $('.edd-go-to-checkout-from-wish-list', container).css('display', 'inline-block');
 
                     if( response != 'incart' ) {
                         // Show the added message
@@ -158,12 +149,6 @@ jQuery(document).ready(function ($) {
 
                     // Remove the selected wish list item
                     $('.edd-wish-list').find("[data-cart-item='" + item + "']").parent().parent().remove();
-
-                    // Check to see if the purchase form for this download is present on this page
-                    // if( $( '#edd_purchase_' + id ).length ) {
-                    //     $( '#edd_purchase_' + id + ' .edd_go_to_checkout' ).hide();
-                    //     $( '#edd_purchase_' + id + ' a.edd-add-to-cart' ).show().removeAttr('data-edd-loading');
-                    // }
 
                 }
 

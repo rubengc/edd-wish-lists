@@ -44,8 +44,9 @@ function edd_wl_print_script() {
 	wp_enqueue_script( 'edd-wl' );
 	wp_enqueue_script( 'edd-wl-modal' );
 
-	if ( edd_wl_is_page( 'view' ) )
+	if ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$add_email_sharing_script ) {
 		wp_enqueue_script( 'edd-wl-validate' );
+	}
 
 	wp_localize_script( 'edd-wl', 'edd_wl_scripts', array(
 		 'wish_list_page'          => edd_wl_get_wish_list_uri(),
@@ -59,10 +60,11 @@ add_action( 'wp_footer', 'edd_wl_print_script' );
 
 /**
  * Load validation on view page
- * @todo  only load when email sharing is enabled
  */
 function edd_wl_validate() {
-	if ( ! edd_wl_is_page( 'view' ) )
+	$edd_wish_lists = edd_wish_lists();
+	
+	if ( ! ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$add_email_sharing_script ) )
 		return;
 
 	?>

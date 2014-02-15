@@ -39,6 +39,13 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		public static $add_script;
 
 		/**
+		 * Email sharing scripts
+		 *
+		 * @since 1.0
+		*/
+		public static $add_email_sharing_script;
+
+		/**
 		 * Shortcode
 		 *
 		 * @since 1.0
