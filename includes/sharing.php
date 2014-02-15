@@ -30,7 +30,7 @@ function edd_wl_share_via_email_link() {
 function edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message ) {
 	// Email body
 	$default_email_body = __( "Hi!", "edd-wish-lists" ) . "<br/><br/>";
-	$default_email_body .= sprintf( __( "%s has suggested you look at this item from %s:", "edd-wish-lists" ), $sender_name, get_bloginfo( 'name' ) ) . "<br/>";
+	$default_email_body .= sprintf( __( "%s has suggested you look at this %s from %s:", "edd-wish-lists" ), $sender_name, edd_wl_get_label_singular( true ), get_bloginfo( 'name' ) ) . "<br/>";
 	$default_email_body .= $shortlink . "<br/><br/>";
 
 	if ( $message )

@@ -270,7 +270,7 @@ function edd_wl_share_via_email() {
 	if ( ! isset( $has_error ) ) {
 		$shortlink = wp_get_shortlink( $post_id ); // shortlink
 
-		$subject = apply_filters( 'edd_wl_share_via_email_subject', sprintf( __( '%s has suggested you look at this Wish List from %s', 'edd-wish-lists' ), $sender_name, get_bloginfo('name') ) );
+		$subject = apply_filters( 'edd_wl_share_via_email_subject', sprintf( __( '%s has suggested you look at this %s from %s', 'edd-wish-lists' ), $sender_name, edd_wl_get_label_singular( true ), get_bloginfo('name') ) );
 		$message = edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message );
 
 		$headers = "From: " . stripslashes_deep( html_entity_decode( $from_name, ENT_COMPAT, 'UTF-8' ) ) . " <$from_email>\r\n";
