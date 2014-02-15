@@ -31,8 +31,9 @@ add_action( 'wp_footer', 'edd_wl_modal_window', 100 );
  * @since 1.0
 */
 function edd_wl_modal_share_via_email() {
-	// only load on view page, add check for email
-	if ( ! edd_wl_is_page( 'view' ) )
+	// only load on view page, when email sharing is present
+	$edd_wish_lists = edd_wish_lists();
+	if ( ! ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$share_via_email ) )
 		return;
 
 	$list_id = get_query_var( 'view' );
@@ -94,15 +95,13 @@ function edd_wl_modal_share_via_email_success() {
 		</a>
 	</div>
 	<div class="modal-body">
-	<p>Successfully shared.</p>
-	
+		<p><?php echo $messages['list_share_success']; ?></p>
 	</div>
 
 	<div class="modal-footer">
-
-	<a class="button button-default edd-wl-success edd-wl-action edd-wl-email-share-success" href="#" data-dismiss="modal">
-		<?php echo $messages['modal_option_close']; ?>
-	</a>
+		<a class="button button-default edd-wl-success edd-wl-action edd-wl-email-share-success" href="#" data-dismiss="modal">
+			<?php echo $messages['modal_option_close']; ?>
+		</a>
 	</div>
 
 	<?php

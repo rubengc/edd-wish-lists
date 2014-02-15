@@ -15,7 +15,7 @@ function edd_wl_share_via_email_link() {
 	$edd_wish_lists = edd_wish_lists();
 
 	// load required scripts if template tag or shortcode has been used
-	$edd_wish_lists::$add_email_sharing_script = true;
+	$edd_wish_lists::$share_via_email = true;
 
 	ob_start();
 	?>

@@ -29,6 +29,7 @@ function edd_wl_messages() {
 		'modal_option_title'			=> __( 'Title', 'edd-wish-lists' ),
 		'list_option_private'			=> __( 'Private - only viewable by you', 'edd-wish-lists' ),
 		'list_option_public'			=> __( 'Public - viewable by anyone', 'edd-wish-lists' ),
+		'list_share_success'			=> __( 'Successfully shared.', 'edd-wish-lists' ),
 	);
 
 	return apply_filters( 'edd_wl_messages', $messages );

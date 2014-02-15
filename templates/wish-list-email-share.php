@@ -1,3 +1,9 @@
+<?php
+/**
+ * Email sharing template
+ */
+?>
+
 <p>
     <label for="edd-wl-from-name"><?php _e( 'Your Name', 'edd-wish-lists' ); ?></label>
     <input type="text" placeholder="<?php _e( 'Your Name', 'edd-wish-lists' ); ?>" name="edd_wl_from_name" id="edd-wl-from-name" class="edd-input" data-msg-required="<?php _e( 'Please enter your name', 'edd-wish-lists' ); ?>" data-rule-required="true" />

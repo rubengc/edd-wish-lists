@@ -44,7 +44,7 @@ function edd_wl_print_script() {
 	wp_enqueue_script( 'edd-wl' );
 	wp_enqueue_script( 'edd-wl-modal' );
 
-	if ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$add_email_sharing_script ) {
+	if ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$share_via_email ) {
 		wp_enqueue_script( 'edd-wl-validate' );
 	}
 
@@ -64,7 +64,7 @@ add_action( 'wp_footer', 'edd_wl_print_script' );
 function edd_wl_validate() {
 	$edd_wish_lists = edd_wish_lists();
 	
-	if ( ! ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$add_email_sharing_script ) )
+	if ( ! ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$share_via_email ) )
 		return;
 
 	?>
