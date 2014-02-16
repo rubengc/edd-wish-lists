@@ -47,14 +47,14 @@ function edd_wl_items_in_list_meta_box() {
 
 				<?php echo '<br />' . edd_cart_item_price( $item['id'], $item['options'] ); ?>
 			</p>
-		<?php }
-	} else {
+		<?php } ?>
+
+		<p><strong><?php echo __( 'Total:', 'edd-wish-lists' ) . ' ' . edd_wl_get_list_total( get_the_ID() ); ?></strong></p>
+	<?php } else {
 		_e( 'No items have been added yet', 'edd-wish-lists' );
 	}
 
 	?>
-
-
 
 <?php
 }

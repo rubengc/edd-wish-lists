@@ -20,7 +20,7 @@ function edd_wl_share_via_email_link() {
 	ob_start();
 	?>
 
-	<a class="edd-wl-action button button-default" href="#" data-toggle="modal" data-target="#edd-wl-modal"><?php _e( 'Share via email', 'edd-wish-lists' ); ?></a>
+	<a class="edd-wl-action button button-default" href="#" data-backdrop="static" data-toggle="modal" data-target="#edd-wl-modal"><?php _e( 'Share via email', 'edd-wish-lists' ); ?></a>
 	<?php
 
 	$html = ob_get_clean();

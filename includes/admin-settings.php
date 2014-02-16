@@ -184,7 +184,7 @@ function edd_wl_settings( $settings ) {
 		array(
 			'id' => 'edd_wl_services',
 			'name' => __( 'Sharing Services', 'edd-wish-lists' ),
-			'desc' => __( 'Select the services you\'d like to show', 'edd-wish-lists' ),
+			'desc' => __( 'Select the services you\'d like users to share to', 'edd-wish-lists' ),
 			'type' => 'multicheck',
 			'options' => apply_filters( 'edd_wl_settings_services', array(
 					'twitter' =>  __( 'Twitter', 'edd-wish-lists' ),

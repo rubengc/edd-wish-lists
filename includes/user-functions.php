@@ -139,9 +139,10 @@ function edd_wl_new_user_registration( $user_id ) {
 			// delete token one each list
 			delete_post_meta( $list->ID, 'edd_wl_token', edd_wl_get_list_token() );
 		}
-	}
 
-	// remove cookie from user's computer
-	setcookie( 'edd_wl_token', '', time()-3600, COOKIEPATH, COOKIE_DOMAIN );
+		// remove cookie from user's computer
+		setcookie( 'edd_wl_token', '', time()-3600, COOKIEPATH, COOKIE_DOMAIN );
+	}
 }
 add_action( 'user_register', 'edd_wl_new_user_registration', 10, 1 );
+add_action( 'wpmu_new_user', 'edd_wl_new_user_registration', 10, 1 );

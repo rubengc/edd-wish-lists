@@ -61,7 +61,7 @@ function edd_wl_render_admin_columns( $column_name, $post_id ) {
 				 else {
 				 	printf( '<a href="%s">%s</a>',
 				 		esc_url( add_query_arg( array( 'post_type' => $post->post_type, 'author' => get_the_author_meta( 'ID' ) ), 'edit.php' )),
-				 		get_the_author()
+				 		get_the_author() // display name
 				 	);
 				 }
 			break;
