@@ -9,6 +9,26 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * Returns the path to the templates directory
+ *
+ * @since 1.0
+ * @return string
+ */
+function edd_wl_get_templates_dir() {
+	return EDD_WL_PLUGIN_DIR . 'templates';
+}
+
+/**
+ * Returns the URL to the EDD templates directory
+ *
+ * @since 1.0
+ * @return string
+ */
+function edd_wl_get_templates_url() {
+	return EDD_WL_PLUGIN_URL . 'templates';
+}
+
+/**
  * Get number of items in list
  *
  * @since 1.0

@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
     $('body').on('click.eddAddToCartFromWishList', '.edd-add-to-cart-from-wish-list', function (e) {
         e.preventDefault();
 
-        console.log( 'added to cart' );
+    //    console.log( 'added to cart' );
 
         var $this = $(this);
 
@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
 
         if( variable_price == 'yes' ) {
 
-            console.log( 'data price option is: ' + price_option );
+        //    console.log( price_option );
 
             item_price_ids[0] = price_option;
 
@@ -138,7 +138,7 @@ jQuery(document).ready(function ($) {
             url: edd_scripts.ajaxurl,
             success: function (response) {
                 if ( response.removed ) {
-                    console.log('item removed');
+                //    console.log('item removed');
 
                     if ( parseInt( edd_scripts.position_in_cart, 10 ) === parseInt( item, 10 ) ) {
                         window.location = window.location;
@@ -213,7 +213,7 @@ jQuery(document).ready(function ($) {
             success: function (response) {
                 if( response.msg == 'success' ) {
                     window.location = edd_wl_scripts.wish_list_page;
-                    console.log( 'list successfully deleted' );
+                //    console.log( 'list successfully deleted' );
                 }
             }
         })
@@ -351,7 +351,7 @@ jQuery(document).ready(function ($) {
     // Processes the add to wish list request. Creates a new list or stores downloads into existing list
 
     $('body').on('click.eddAddToWishList', '.edd-wish-list-save', function (e) {
-        console.log( 'save link clicked');
+    //    console.log( 'save link clicked');
 
         e.preventDefault();
 
@@ -374,8 +374,6 @@ jQuery(document).ready(function ($) {
 
         // set our form 
         var form = jQuery('.edd_download_purchase_form');
-
-        console.log( form );
 
         var download       = $this.data('download-id');
         var variable_price = $this.data('variable-price');
@@ -442,7 +440,7 @@ jQuery(document).ready(function ($) {
 
                 // list was created
                 if ( response.list_created == true ) {
-                    console.log( 'list was created' );
+                //    console.log( 'list created' );
 
                     // clear field
                     $('#list-name').val('');

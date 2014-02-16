@@ -220,7 +220,6 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 * @since 1.0
 		 * @return void
 		 */
-
 		public function load_textdomain() {
 			// Set filter for plugin's languages directory
 			$lang_dir = dirname( plugin_basename( $this->file ) ) . '/languages/';

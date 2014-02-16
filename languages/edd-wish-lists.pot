@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Easy Digital Downloads - Wish Lists\n"
-"POT-Creation-Date: 2014-02-11 22:05+1200\n"
-"PO-Revision-Date: 2014-02-11 22:06+1200\n"
+"POT-Creation-Date: 2014-02-16 18:16+1200\n"
+"PO-Revision-Date: 2014-02-16 18:16+1200\n"
 "Last-Translator: Andrew Munro, Sumobi <andrew@sumobi.com>\n"
 "Language-Team: Sumobi <andrew@sumobi.com>\n"
 "Language: en_US\n"
@@ -15,18 +15,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../edd-wish-lists.php:277
+#: ../edd-wish-lists.php:287
 #, php-format
 msgid "You must install %sEasy Digital Downloads%s to use EDD Wish Lists."
 msgstr ""
 
-#: ../edd-wish-lists.php:281
+#: ../edd-wish-lists.php:291
 msgid ""
 "EDD Wish Lists requires Easy Digital Downloads Version 1.8.4 or greater. "
 "Please update Easy Digital Downloads."
 msgstr ""
 
-#: ../edd-wish-lists.php:292
+#: ../edd-wish-lists.php:302
 msgid "Settings"
 msgstr ""
 
@@ -179,7 +179,7 @@ msgid "Sharing Services"
 msgstr ""
 
 #: ../includes/admin-settings.php:187
-msgid "Select the services you'd like to show"
+msgid "Select the services you'd like users to share to"
 msgstr ""
 
 #: ../includes/admin-settings.php:190
@@ -198,13 +198,18 @@ msgstr ""
 msgid "LinkedIn"
 msgstr ""
 
-#: ../includes/ajax-functions.php:131
+#: ../includes/ajax-functions.php:140
 msgid "My list"
 msgstr ""
 
-#: ../includes/ajax-functions.php:171
+#: ../includes/ajax-functions.php:180
 #, php-format
 msgid "Successfully added to <strong>%s</strong>"
+msgstr ""
+
+#: ../includes/ajax-functions.php:282
+#, php-format
+msgid "%s has suggested you look at this %s from %s"
 msgstr ""
 
 #: ../includes/dashboard-columns.php:19 ../includes/messages.php:29
@@ -232,16 +237,7 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: ../includes/EDD_License_Handler.php:112
-#, php-format
-msgid "%1$s License Key"
-msgstr ""
-
-#: ../includes/EDD_License_Handler.php:218
-msgid "Deactivate License"
-msgstr ""
-
-#: ../includes/form-processing.php:20
+#: ../includes/form-processing.php:21
 msgid "You need to enter a title"
 msgstr ""
 
@@ -257,7 +253,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../includes/install.php:72
+#: ../includes/install.php:72 ../templates/wish-list-create.php:29
 msgid "Create"
 msgstr ""
 
@@ -323,35 +319,53 @@ msgstr ""
 msgid "Public - viewable by anyone"
 msgstr ""
 
+#: ../includes/messages.php:32
+msgid "Successfully shared."
+msgstr ""
+
 #: ../includes/metabox.php:20
 #, php-format
 msgid "%1$s"
 msgstr ""
 
 #: ../includes/metabox.php:52
+msgid "Total:"
+msgstr ""
+
+#: ../includes/metabox.php:54
 msgid "No items have been added yet"
 msgstr ""
 
-#: ../includes/modals.php:40 ../templates/wish-list-edit.php:45
+#: ../includes/modals.php:44 ../includes/modals.php:90
+#, php-format
+msgid "Share this %s"
+msgstr ""
+
+#: ../includes/modals.php:48 ../includes/modals.php:94
+#: ../includes/modals.php:130 ../includes/modals.php:184
+msgid "Close"
+msgstr ""
+
+#: ../includes/modals.php:69
+msgid "Send Now"
+msgstr ""
+
+#: ../includes/modals.php:126 ../templates/wish-list-edit.php:45
 #, php-format
 msgid "Delete %s"
 msgstr ""
 
-#: ../includes/modals.php:44 ../includes/modals.php:98
-msgid "Close"
-msgstr ""
-
-#: ../includes/modals.php:49
+#: ../includes/modals.php:135
 #, php-format
 msgid "You are about to delete this %s, are you sure?"
 msgstr ""
 
-#: ../includes/modals.php:54
+#: ../includes/modals.php:140
 #, php-format
 msgid "Yes, delete this %s"
 msgstr ""
 
-#: ../includes/modals.php:71 ../includes/template-functions.php:151
+#: ../includes/modals.php:157 ../includes/template-functions.php:148
 #, php-format
 msgid "Add to %s"
 msgstr ""
@@ -404,7 +418,25 @@ msgstr ""
 msgid "Wish List"
 msgstr ""
 
-#: ../includes/sharing.php:115 ../templates/wish-list-view.php:81
+#: ../includes/sharing.php:23
+msgid "Share via email"
+msgstr ""
+
+#: ../includes/sharing.php:38
+msgid "Hi!"
+msgstr ""
+
+#: ../includes/sharing.php:39
+#, php-format
+msgid "%s has suggested you look at this %s from %s:"
+msgstr ""
+
+#: ../includes/sharing.php:45
+#, php-format
+msgid "Reply to %s by emailing %s"
+msgstr ""
+
+#: ../includes/sharing.php:160 ../templates/wish-list-view.php:83
 msgid "Share"
 msgstr ""
 
@@ -416,15 +448,15 @@ msgstr ""
 msgid " Total: "
 msgstr ""
 
-#: ../includes/template-functions.php:306
+#: ../includes/template-functions.php:293
 msgid "Add to cart"
 msgstr ""
 
-#: ../includes/template-functions.php:307
+#: ../includes/template-functions.php:294
 msgid "Checkout"
 msgstr ""
 
-#: ../includes/template-functions.php:397
+#: ../includes/template-functions.php:384
 msgid "Add all to cart"
 msgstr ""
 
@@ -434,10 +466,6 @@ msgstr ""
 
 #: ../templates/wish-list-create.php:19
 msgid "Description:"
-msgstr ""
-
-#: ../templates/wish-list-create.php:29
-msgid "Create List"
 msgstr ""
 
 #: ../templates/wish-list-edit.php:16
@@ -453,11 +481,64 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+#: ../templates/wish-list-email-share.php:8
+#: ../templates/wish-list-email-share.php:9
+msgid "Your Name"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:9
+msgid "Please enter your name"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:13
+msgid "Your Email Address"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:14
+msgid "Your Email address"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:14
+msgid "Please enter your email address"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:14
+msgid "Please enter a valid email address"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:18
+msgid "Friend's Email Address"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:19
+msgid "To send to multiple email addresses, separate each email with a comma"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:20
+msgid "Friend's Email address"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:20
+msgid "Please enter one or more email addresses"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:20
+msgid "You must enter a valid email, or comma separate multiple emails"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:24
+msgid "Your Message"
+msgstr ""
+
+#: ../templates/wish-list-email-share.php:25
+msgid "Optional"
+msgstr ""
+
 #: ../templates/wish-list-view.php:65 ../templates/wish-list-view.php:67
 msgid "Remove"
 msgstr ""
 
-#: ../templates/wish-list-view.php:97
+#: ../templates/wish-list-view.php:118
 #, php-format
 msgid "Edit %s"
 msgstr ""

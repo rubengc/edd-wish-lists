@@ -13,11 +13,42 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 1.0
 */
-function edd_wl_css() {
-	wp_register_style( 'edd-wish-lists', EDD_WL_PLUGIN_URL . 'includes/css/edd-wl.css', '', EDD_WL_VERSION, 'screen' );
-	wp_enqueue_style( 'edd-wish-lists' );
+function edd_wl_register_styles() {
+
+	// Use minified libraries if SCRIPT_DEBUG is turned off
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+	$file	= 'edd-wl' . $suffix . '.css';
+	$templates_dir = edd_get_theme_template_dir_name();
+
+	$child_theme_style_sheet    = trailingslashit( get_stylesheet_directory() ) . $templates_dir . $file;
+
+	$child_theme_style_sheet_2  = trailingslashit( get_stylesheet_directory() ) . $templates_dir . 'edd-wl.css';
+	$parent_theme_style_sheet   = trailingslashit( get_template_directory()   ) . $templates_dir . $file;
+	$parent_theme_style_sheet_2 = trailingslashit( get_template_directory()   ) . $templates_dir . 'edd-wl.css';
+	$edd_plugin_style_sheet     = trailingslashit( edd_wl_get_templates_dir()    ) . $file;
+
+	// Look in the child theme directory first, followed by the parent theme, followed by the EDD core templates directory
+	// Also look for the min version first, followed by non minified version, even if SCRIPT_DEBUG is not enabled.
+	// This allows users to copy just edd-wl.css to their theme
+	if ( file_exists( $child_theme_style_sheet ) || ( ! empty( $suffix ) && ( $nonmin = file_exists( $child_theme_style_sheet_2 ) ) ) ) {
+		if( ! empty( $nonmin ) )
+			$url = trailingslashit( get_stylesheet_directory_uri() ) . $templates_dir . 'edd-wl.css';
+		else
+			$url = trailingslashit( get_stylesheet_directory_uri() ) . $templates_dir . $file;
+	} elseif ( file_exists( $parent_theme_style_sheet ) || ( ! empty( $suffix ) && ( $nonmin = file_exists( $parent_theme_style_sheet_2 ) ) ) ) {
+		if( ! empty( $nonmin ) )
+			$url = trailingslashit( get_template_directory_uri() ) . $templates_dir . 'edd-wl.css';
+		else
+			$url = trailingslashit( get_template_directory_uri() ) . $templates_dir . $file;
+	} elseif ( file_exists( $edd_plugin_style_sheet ) || file_exists( $edd_plugin_style_sheet ) ) {
+		$url = trailingslashit( edd_wl_get_templates_url() ) . $file;
+	}
+
+	wp_enqueue_style( 'edd-wl-styles', $url, array(), EDD_WL_VERSION, 'screen' );
+
 }
-add_action( 'wp_enqueue_scripts', 'edd_wl_css', 100 );
+add_action( 'wp_enqueue_scripts', 'edd_wl_register_styles', 100 );
 
 
 /**

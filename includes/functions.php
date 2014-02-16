@@ -9,16 +9,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Returns the path to the templates directory
- *
- * @since 1.0
- * @return string
- */
-function edd_wl_get_templates_dir() {
-	return EDD_WL_PLUGIN_DIR . 'templates';
-}
-
-/**
  * Add path for template files
  *
  * @since 1.0
