@@ -161,6 +161,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 			if( ! class_exists( 'EDD_License' ) ) 
 				require_once( dirname( $this->file ) . '/includes/EDD_License_Handler.php' );
 
+
 			require_once( dirname( $this->file ) . '/includes/post-type.php' ); 
 			require_once( dirname( $this->file ) . '/includes/shortcodes.php' );
 			require_once( dirname( $this->file ) . '/includes/form-processing.php' );
@@ -206,7 +207,10 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 * @since 1.0
 		*/
 		private function licensing() {
-			$license = new EDD_License( $this->file, $this->title, $this->version, 'Andrew Munro' );
+			//check EDD_License class is exist
+			if ( class_exists( 'EDD_License' ) ) {
+				$license = new EDD_License( $this->file, $this->title, $this->version, 'Andrew Munro' );
+			}
 		}
 
 		/**
