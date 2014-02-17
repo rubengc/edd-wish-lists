@@ -6,13 +6,13 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-
 /**
  * Load skeleton for modal window in the footer
  *
  * @since 1.0
 */
 function edd_wl_modal_window() {
+	ob_start();
 	?>
 	<div class="modal fade" id="edd-wl-modal" tabindex="-1" role="dialog" aria-labelledby="edd-wl-modal-label" aria-hidden="true">
 	  <div class="modal-dialog">
@@ -21,7 +21,10 @@ function edd_wl_modal_window() {
 	    </div>
 	  </div>
 	</div>
+
 	<?php
+		$html = ob_get_clean();
+		echo apply_filters( 'edd_wl_modal_window', $html );
 }
 add_action( 'wp_footer', 'edd_wl_modal_window', 100 );
 
@@ -61,15 +64,10 @@ function edd_wl_modal_share_via_email() {
 
 	</div>
 	<div class="modal-footer">
-		<?php /*
-	<input type="submit" data-action="edd_wl_share_via_email" data-post-id="<?php echo $list_id; ?>" class="button button-default edd-wl-action edd-wl-share-via-email" />
-*/?>
-		
-		<a href="#" data-action="edd_wl_share_via_email" data-post-id="<?php echo $list_id; ?>" class="button button-default edd-wl-action edd-wl-share-via-email">
+		<a href="#" data-action="edd_wl_share_via_email" data-post-id="<?php echo $list_id; ?>" class="edd-wl-button edd-wl-action edd-wl-share-via-email">
 			<span class="label"><?php _e( 'Send Now', 'edd-wish-lists' ); ?></span>
 			<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>
 		</a>
-
 	</div>
 	</form>
 <?php }
@@ -99,7 +97,7 @@ function edd_wl_modal_share_via_email_success() {
 	</div>
 
 	<div class="modal-footer">
-		<a class="button button-default edd-wl-success edd-wl-action edd-wl-email-share-success" href="#" data-dismiss="modal">
+		<a class="edd-wl-button edd-wl-success edd-wl-action edd-wl-email-share-success" href="#" data-dismiss="modal">
 			<?php echo $messages['modal_option_close']; ?>
 		</a>
 	</div>
@@ -136,7 +134,7 @@ function edd_wl_list_delete_confirm() {
 		</p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo get_query_var( 'edit' ); ?>" class="button button-default edd-wl-action eddwl-delete-list-confirm">
+		<a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo get_query_var( 'edit' ); ?>" class="edd-wl-button edd-wl-action eddwl-delete-list-confirm">
 			<span class="label"><?php printf( __( 'Yes, delete this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?></span>
 			<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>
 		</a>
@@ -289,14 +287,14 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
         						'text' 			=> $messages['modal_option_save'],
         						'icon'			=> '',
         						'action'		=> 'edd_add_to_wish_list',
-        						'class'			=> 'edd-wish-list-save edd-wl-action',
+        						'class'			=> 'edd-wl-save edd-wl-action',
         						'style'			=> 'button',
         					);
         					edd_wl_wish_list_link( $args );
         				?>
 
-        				<a class="button button-default edd-wl-success edd-wl-action" href="#" data-dismiss="modal" style="display:none;">
-        				<?php echo $messages['modal_option_close']; ?>
+        				<a class="edd-wl-button edd-wl-success edd-wl-action" href="#" data-dismiss="modal" style="display:none;">
+        					<?php echo $messages['modal_option_close']; ?>
         				</a>
 	
       				</div>

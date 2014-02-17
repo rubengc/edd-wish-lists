@@ -311,7 +311,7 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 		return $lists;
 	}
 	
-	return null;
+	return array();
 }
 
 /**
@@ -401,7 +401,7 @@ function edd_wl_lists_included( $download_id, $options ) {
 }
 
 /**
- * Checks the see if an item is already in the wish_list and returns a boolean. Modelled from edd_item_in_cart()
+ * Checks the see if an item is already in the wish_list and returns a boolean. Modified from edd_item_in_cart()
  *
  * @since 1.0
  *
@@ -412,7 +412,7 @@ function edd_wl_lists_included( $download_id, $options ) {
  */
 function edd_wl_item_in_wish_list( $download_id = 0, $options = array() ) {
 
-	$posts = edd_wl_get_query()->posts;
+	$posts = edd_wl_get_query()->posts ? edd_wl_get_query()->posts : array();
 
 	if ( $posts ) {
 		$ids = array();
@@ -421,43 +421,45 @@ function edd_wl_item_in_wish_list( $download_id = 0, $options = array() ) {
 			$ids[] = $post->ID;
 		}
 
-	}
+		if ( $ids ) {
 
-	if ( $ids ) {
+			$found_ids = array();
 
-		$found_ids = array();
+			foreach ( $ids as $id ) {
 
-		foreach ( $ids as $id ) {
+				$cart_items = get_post_meta( $id, 'edd_wish_list', true );
+				$found = false;
 
-			$cart_items = get_post_meta( $id, 'edd_wish_list', true );
-			$found = false;
-
-			if ( $cart_items ) {
-				foreach ( $cart_items as $item ) {
-					if ( $item['id'] == $download_id ) {
-						if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
-							if ( $options['price_id'] == $item['options']['price_id'] ) {
+				if ( $cart_items ) {
+					foreach ( $cart_items as $item ) {
+						if ( $item['id'] == $download_id ) {
+							if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
+								if ( $options['price_id'] == $item['options']['price_id'] ) {
+									$found = true;
+									break;
+								}
+							} 
+							else {
 								$found = true;
 								break;
 							}
-						} 
-						else {
-							$found = true;
-							break;
 						}
 					}
 				}
-			}
-			
-			// add each found id to array
-			if ( $found ) {
-				$found_ids[] = $id;
+				
+				// add each found id to array
+				if ( $found ) {
+					$found_ids[] = $id;
+				}
+
 			}
 
+			return $found_ids;
 		}
 
-		return $found_ids;
 	}
+
+
 
 }
 
@@ -515,11 +517,12 @@ function edd_wl_get_list_total( $list_id ) {
  */
 function edd_wl_has_purchased( $download_id, $variable_price_id ) {
 	global $user_ID;
+	$messages = edd_wl_messages();
 
 	$has_purchased = edd_wl_get_purchases( $user_ID, $download_id, $variable_price_id );
 
 	if ( $has_purchased ) 
-		return apply_filters( 'edd_wl_has_purchased', '<span class="edd-wl-item-purchased">Already purchased</span>' );
+		return apply_filters( 'edd_wl_has_purchased', '<span class="edd-wl-item-purchased">' . $messages['item_already_purchased'] . '</span>' );
 	
 	return null;
 }

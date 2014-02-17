@@ -27,13 +27,14 @@ Documentation: http://sumobi.com/edd-wish-lists/
 - View and manage all lists from the WordPress admin.
 - Extremely flexible. Use any page on your website to display a user’s wish lists, display individual wish lists, edit wish lists, or create wish lists
 - Uses pretty permalinks and also supports non pretty permalinks
-- Translation-ready (fully localized)
+- 
 
 **For Developers**
 - Fully customizable links/buttons. Create your own add to wish list buttons with simple function call and args
 - Add your own icons
 - Easily remove CSS or JS
 - Edit the main wish lists page and view list pages through template files.
+- Translation-ready (fully localized)
 
 **Possible Future Enhancements**
 - Reporting - See which downloads are the most popular by how many times they are stored on lists. 

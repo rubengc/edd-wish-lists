@@ -26,7 +26,7 @@ if ( edd_wl_allow_guest_creation() ) : ?>
 	  </select>
 	</p>
 	<p> 
-	    <input type="submit" value="<?php _e( 'Create', 'edd-wish-lists' ); ?>" class="button button-default">
+	    <input type="submit" value="<?php _e( 'Create', 'edd-wish-lists' ); ?>" class="button">
 	</p>
 
 	<input type="hidden" name="submitted" id="submitted" value="true">

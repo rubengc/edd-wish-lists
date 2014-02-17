@@ -38,7 +38,7 @@ function edd_wl_items_in_list_meta_box() {
 
 	if ( $items ) {
 		foreach ( $items as $item ) {
-			$item_option = ! empty( $item['options'] ) ? '<span class="edd-wish-list-item-title-option"> &ndash; ' . edd_get_cart_item_price_name( $item ) . '</span>' : '';
+			$item_option = ! empty( $item['options'] ) ? '<span class="edd-wl-item-title-option"> &ndash; ' . edd_get_cart_item_price_name( $item ) . '</span>' : '';
 		?>
 			<p>
 				<a href="<?php echo admin_url( 'post.php?post=' . $item['id'] . '&action=edit' ) ;?>"><?php echo get_the_title( $item['id'] ); ?></a>

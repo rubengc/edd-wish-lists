@@ -350,7 +350,7 @@ jQuery(document).ready(function ($) {
     
     // Processes the add to wish list request. Creates a new list or stores downloads into existing list
 
-    $('body').on('click.eddAddToWishList', '.edd-wish-list-save', function (e) {
+    $('body').on('click.eddAddToWishList', '.edd-wl-save', function (e) {
     //    console.log( 'save link clicked');
 
         e.preventDefault();
@@ -432,7 +432,7 @@ jQuery(document).ready(function ($) {
             success: function (response) {
 
                 // hide the save button and show the close buttons
-                $('.edd-wish-list-save').hide();
+                $('.edd-wl-save').hide();
                 $('.edd-wl-success').show();
 
                 // show the success msg along with a link to the list item/s were added to

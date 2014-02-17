@@ -12,13 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 1.0
 */
 function edd_wl_process_form_requests() {
+  $messages = edd_wl_messages();
 
   // create and update forms
   if ( isset( $_POST['submitted'] ) && isset( $_POST['list_nonce_field'] ) && wp_verify_nonce( $_POST['list_nonce_field'], 'list_nonce' ) ) {
 
     // list title
     if ( trim( $_POST['list-title'] ) === '' ) {
-        $list_name_error  = edd_set_error( 'list_title_required', __( 'You need to enter a title', 'edd-wish-lists' ) );
+        edd_wl_set_message( 'list_title_required', $messages['list_title_required'] );
         $has_error        = true;
     }
 
@@ -41,7 +42,7 @@ function edd_wl_process_form_requests() {
           edd_wl_create_token( $post_id );
 
           // redirect to newly created list
-         wp_redirect( add_query_arg( 'list', 'created', get_permalink( $post_id ) ) ); exit;
+          wp_redirect( add_query_arg( 'list', 'created', get_permalink( $post_id ) ) ); exit;
         }
       }
       // update form

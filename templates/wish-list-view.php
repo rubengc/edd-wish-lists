@@ -33,9 +33,9 @@ $privacy = get_post_status( $list_id );
 	<ul class="edd-wish-list">
 		<?php foreach ( $downloads as $key => $item ) : ?>
 			<li>
-				<span class="edd-wish-list-item-title">
+				<span class="edd-wl-item-title">
 				<?php
-					$item_option 		= ! empty( $item['options'] ) ? '<span class="edd-wish-list-item-title-option">' . edd_get_cart_item_price_name( $item ) . '</span>' : '';
+					$item_option 		= ! empty( $item['options'] ) ? '<span class="edd-wl-item-title-option">' . edd_get_cart_item_price_name( $item ) . '</span>' : '';
 					$variable_pricing 	= edd_has_variable_prices( $item['id'] );
 					$variable_price_id = isset( $item['options']['price_id'] ) ? $item['options']['price_id'] : '';
 				?>
@@ -46,22 +46,22 @@ $privacy = get_post_status( $list_id );
 					<?php echo edd_wl_has_purchased( $item['id'], $variable_price_id ); /* Shows "Already purchased" */ ?>
 				</span>
 
-				<span class="edd-wish-list-item-image">
+				<span class="edd-wl-item-image">
 				<?php if ( current_theme_supports( 'post-thumbnails' ) && has_post_thumbnail( $item['id'] ) ) : ?>
 					<?php echo get_the_post_thumbnail( $item['id'], apply_filters( 'edd_checkout_image_size', array( 50, 50 ) ) ); ?>
 				<?php endif; ?>
 				</span>
 
-				<span class="edd-wish-list-item-price">
+				<span class="edd-wl-item-price">
 					<?php echo edd_cart_item_price( $item['id'], $item['options'] ); ?>
 				</span>
 
-				<span class="edd-wish-list-item-purchase">
+				<span class="edd-wl-item-purchase">
 					<?php echo edd_wl_wish_list_item_purchase( $item ); ?>
 				</span>
 				
 				<?php if ( edd_wl_is_users_list( $list_id ) ) : ?>
-				<span class="edd-wish-list-item-remove">
+				<span class="edd-wl-item-remove">
 					<a title="<?php _e( 'Remove', 'edd-wish-lists' ); ?>" href="#" data-cart-item="<?php echo $key; ?>" data-download-id="<?php echo $item['id']; ?>" data-list-id="<?php echo $list_id; ?>" data-action="edd_remove_from_wish_list" class="edd-remove-from-wish-list">
 					<i class="glyphicon glyphicon-remove"></i>
 					<span class="hide-text"><?php _e( 'Remove', 'edd-wish-lists' ); ?></span>

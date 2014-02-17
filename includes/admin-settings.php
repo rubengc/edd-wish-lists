@@ -160,15 +160,15 @@ function edd_wl_settings( $settings ) {
 			'type' => 'select',
 			'options' =>  apply_filters( 'edd_wl_icons', 
 				array(
-					'gift' =>  __( 'Gift', 'edd-wish-lists' ),
-					'heart' =>  __( 'Heart', 'edd-wish-lists' ),
-					'star' =>  __( 'Star', 'edd-wish-lists' ),
-					'add' =>  __( 'Add', 'edd-wish-lists' ),
-					'bookmark' =>  __( 'Bookmark', 'edd-wish-lists' ),
-					'none' =>  __( 'No Icon', 'edd-wish-lists' ),
+					'add' 		=>  __( 'Add', 'edd-wish-lists' ),
+					'bookmark' 	=>  __( 'Bookmark', 'edd-wish-lists' ),
+					'gift' 		=>  __( 'Gift', 'edd-wish-lists' ),
+					'heart' 	=>  __( 'Heart', 'edd-wish-lists' ),
+					'star' 		=>  __( 'Star', 'edd-wish-lists' ),
+					'none' 		=>  __( 'No Icon', 'edd-wish-lists' ),
 				)
 			),
-			'std' => 'gift'
+			'std' => 'star'
 		),
 		array(
 			'id' => 'edd_wl_button_style',

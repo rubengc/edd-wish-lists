@@ -125,7 +125,6 @@ function edd_wl_load_wish_list_link( $download_id = '' ) {
 	}
 
 	// default classes
-	//$classes[] = 'edd-add-to-wish-list';
 	$classes[] = 'edd-wl-action';
 	$classes[] = 'edd-wl-open-modal';
 
@@ -133,6 +132,7 @@ function edd_wl_load_wish_list_link( $download_id = '' ) {
 		'download_id'	=> $download_id,			// available on edd_purchase_link_end, edd_purchase_link_top hooks
 		'action'		=> 'edd_wl_open_modal',
 		'class'			=> implode( ' ', $classes ),
+		'link_size'		=> apply_filters( 'edd_wl_link_size', '' )
 	);
 	edd_wl_wish_list_link( $args );
 }
@@ -172,7 +172,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 			'icon'			=> edd_get_option( 'edd_wl_icon', 'gift' ),
 			'action'		=> '',
 			'link'			=> '',
-			'button_size'	=> '',
+			'link_size'		=> '',
 			'price_option'	=> '',
 		) 
 	);
@@ -197,25 +197,14 @@ function edd_wl_wish_list_link( $args = array() ) {
 		$type = '';
 	}
 
-	// $variable_pricing 	= edd_has_variable_prices( $args['download_id'] );
-	// 	$data_variable  	= $variable_pricing ? ' data-variable-price=yes' : 'data-variable-price=no';
-	// 	$type             	= edd_single_price_option_mode( $args['download_id'] ) ? 'data-price-mode=multi' : 'data-price-mode=single';	
-
 	ob_start();
 
 	$icon = $icon && 'none' != $icon ? '<i class="glyphicon glyphicon-' . $icon . '"></i>' : '';
 
-	// use button size that's passed into function
-	if ( $button_size ) {
-		$button_size = $button_size;
-	}
-	// set default for button size if button is specified as style
-	elseif ( $style == 'button' && ! $button_size ) {
-		$button_size = apply_filters( 'edd_wl_button_size', 'button-default' );
-	}
-	else {
-		$button_size = '';
-	}
+	
+
+	// size of plain text or button link
+	$link_size = $link_size ? $link_size : '';
 
 	// show the icon on either the left or right
 	$icon_position = apply_filters( 'edd_wl_icon_position' , 'left' );
@@ -225,6 +214,13 @@ function edd_wl_wish_list_link( $args = array() ) {
 	$icon_right = 'right' == $icon_position ? $icon : '';
 
 	$class .= 'right' == $icon_position ? ' glyph-right' : ' glyph-left';
+	//$class .= 'button' == $style ? ' button-default' : '';
+	
+	// change CSS class based on style chosen
+	if ( 'button' == $style )
+		$style = 'edd-wl-button';
+	elseif ( 'plain' == $style )
+		$style = 'plain';
 
 	// if link is specified, don't show spinner
 	$loading = ! $link ? '<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>' : '';
@@ -234,7 +230,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 		'<a href="%1$s" class="%2$s %3$s" data-action="%4$s" data-download-id="%5$s" %6$s %7$s %12$s>%8$s<span class="label">%9$s</span>%10$s%11$s</a>',
 		$link, 														// 1
 		implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 2
-		$button_size, 												// 3
+		$link_size, 												// 3
 		$action, 													// 4
 		esc_attr( $args['download_id'] ), 							// 5
 		esc_attr( $data_variable ), 								// 6
@@ -321,6 +317,8 @@ function edd_wl_wish_list_item_purchase( $item, $args = array() ) {
 
 	extract( $args, EXTR_SKIP );
 
+	$style = 'edd-wl-button';
+
 	$variable_pricing 	= edd_has_variable_prices( $download_id );
 	$data_variable  	= $variable_pricing ? ' data-variable-price=yes' : 'data-variable-price=no';
 
@@ -349,7 +347,10 @@ function edd_wl_wish_list_item_purchase( $item, $args = array() ) {
 		$checkout_display = 'style="display:none;"';
 	}
 
-	$button_size = 'button' == edd_get_option( 'edd_wl_button_style', 'button' ) ? apply_filters( 'edd_wl_button_size', 'button-default' ) : '';
+	$button_size = '';
+	//$button_size = 'button' == edd_get_option( 'edd_wl_button_style', 'button' ) ? '' : '';
+
+
 	$loading = '<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>';
 	$form_id = ! empty( $form_id ) ? $form_id : 'edd_purchase_' . $download_id;
 	?>
@@ -404,13 +405,19 @@ function edd_wl_add_all_to_cart_link( $args = array() ) {
 			'text' 		=> __( 'Add all to cart', 'edd-wish-lists' ),
 			'style'		=> 'button',
 			'color'		=> '',
-			'class'		=> 'edd-wl-action edd-wl-add-all-to-cart button-default'
+			'class'		=> 'edd-wl-action edd-wl-add-all-to-cart'
 		)
 	);
 
 	$args = wp_parse_args( $args, $defaults );
 
 	extract( $args, EXTR_SKIP );
+
+	// change CSS class based on style chosen
+	if ( 'button' == $style )
+		$style = 'edd-wl-button';
+	elseif ( 'plain' == $style )
+		$style = 'plain';
 
 	// return if there's only 1 item in list
 	$list = edd_wl_get_wish_list( $list_id );

@@ -30,6 +30,8 @@ function edd_wl_messages() {
 		'list_option_private'			=> __( 'Private - only viewable by you', 'edd-wish-lists' ),
 		'list_option_public'			=> __( 'Public - viewable by anyone', 'edd-wish-lists' ),
 		'list_share_success'			=> __( 'Successfully shared.', 'edd-wish-lists' ),
+		'list_title_required'			=> __( 'You need to enter a title', 'edd-wish-lists' ),
+		'item_already_purchased'		=> __( 'Already purchased', 'edd-wish-lists' ),
 	);
 
 	return apply_filters( 'edd_wl_messages', $messages );

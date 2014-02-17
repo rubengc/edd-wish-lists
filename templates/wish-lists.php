@@ -13,9 +13,11 @@ $public 	= edd_wl_get_query( 'public' );
  * Only shows if guests are allowed to create lists
 */
 if ( edd_wl_allow_guest_creation() ) : ?>
-	<a class="button button-default edd-wl-action" href="<?php echo edd_wl_get_wish_list_create_uri(); ?>">
-		<?php echo sprintf( __( 'Create new %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
-	</a>
+	<p>
+		<a class="edd-wl-button edd-wl-action" href="<?php echo edd_wl_get_wish_list_create_uri(); ?>">
+			<?php echo sprintf( __( 'Create new %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+		</a>
+	</p>
 <?php endif; ?>
 
 
@@ -31,12 +33,12 @@ if ( edd_wl_allow_guest_creation() ) : ?>
 		<ul class="edd-wish-list">
 		<?php while ( $public->have_posts() ) : $public->the_post(); ?>
 			<li>
-				<span class="edd-wish-list-item-title">
+				<span class="edd-wl-item-title">
 					<a href="<?php echo edd_wl_get_wish_list_view_uri( get_the_ID() ); ?>" title="<?php echo the_title_attribute(); ?>"><?php echo get_the_title(); ?></a>
-					<span class="edd-wish-list-item-count"><?php echo edd_wl_get_item_count( get_the_ID() ); ?></span>
+					<span class="edd-wl-item-count"><?php echo edd_wl_get_item_count( get_the_ID() ); ?></span>
 				</span>
 
-				<span class="edd-wish-list-edit">
+				<span class="edd-wl-edit">
 					<a href="<?php echo edd_wl_get_wish_list_edit_uri( get_the_ID() ); ?>"><?php _e( 'edit', 'edd-wish-lists' ); ?></a>
 				</span>
 			</li>
@@ -56,12 +58,12 @@ if ( edd_wl_allow_guest_creation() ) : ?>
 		<ul class="edd-wish-list">
 		<?php while ( $private->have_posts() ) : $private->the_post(); ?>
 			<li>
-				<span class="edd-wish-list-item-title">
+				<span class="edd-wl-item-title">
 					<a href="<?php echo edd_wl_get_wish_list_view_uri( get_the_ID() ); ?>" title="<?php echo the_title_attribute(); ?>"><?php echo get_the_title(); ?></a>
-					<span class="edd-wish-list-item-count"><?php echo edd_wl_get_item_count( get_the_ID() ); ?></span>
+					<span class="edd-wl-item-count"><?php echo edd_wl_get_item_count( get_the_ID() ); ?></span>
 				</span>
 
-				<span class="edd-wish-list-edit">
+				<span class="edd-wl-edit">
 					<a href="<?php echo edd_wl_get_wish_list_edit_uri( get_the_ID() ); ?>"><?php _e( 'edit', 'edd-wish-lists' ); ?></a>
 				</span>
 			</li>

@@ -32,7 +32,7 @@ $privacy    = get_post_status( $post_id );
 	  </select>
 	</p>
 	<p> 
-	    <input type="submit" value="<?php _e( 'Update', 'edd-wish-lists' ); ?>" class="button button-default">
+	    <input type="submit" value="<?php _e( 'Update', 'edd-wish-lists' ); ?>" class="button">
 	</p>
 
 	<input type="hidden" name="submitted" id="submitted" value="true">
