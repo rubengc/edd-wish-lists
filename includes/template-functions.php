@@ -115,8 +115,7 @@ add_filter( 'the_title', 'edd_wl_the_title', 10, 2 );
  */
 function edd_wl_load_wish_list_link( $download_id = '' ) {
 	// set the $download_id to the post ID if $download_id is not present
-	// this is for themes that might rehook the add to wish list link on single download pages
-	if ( ! $download_id && is_singular( 'download' ) ) {
+	if ( ! $download_id ) {
 		$download_id = get_the_ID();
 	}
 
