@@ -57,11 +57,9 @@ add_action( 'wp_enqueue_scripts', 'edd_wl_register_styles', 100 );
  * @since 1.0
 */
 function edd_wl_print_script() {
-	global $edd_options;
+	global $edd_options, $edd_wl_scripts, $edd_wl_share_via_email;
 
-	$edd_wish_lists = edd_wish_lists();
-
-	if ( ! $edd_wish_lists::$add_script )
+	if ( ! $edd_wl_scripts )
 		return;
 	
 	// Use minified libraries if SCRIPT_DEBUG is turned off
@@ -75,7 +73,8 @@ function edd_wl_print_script() {
 	wp_enqueue_script( 'edd-wl' );
 	wp_enqueue_script( 'edd-wl-modal' );
 
-	if ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$share_via_email ) {
+	// load validation if email sharing is present
+	if ( edd_wl_is_page( 'view' ) && $edd_wl_share_via_email ) {
 		wp_enqueue_script( 'edd-wl-validate' );
 	}
 
@@ -93,9 +92,9 @@ add_action( 'wp_footer', 'edd_wl_print_script' );
  * Load validation on view page
  */
 function edd_wl_validate() {
-	$edd_wish_lists = edd_wish_lists();
-	
-	if ( ! ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$share_via_email ) )
+	global $edd_wl_share_via_email;
+
+	if ( ! ( edd_wl_is_page( 'view' ) && $edd_wl_share_via_email ) )
 		return;
 
 	?>
@@ -115,7 +114,6 @@ function edd_wl_validate() {
 		$('body').on('click.eddwlShareViaEmail', '.edd-wl-share-via-email', function (e) {
 			e.preventDefault();
 
-			console.log( 'clicked' );
 			// submit form
 			$('#edd-wl-share-email-form').submit();
 		});

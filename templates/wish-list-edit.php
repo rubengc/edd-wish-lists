@@ -2,14 +2,13 @@
 /**
  * Edit Wish List template
 */
-$edd_wish_lists = edd_wish_lists();
-$edd_wish_lists::$add_script = true;
 
 $wish_list  = get_post( get_query_var('edit') );
 $post_id    = $wish_list->ID;
 $content    = $wish_list->post_content;
 $title      = get_the_title( $post_id );
 $privacy    = get_post_status( $post_id );
+
 ?>
 
 <h3>

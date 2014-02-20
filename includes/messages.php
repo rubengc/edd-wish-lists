@@ -17,7 +17,8 @@ function edd_wl_messages() {
 	$messages = array(
 		'must_login' 					=> sprintf( __( 'Sorry, you must login to create a %s', 'edd-wish-lists' ), 		edd_wl_get_label_singular( true ) ),
 		'list_updated'					=> sprintf( __( '%s successfully updated', 'edd-wish-lists' ), 						edd_wl_get_label_singular() ),
-		'list_created'					=> sprintf( __( '%s successfully created and saved for 30 days. If you wish to keep it longer, please create an account.', 'edd-wish-lists' ), 						edd_wl_get_label_singular() ),
+		'list_created_guest'			=> sprintf( __( '%s successfully created and saved for 30 days. If you wish to keep it longer, please create an account.', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
+		'list_created'					=> sprintf( __( '%s successfully created', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
 		'list_deleted'					=> sprintf( __( '%s successfully deleted', 'edd-wish-lists' ), 						edd_wl_get_label_singular() ),
 		'no_lists' 						=> sprintf( __( 'You currently have no %s', 'edd-wish-lists' ), 					edd_wl_get_label_plural( true ) ),
 		'no_downloads' 					=> sprintf( __( 'Nothing here yet, how about adding some %s?', 'edd-wish-lists' ), 	edd_get_label_plural( true ) ),
@@ -71,8 +72,6 @@ function edd_wl_set_messages() {
 	if ( edd_wl_is_page( 'view' ) ) {
 		$downloads = edd_wl_get_wish_list( get_query_var( 'view' ) );
 
-		
-
 		// list updated
 		if ( isset( $_GET['list'] ) && $_GET['list'] == 'updated' ) {
 			edd_wl_set_message( 'list_updated', $messages['list_updated'] );
@@ -80,7 +79,12 @@ function edd_wl_set_messages() {
 
 		// list created
 		if ( isset( $_GET['list'] ) && $_GET['list'] == 'created' ) {
-			edd_wl_set_message( 'list_created', $messages['list_created'] );
+			if ( is_user_logged_in() ) {
+				edd_wl_set_message( 'list_created', $messages['list_created'] );
+			}
+			else {
+				edd_wl_set_message( 'list_created', $messages['list_created_guest'] );
+			}
 		}
 
 		// no downloads

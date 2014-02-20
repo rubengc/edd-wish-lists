@@ -5,7 +5,6 @@
  * 
  * @since 1.0
 */
-
 $list_id = get_query_var( 'view' );
 
 // gets the list

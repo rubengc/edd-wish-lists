@@ -108,6 +108,11 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 			$this->version 		= '1.0';
 			$this->title 		= 'EDD Wish Lists';
 
+			global $edd_wl_scripts, $edd_wl_share_via_email;
+
+			$edd_wl_scripts 	= false;
+			$share_via_email 	= false;
+
 			// constants
 			
 			if ( ! defined( 'EDD_WL_VERSION' ) )

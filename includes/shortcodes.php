@@ -20,9 +20,6 @@ function edd_wl_view_shortcode( $atts, $content = null ) {
 		), $atts, 'edd_wish_lists_view' )
 	);
 
-	$edd_wish_lists = edd_wish_lists();
-  	$edd_wish_lists::$add_script = true;
-
   	// prevent list from displaying if it's private
 	if ( edd_wl_is_private_list() )
 		return;
@@ -119,9 +116,6 @@ function edd_wl_add_to_list_shortcode( $atts, $content = null ) {
 		), $atts, 'edd_wish_lists_add' )
 	);
 
-	$edd_wish_list = edd_wish_lists();
-    $edd_wish_list::$shortcode = true;
-
     $args = array(
 		'download_id' 	=> $id,
 		'text' 			=> $text,
@@ -130,6 +124,7 @@ function edd_wl_add_to_list_shortcode( $atts, $content = null ) {
 		'action'		=> 'edd_wl_open_modal',
 		'class'			=> 'edd-wl-open-modal edd-wl-action before',
 		'price_option'	=> $option,
+		'shortcode'		=> true // used to return the links, not echo them in edd_wl_wish_list_link()
 	);
 
 	$content = edd_wl_wish_list_link( $args );

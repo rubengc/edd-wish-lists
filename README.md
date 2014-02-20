@@ -5,7 +5,7 @@ Allow users on your website to store products into public/private lists.
 
 Demo: http://edd-wish-lists.sumobithemes.com/
 
-Documentation: http://sumobi.com/edd-wish-lists/
+Documentation: http://sumobi.com/docs/edd-wish-lists/
 
 **For users**
 - Quickly add a product to a wish list, and create new wish lists without leaving the product’s page.

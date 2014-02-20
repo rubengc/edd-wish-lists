@@ -34,10 +34,11 @@ add_action( 'wp_footer', 'edd_wl_modal_window', 100 );
  * @since 1.0
 */
 function edd_wl_modal_share_via_email() {
+	global $edd_wl_share_via_email;
+
 	// only load on view page, when email sharing is present
-	$edd_wish_lists = edd_wish_lists();
-	if ( ! ( edd_wl_is_page( 'view' ) && $edd_wish_lists::$share_via_email ) )
-		return;
+	 if ( ! ( edd_wl_is_page( 'view' ) && $edd_wl_share_via_email ) )
+	 	return;
 
 	$list_id = get_query_var( 'view' );
 	?>
@@ -165,13 +166,16 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
         $download = $download_id ? get_the_title( $download_id ) : '';
 
         // price variations
+        // EG: Download Name - Option 1, Option 2, Option 3
         if ( edd_has_variable_prices( $download_id ) ) {
-            $options = ' - ' . implode( ', ', array_map( function ( $item ) {
-				  return edd_get_price_name( $item['id'], $item['options'] );
-			}, $items ) );
+        	$price_options = array();
+
+        	foreach ( $items as $item ) {
+        		$price_options[] = edd_get_price_name( $item['id'], $item['options'] );
+        	}
     	}
 
-    	$options = isset( $options ) ? $options : '';
+    	$options = !empty ( $price_options ) ? ' - ' . implode( ', ', $price_options ) : '';
 
         // show user what they have selected
         echo '<p>' . sprintf( '%1$s%2$s', $download, $options ) . '</p>';

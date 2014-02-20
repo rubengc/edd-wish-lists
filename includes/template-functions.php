@@ -159,13 +159,10 @@ add_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
  * @since 1.0
 */
 function edd_wl_wish_list_link( $args = array() ) {
-	global $edd_options, $post;
-
-	// get main wish list class
-	$edd_wish_lists = edd_wish_lists();
+	global $edd_options, $edd_wl_scripts, $post;
 
 	// load required scripts if template tag or shortcode has been used
-	$edd_wish_lists::$add_script = true;
+	$edd_wl_scripts = true;
 
 	$defaults = apply_filters( 'edd_wl_link_defaults', 
 		array(
@@ -188,6 +185,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 	// extract $args so we can use the variable names
 	extract( $args, EXTR_SKIP );
 
+
 	// manually select price option for shortcode
 	$price_opt 				= isset( $price_option ) ? ( $price_option - 1 ) : ''; // so user can enter in 1, 2,3 instead of 0, 1, 2 as option
 	$price_option 			= $price_option ? ' data-price-option="' . $price_opt . '"' : '';
@@ -206,7 +204,8 @@ function edd_wl_wish_list_link( $args = array() ) {
 
 	$icon = $icon && 'none' != $icon ? '<i class="glyphicon glyphicon-' . $icon . '"></i>' : '';
 
-	
+	// shortcode parameter for returning function
+	$shortcode = isset( $shortcode ) ? $shortcode : '';
 
 	// size of plain text or button link
 	$link_size = $link_size ? $link_size : '';
@@ -250,7 +249,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 	$html = apply_filters( 'edd_wl_link', ob_get_clean() );
 
 	// return for shortcode, else echo
-	if ( $edd_wish_lists::$shortcode ) {
+	if ( $shortcode ) {
 		return $html;
 	}
 	else {
@@ -264,6 +263,12 @@ function edd_wl_wish_list_link( $args = array() ) {
  * @since 1.0
 */
 function edd_wl_load_template( $type ) {
+	global $edd_wl_scripts;
+	
+	if ( edd_wl_is_page( 'view' ) ) {
+		$edd_wl_scripts = true;
+	}
+	
 	ob_start();
 
 	// display messages
@@ -279,21 +284,15 @@ function edd_wl_load_template( $type ) {
 /**
  * Main Wish List function called by [edd_wish_lists] shortcode
  * This template can be found in the /templates folder. 
- * Copy wish-list.php to your edd_templates folder in your child theme
+ * Copy wish-lists.php to your edd_templates folder in your child theme
  * Would be nice to use get_template_part but you cannot pass variables along
  *
  * @since  1.0
  * @return [type]        [description]
  */
 function edd_wl_wish_list() {
-	// load required scripts if template tag or shortcode has been used
-	$edd_wish_lists = edd_wish_lists();
-	$edd_wish_lists::$add_script = true;
-
 	ob_start();
-
 	echo edd_wl_print_messages();
-
 	edd_get_template_part( 'wish-lists' );
 	
 	return ob_get_clean();

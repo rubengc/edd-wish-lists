@@ -11,12 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return string
  */
 function edd_wl_share_via_email_link() {
-	// get main wish list class
-	$edd_wish_lists = edd_wish_lists();
+	global $edd_wl_share_via_email;
 
-	// load required scripts if template tag or shortcode has been used
-	$edd_wish_lists::$share_via_email = true;
-
+	$edd_wl_share_via_email = true;
 	ob_start();
 	?>
 
@@ -24,7 +21,7 @@ function edd_wl_share_via_email_link() {
 	<?php
 
 	$html = ob_get_clean();
-	return apply_filters( 'edd_wl_share_via_email', $html );
+	return apply_filters( 'edd_wl_share_via_email_link', $html );
 }
 
 /**
@@ -105,13 +102,6 @@ function edd_wl_sharing_services() {
 
 	// get list ID
 	$list_id = get_query_var( 'view' );
-
-	// return if our share box has been turned off
-	// if ( ! self::$share_box_enabled )
-	// 	return;
-
-	$edd_wish_lists = edd_wish_lists();
-	$edd_wish_lists::$add_script = true;
 
 	$sharing_layout = apply_filters( 'edd_wl_sharing_layout', 'vertical' );
 
@@ -205,10 +195,9 @@ function edd_wl_sharing_services() {
 function edd_wl_sharing_print_scripts() {
 	global $edd_options;
 
-	$edd_wish_lists = edd_wish_lists();
-
-	if ( ! $edd_wish_lists::$add_script )
+	if ( ! ( edd_wl_is_page( 'view' ) ) )
 		return;
+
 	?>
 	<script type="text/javascript">
 

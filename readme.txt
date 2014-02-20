@@ -10,7 +10,7 @@ Requires Easy Digital Downloads 1.9 or greater
 http://edd-wish-lists.sumobithemes.com/
 
 == Documentation ==
-http://sumobi.com/edd-wish-lists/
+http://sumobi.com/docs/edd-wish-lists/
 
 == Installation ==
 
