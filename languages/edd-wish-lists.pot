@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Easy Digital Downloads - Wish Lists\n"
-"POT-Creation-Date: 2014-02-16 18:16+1200\n"
-"PO-Revision-Date: 2014-02-16 18:16+1200\n"
+"POT-Creation-Date: 2014-02-21 13:02+1200\n"
+"PO-Revision-Date: 2014-02-21 13:02+1200\n"
 "Last-Translator: Andrew Munro, Sumobi <andrew@sumobi.com>\n"
 "Language-Team: Sumobi <andrew@sumobi.com>\n"
 "Language: en_US\n"
@@ -15,18 +15,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../edd-wish-lists.php:287
+#: ../edd-wish-lists.php:288
 #, php-format
 msgid "You must install %sEasy Digital Downloads%s to use EDD Wish Lists."
 msgstr ""
 
-#: ../edd-wish-lists.php:291
+#: ../edd-wish-lists.php:292
 msgid ""
 "EDD Wish Lists requires Easy Digital Downloads Version 1.8.4 or greater. "
 "Please update Easy Digital Downloads."
 msgstr ""
 
-#: ../edd-wish-lists.php:302
+#: ../edd-wish-lists.php:303
 msgid "Settings"
 msgstr ""
 
@@ -135,23 +135,23 @@ msgid "The icon to show next to the add to %s links"
 msgstr ""
 
 #: ../includes/admin-settings.php:163
-msgid "Gift"
-msgstr ""
-
-#: ../includes/admin-settings.php:164
-msgid "Heart"
-msgstr ""
-
-#: ../includes/admin-settings.php:165
-msgid "Star"
-msgstr ""
-
-#: ../includes/admin-settings.php:166
 msgid "Add"
 msgstr ""
 
-#: ../includes/admin-settings.php:167
+#: ../includes/admin-settings.php:164
 msgid "Bookmark"
+msgstr ""
+
+#: ../includes/admin-settings.php:165
+msgid "Gift"
+msgstr ""
+
+#: ../includes/admin-settings.php:166
+msgid "Heart"
+msgstr ""
+
+#: ../includes/admin-settings.php:167
+msgid "Star"
 msgstr ""
 
 #: ../includes/admin-settings.php:168
@@ -212,8 +212,8 @@ msgstr ""
 msgid "%s has suggested you look at this %s from %s"
 msgstr ""
 
-#: ../includes/dashboard-columns.php:19 ../includes/messages.php:29
-#: ../templates/wish-list-edit.php:21
+#: ../includes/dashboard-columns.php:19 ../includes/messages.php:30
+#: ../templates/wish-list-edit.php:20
 msgid "Title"
 msgstr ""
 
@@ -235,10 +235,6 @@ msgstr ""
 
 #: ../includes/dashboard-columns.php:60
 msgid "Guest"
-msgstr ""
-
-#: ../includes/form-processing.php:21
-msgid "You need to enter a title"
 msgstr ""
 
 #: ../includes/install.php:34 ../includes/post-type.php:73
@@ -276,51 +272,64 @@ msgstr ""
 
 #: ../includes/messages.php:21
 #, php-format
-msgid "%s successfully deleted"
+msgid "%s successfully created"
 msgstr ""
 
 #: ../includes/messages.php:22
 #, php-format
-msgid "You currently have no %s"
+msgid "%s successfully deleted"
 msgstr ""
 
 #: ../includes/messages.php:23
 #, php-format
-msgid "Nothing here yet, how about adding some %s?"
+msgid "You currently have no %s"
 msgstr ""
 
 #: ../includes/messages.php:24
-msgid "This item has already been added to: "
+#, php-format
+msgid "Nothing here yet, how about adding some %s?"
 msgstr ""
 
 #: ../includes/messages.php:25
-msgid "Save"
+msgid "This item has already been added to: "
 msgstr ""
 
 #: ../includes/messages.php:26
-msgid "Great, I'm done"
+msgid "Save"
 msgstr ""
 
 #: ../includes/messages.php:27
-msgid "Add to new"
+msgid "Great, I'm done"
 msgstr ""
 
 #: ../includes/messages.php:28
+msgid "Add to new"
+msgstr ""
+
+#: ../includes/messages.php:29
 msgid "Add to existing"
 msgstr ""
 
-#: ../includes/messages.php:30 ../templates/wish-list-create.php:24
-#: ../templates/wish-list-edit.php:30
+#: ../includes/messages.php:31 ../templates/wish-list-create.php:24
+#: ../templates/wish-list-edit.php:29
 msgid "Private - only viewable by you"
 msgstr ""
 
-#: ../includes/messages.php:31 ../templates/wish-list-create.php:25
-#: ../templates/wish-list-edit.php:31
+#: ../includes/messages.php:32 ../templates/wish-list-create.php:25
+#: ../templates/wish-list-edit.php:30
 msgid "Public - viewable by anyone"
 msgstr ""
 
-#: ../includes/messages.php:32
+#: ../includes/messages.php:33
 msgid "Successfully shared."
+msgstr ""
+
+#: ../includes/messages.php:34
+msgid "You need to enter a title"
+msgstr ""
+
+#: ../includes/messages.php:35
+msgid "Already purchased"
 msgstr ""
 
 #: ../includes/metabox.php:20
@@ -336,13 +345,13 @@ msgstr ""
 msgid "No items have been added yet"
 msgstr ""
 
-#: ../includes/modals.php:44 ../includes/modals.php:90
+#: ../includes/modals.php:48 ../includes/modals.php:89
 #, php-format
 msgid "Share this %s"
 msgstr ""
 
-#: ../includes/modals.php:48 ../includes/modals.php:94
-#: ../includes/modals.php:130 ../includes/modals.php:184
+#: ../includes/modals.php:52 ../includes/modals.php:93
+#: ../includes/modals.php:129 ../includes/modals.php:186
 msgid "Close"
 msgstr ""
 
@@ -350,22 +359,22 @@ msgstr ""
 msgid "Send Now"
 msgstr ""
 
-#: ../includes/modals.php:126 ../templates/wish-list-edit.php:45
+#: ../includes/modals.php:125 ../templates/wish-list-edit.php:44
 #, php-format
 msgid "Delete %s"
 msgstr ""
 
-#: ../includes/modals.php:135
+#: ../includes/modals.php:134
 #, php-format
 msgid "You are about to delete this %s, are you sure?"
 msgstr ""
 
-#: ../includes/modals.php:140
+#: ../includes/modals.php:139
 #, php-format
 msgid "Yes, delete this %s"
 msgstr ""
 
-#: ../includes/modals.php:157 ../includes/template-functions.php:148
+#: ../includes/modals.php:156 ../includes/template-functions.php:170
 #, php-format
 msgid "Add to %s"
 msgstr ""
@@ -418,45 +427,45 @@ msgstr ""
 msgid "Wish List"
 msgstr ""
 
-#: ../includes/sharing.php:23
+#: ../includes/sharing.php:20
 msgid "Share via email"
 msgstr ""
 
-#: ../includes/sharing.php:38
+#: ../includes/sharing.php:35
 msgid "Hi!"
 msgstr ""
 
-#: ../includes/sharing.php:39
+#: ../includes/sharing.php:36
 #, php-format
 msgid "%s has suggested you look at this %s from %s:"
 msgstr ""
 
-#: ../includes/sharing.php:45
+#: ../includes/sharing.php:42
 #, php-format
 msgid "Reply to %s by emailing %s"
 msgstr ""
 
-#: ../includes/sharing.php:160 ../templates/wish-list-view.php:83
+#: ../includes/sharing.php:150 ../templates/wish-list-view.php:82
 msgid "Share"
 msgstr ""
 
-#: ../includes/shortcodes.php:115
+#: ../includes/shortcodes.php:112
 msgid "Add to wish list"
 msgstr ""
 
-#: ../includes/template-functions.php:34
+#: ../includes/template-functions.php:54
 msgid " Total: "
 msgstr ""
 
-#: ../includes/template-functions.php:293
+#: ../includes/template-functions.php:313
 msgid "Add to cart"
 msgstr ""
 
-#: ../includes/template-functions.php:294
+#: ../includes/template-functions.php:314
 msgid "Checkout"
 msgstr ""
 
-#: ../includes/template-functions.php:384
+#: ../includes/template-functions.php:409
 msgid "Add all to cart"
 msgstr ""
 
@@ -468,16 +477,16 @@ msgstr ""
 msgid "Description:"
 msgstr ""
 
-#: ../templates/wish-list-edit.php:16
+#: ../templates/wish-list-edit.php:15
 #, php-format
 msgid "%s Settings"
 msgstr ""
 
-#: ../templates/wish-list-edit.php:25
+#: ../templates/wish-list-edit.php:24
 msgid "Description"
 msgstr ""
 
-#: ../templates/wish-list-edit.php:35
+#: ../templates/wish-list-edit.php:34
 msgid "Update"
 msgstr ""
 
@@ -534,30 +543,30 @@ msgstr ""
 msgid "Optional"
 msgstr ""
 
-#: ../templates/wish-list-view.php:65 ../templates/wish-list-view.php:67
+#: ../templates/wish-list-view.php:64 ../templates/wish-list-view.php:66
 msgid "Remove"
 msgstr ""
 
-#: ../templates/wish-list-view.php:118
+#: ../templates/wish-list-view.php:117
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: ../templates/wish-lists.php:17
+#: ../templates/wish-lists.php:18
 #, php-format
 msgid "Create new %s"
 msgstr ""
 
-#: ../templates/wish-lists.php:30
+#: ../templates/wish-lists.php:32
 #, php-format
 msgid "Public %s"
 msgstr ""
 
-#: ../templates/wish-lists.php:40 ../templates/wish-lists.php:65
+#: ../templates/wish-lists.php:42 ../templates/wish-lists.php:67
 msgid "edit"
 msgstr ""
 
-#: ../templates/wish-lists.php:55
+#: ../templates/wish-lists.php:57
 #, php-format
 msgid "Private %s"
 msgstr ""
