@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Wish Lists
 Plugin URI: https://easydigitaldownloads.com/extensions/edd-wish-lists/
 Description: Gives your customers the ability to save and share their favourite products on your site
-Version: 1.0
+Version: 1.0.1
 Author: Andrew Munro, Sumobi
 Author URI: http://sumobi.com/
 License: GPL-2.0+
@@ -116,7 +116,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 			// constants
 			
 			if ( ! defined( 'EDD_WL_VERSION' ) )
-				define( 'EDD_WL_VERSION', '1.0' );
+				define( 'EDD_WL_VERSION', '1.0.1' );
 
 			if ( ! defined( 'EDD_WL_PLUGIN_FILE' ) )
 				define( 'EDD_WL_PLUGIN_FILE', __FILE__ );

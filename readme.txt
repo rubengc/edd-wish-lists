@@ -23,5 +23,9 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 == Changelog ==
 
+= 1.0.1 =
+* Fix: PHP 5.2 Compatibility
+* Tweak: Different list creation messages for guest/logged in users
+
 = 1.0 =
 * Initial release
