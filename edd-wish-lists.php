@@ -105,7 +105,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 * @return void
 		 */
 		private function setup_globals() {
-			$this->version 		= '1.0';
+			$this->version 		= '1.0.1';
 			$this->title 		= 'EDD Wish Lists';
 
 			global $edd_wl_scripts, $edd_wl_share_via_email;
