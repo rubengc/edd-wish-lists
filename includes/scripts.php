@@ -76,18 +76,7 @@ function edd_wl_print_scripts() {
 		$url = trailingslashit( edd_wl_get_templates_url() ) . $file;
 	}
 
-	
-
-	wp_register_style( 'edd-wl-styles', $url, array(), EDD_WL_VERSION, 'screen' );
-	wp_enqueue_style( 'edd-wl-styles' );
-
-//	var_dump( wp_style_is( 'edd-wl-styles' ) );
-
-	if ( ! wp_style_is( 'edd-wl-styles' ) ) {
-		
-
-	//	wp_enqueue_script( 'edd-test', EDD_WL_PLUGIN_URL . 'includes/js/edd-test' .  $suffix . '.js', array( 'jquery' ), EDD_WL_VERSION, true );
-	}
+	wp_enqueue_style( 'edd-wl-styles', $url, array(), EDD_WL_VERSION, 'screen' );
 
 }
 add_action( 'wp_enqueue_scripts', 'edd_wl_print_scripts', 100 );
