@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Wish Lists
 Plugin URI: https://easydigitaldownloads.com/extensions/edd-wish-lists/
 Description: Gives your customers the ability to save and share their favourite products on your site
-Version: 1.0.1
+Version: 1.0.2
 Author: Andrew Munro, Sumobi
 Author URI: http://sumobi.com/
 License: GPL-2.0+
@@ -31,27 +31,6 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 */
 		private static $instance;
 
-		/**
-		 * Holds the required scripts for the plugin
-		 *
-		 * @since 1.0
-		*/
-		public static $add_script;
-
-		/**
-		 * Email sharing scripts
-		 *
-		 * @since 1.0
-		*/
-		public static $share_via_email;
-
-		/**
-		 * Shortcode
-		 *
-		 * @since 1.0
-		*/
-		public static $shortcode;
-		
 		/**
 		 * Main Instance
 		 *
@@ -105,18 +84,17 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 * @return void
 		 */
 		private function setup_globals() {
-			$this->version 		= '1.0.1';
+			$this->version 		= '1.0.2';
 			$this->title 		= 'EDD Wish Lists';
 
-			global $edd_wl_scripts, $edd_wl_share_via_email;
+			global $edd_wl_scripts;
 
 			$edd_wl_scripts 	= false;
-			$share_via_email 	= false;
 
 			// constants
 			
 			if ( ! defined( 'EDD_WL_VERSION' ) )
-				define( 'EDD_WL_VERSION', '1.0.1' );
+				define( 'EDD_WL_VERSION', '1.0.2' );
 
 			if ( ! defined( 'EDD_WL_PLUGIN_FILE' ) )
 				define( 'EDD_WL_PLUGIN_FILE', __FILE__ );

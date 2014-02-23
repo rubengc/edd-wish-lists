@@ -89,14 +89,14 @@ $privacy = get_post_status( $list_id );
 				echo wp_get_shortlink( $list_id ); 
 				?>
 			</p>
-			<p>
-				<?php 
+			
+			<?php 
 				/**
 				 * Share via email
 				 */
 				echo edd_wl_share_via_email_link(); 
-				?>
-			</p>
+			?>
+			
 			<?php 
 				/**
 				 * Social sharing services

@@ -169,62 +169,6 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    
-      // load our modal window
-              
-      // open delete confirm modal
-       $('body').on('click.eddDeleteWishList', '.eddwl-delete-list', function (e) {  
-          e.preventDefault();
-
-          $('#edd-wl-modal').modal({
-              backdrop: 'static'
-          });
-
-      });
-
-         // delete list from edit screen
-     $('body').on('click.eddDeleteWishListConfirm', '.eddwl-delete-list-confirm', function (e) {  
-        e.preventDefault();
-
-        var $spinner = $(this).find('.edd-loading');
-        
-        var spinnerWidth    = $spinner.width(),
-        spinnerHeight       = $spinner.height();
-
-        // Show the spinner
-        $(this).attr('data-edd-loading', '');
-
-        $spinner.css({
-            'margin-left': spinnerWidth / -2,
-            'margin-top' : spinnerHeight / -2
-        });
-
-        var data =  {
-            action:     $(this).data('action'),
-            post_id:    $(this).data('post-id'),
-            nonce:      edd_wl_scripts.ajax_nonce,
-        };
-
-        $.ajax({
-            type:       "POST",
-            data:       data,
-            dataType:   "json",
-            url:        edd_scripts.ajaxurl,
-            success: function (response) {
-                if( response.msg == 'success' ) {
-                    window.location = edd_wl_scripts.wish_list_page;
-                //    console.log( 'list successfully deleted' );
-                }
-            }
-        })
-        .fail(function (response) {
-            console.log(response);
-        })
-        .done(function (response) {
-            console.log(response);
-        });
-
-    });   
 
     // opens the modal window when the add to wish list link is clicked 
     $('body').on('click.eddwlOpenModal', '.edd-wl-open-modal', function (e) {

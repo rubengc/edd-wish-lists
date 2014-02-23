@@ -23,6 +23,13 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 == Changelog ==
 
+= 1.0.2 =
+* New: added email sharing as option in extension settings
+* New: added function for retrieving item position in list
+* Tweak: improved script handling
+* Tweak: JS
+* Tweak: CSS
+
 = 1.0.1 =
 * Fix: PHP 5.2 Compatibility
 * Tweak: Different list creation messages for guest/logged in users

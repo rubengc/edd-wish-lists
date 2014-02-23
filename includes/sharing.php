@@ -11,13 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return string
  */
 function edd_wl_share_via_email_link() {
-	global $edd_wl_share_via_email;
+	if ( ! edd_wl_sharing_is_enabled( 'email' ) )
+		return;
 
-	$edd_wl_share_via_email = true;
 	ob_start();
 	?>
-
-	<a class="edd-wl-action edd-wl-button" href="#" data-backdrop="static" data-toggle="modal" data-target="#edd-wl-modal"><?php _e( 'Share via email', 'edd-wish-lists' ); ?></a>
+	<p>
+		<a class="edd-wl-action edd-wl-button" href="#" data-backdrop="static" data-toggle="modal" data-target="#edd-wl-modal"><?php _e( 'Share via email', 'edd-wish-lists' ); ?></a>
+	</p>
 	<?php
 
 	$html = ob_get_clean();
@@ -76,6 +77,10 @@ function edd_wl_sharing_is_enabled( $network = '' ) {
 				break;
 				
 			case 'linkedin':
+				return isset( $networks[$network] );
+				break;
+
+			case 'email':
 				return isset( $networks[$network] );
 				break;			
 			

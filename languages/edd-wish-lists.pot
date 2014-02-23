@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Easy Digital Downloads - Wish Lists\n"
-"POT-Creation-Date: 2014-02-21 13:02+1200\n"
-"PO-Revision-Date: 2014-02-21 13:02+1200\n"
+"POT-Creation-Date: 2014-02-23 18:55+1200\n"
+"PO-Revision-Date: 2014-02-23 18:55+1200\n"
 "Last-Translator: Andrew Munro, Sumobi <andrew@sumobi.com>\n"
 "Language-Team: Sumobi <andrew@sumobi.com>\n"
 "Language: en_US\n"
@@ -15,18 +15,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../edd-wish-lists.php:288
+#: ../edd-wish-lists.php:266
 #, php-format
 msgid "You must install %sEasy Digital Downloads%s to use EDD Wish Lists."
 msgstr ""
 
-#: ../edd-wish-lists.php:292
+#: ../edd-wish-lists.php:270
 msgid ""
 "EDD Wish Lists requires Easy Digital Downloads Version 1.8.4 or greater. "
 "Please update Easy Digital Downloads."
 msgstr ""
 
-#: ../edd-wish-lists.php:303
+#: ../edd-wish-lists.php:281
 msgid "Settings"
 msgstr ""
 
@@ -175,7 +175,7 @@ msgid "Button"
 msgstr ""
 
 #: ../includes/admin-settings.php:186
-msgid "Sharing Services"
+msgid "Sharing"
 msgstr ""
 
 #: ../includes/admin-settings.php:187
@@ -196,6 +196,10 @@ msgstr ""
 
 #: ../includes/admin-settings.php:193
 msgid "LinkedIn"
+msgstr ""
+
+#: ../includes/admin-settings.php:194
+msgid "Email"
 msgstr ""
 
 #: ../includes/ajax-functions.php:140
@@ -345,36 +349,36 @@ msgstr ""
 msgid "No items have been added yet"
 msgstr ""
 
-#: ../includes/modals.php:48 ../includes/modals.php:89
+#: ../includes/modals.php:47 ../includes/modals.php:88
 #, php-format
 msgid "Share this %s"
 msgstr ""
 
-#: ../includes/modals.php:52 ../includes/modals.php:93
-#: ../includes/modals.php:129 ../includes/modals.php:186
+#: ../includes/modals.php:51 ../includes/modals.php:92
+#: ../includes/modals.php:128 ../includes/modals.php:185
 msgid "Close"
 msgstr ""
 
-#: ../includes/modals.php:69
+#: ../includes/modals.php:68
 msgid "Send Now"
 msgstr ""
 
-#: ../includes/modals.php:125 ../templates/wish-list-edit.php:44
+#: ../includes/modals.php:124 ../templates/wish-list-edit.php:44
 #, php-format
 msgid "Delete %s"
 msgstr ""
 
-#: ../includes/modals.php:134
+#: ../includes/modals.php:133
 #, php-format
 msgid "You are about to delete this %s, are you sure?"
 msgstr ""
 
-#: ../includes/modals.php:139
+#: ../includes/modals.php:138
 #, php-format
 msgid "Yes, delete this %s"
 msgstr ""
 
-#: ../includes/modals.php:156 ../includes/template-functions.php:170
+#: ../includes/modals.php:155 ../includes/template-functions.php:167
 #, php-format
 msgid "Add to %s"
 msgstr ""
@@ -431,21 +435,21 @@ msgstr ""
 msgid "Share via email"
 msgstr ""
 
-#: ../includes/sharing.php:35
+#: ../includes/sharing.php:36
 msgid "Hi!"
 msgstr ""
 
-#: ../includes/sharing.php:36
+#: ../includes/sharing.php:37
 #, php-format
 msgid "%s has suggested you look at this %s from %s:"
 msgstr ""
 
-#: ../includes/sharing.php:42
+#: ../includes/sharing.php:43
 #, php-format
 msgid "Reply to %s by emailing %s"
 msgstr ""
 
-#: ../includes/sharing.php:150 ../templates/wish-list-view.php:82
+#: ../includes/sharing.php:155 ../templates/wish-list-view.php:82
 msgid "Share"
 msgstr ""
 
@@ -457,15 +461,15 @@ msgstr ""
 msgid " Total: "
 msgstr ""
 
-#: ../includes/template-functions.php:313
+#: ../includes/template-functions.php:303
 msgid "Add to cart"
 msgstr ""
 
-#: ../includes/template-functions.php:314
+#: ../includes/template-functions.php:304
 msgid "Checkout"
 msgstr ""
 
-#: ../includes/template-functions.php:409
+#: ../includes/template-functions.php:399
 msgid "Add all to cart"
 msgstr ""
 

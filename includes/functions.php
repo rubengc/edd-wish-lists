@@ -401,7 +401,7 @@ function edd_wl_lists_included( $download_id, $options ) {
 }
 
 /**
- * Checks the see if an item is already in the wish_list and returns a boolean. Modified from edd_item_in_cart()
+ * Checks to see if an item is already in the wish_list and returns a boolean. Modified from edd_item_in_cart()
  *
  * @since 1.0
  *
@@ -458,8 +458,6 @@ function edd_wl_item_in_wish_list( $download_id = 0, $options = array() ) {
 		}
 
 	}
-
-
 
 }
 

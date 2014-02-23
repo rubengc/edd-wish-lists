@@ -159,10 +159,7 @@ add_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
  * @since 1.0
 */
 function edd_wl_wish_list_link( $args = array() ) {
-	global $edd_options, $edd_wl_scripts, $post;
-
-	// load required scripts if template tag or shortcode has been used
-	$edd_wl_scripts = true;
+	global $edd_options, $post;
 
 	$defaults = apply_filters( 'edd_wl_link_defaults', 
 		array(
@@ -184,7 +181,6 @@ function edd_wl_wish_list_link( $args = array() ) {
 
 	// extract $args so we can use the variable names
 	extract( $args, EXTR_SKIP );
-
 
 	// manually select price option for shortcode
 	$price_opt 				= isset( $price_option ) ? ( $price_option - 1 ) : ''; // so user can enter in 1, 2,3 instead of 0, 1, 2 as option
@@ -263,12 +259,6 @@ function edd_wl_wish_list_link( $args = array() ) {
  * @since 1.0
 */
 function edd_wl_load_template( $type ) {
-	global $edd_wl_scripts;
-	
-	if ( edd_wl_is_page( 'view' ) ) {
-		$edd_wl_scripts = true;
-	}
-	
 	ob_start();
 
 	// display messages

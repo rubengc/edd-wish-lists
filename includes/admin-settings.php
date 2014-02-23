@@ -183,7 +183,7 @@ function edd_wl_settings( $settings ) {
 		),
 		array(
 			'id' => 'edd_wl_services',
-			'name' => __( 'Sharing Services', 'edd-wish-lists' ),
+			'name' => __( 'Sharing', 'edd-wish-lists' ),
 			'desc' => __( 'Select the services you\'d like users to share to', 'edd-wish-lists' ),
 			'type' => 'multicheck',
 			'options' => apply_filters( 'edd_wl_settings_services', array(
@@ -191,6 +191,7 @@ function edd_wl_settings( $settings ) {
 					'facebook' =>  __( 'Facebook', 'edd-wish-lists' ),
 					'googleplus' =>  __( 'Google+', 'edd-wish-lists' ),
 					'linkedin' =>  __( 'LinkedIn', 'edd-wish-lists' ),
+					'email' =>  __( 'Email', 'edd-wish-lists' ),
 				)
 			)
 		),

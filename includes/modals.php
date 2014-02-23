@@ -34,10 +34,9 @@ add_action( 'wp_footer', 'edd_wl_modal_window', 100 );
  * @since 1.0
 */
 function edd_wl_modal_share_via_email() {
-	global $edd_wl_share_via_email;
 
 	// only load on view page, when email sharing is present
-	 if ( ! ( edd_wl_is_page( 'view' ) && $edd_wl_share_via_email ) )
+	 if ( ! ( edd_wl_is_page( 'view' ) && edd_wl_sharing_is_enabled( 'email' ) ) )
 	 	return;
 
 	$list_id = get_query_var( 'view' );
