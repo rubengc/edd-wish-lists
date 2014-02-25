@@ -379,10 +379,10 @@ a.edd-add-to-wish-list.edd-has-js {
 }
 .edd-wish-list li {
   list-style-type: none;
-  margin: 0 0 24px 0;
-  margin: 0 0 0.5rem 0;
-  padding: 0 0 24px 0;
-  padding: 0 0 0.5rem 0;
+  margin: 0 0 16px 0;
+  margin: 0 0 1rem 0;
+  padding: 0 0 16px 0;
+  padding: 0 0 1rem 0;
   border-bottom: 1px solid #eee;
 }
 .edd-wish-list li.header span {
@@ -443,16 +443,19 @@ a.edd-add-to-wish-list.edd-has-js {
 @media screen and (min-width: 480px) {
   .edd-wish-list li {
     text-align: justify;
+    font-size: 0.1px;
   }
   .edd-wish-list li:after {
-    content: ' ';
-    display: block;
+    content: '';
+    display: inline-block;
+    width: 100%;
   }
   .edd-wish-list li > span {
     vertical-align: middle;
   }
   .edd-wish-list li span {
     display: inline-block;
+    font-size: 14px;
     line-height: 1.3;
   }
   .edd-wish-list li span.edd-wl-item-title {
@@ -472,6 +475,8 @@ a.edd-add-to-wish-list.edd-has-js {
   }
   .edd-wish-list li span.edd-wl-item-image {
     width: 50px;
+    display: block;
+    margin-top: 5px;
   }
   .edd-wish-list li span.edd-wl-item-remove {
     width: 4%;

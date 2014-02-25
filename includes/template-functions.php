@@ -254,7 +254,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 }
 
 /**
- * Load the create wishlist form
+ * Load the correct template
  *
  * @since 1.0
 */

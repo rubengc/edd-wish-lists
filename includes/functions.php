@@ -20,13 +20,30 @@ function edd_wl_edd_template_paths( $file_paths ) {
 add_filter( 'edd_template_paths', 'edd_wl_edd_template_paths' );
 
 /**
- * Get a specific wish list
+ * Get list ID
+ * Performs a simple lookup of the 'view' query var
+ * 
+ * @return int ID of list
+ * @since  1.0
+ */
+function edd_wl_get_list_id() {
+	$list_id = get_query_var( 'view' );
+
+	return apply_filters( 'edd_wl_get_list_id', $list_id );
+}
+
+/**
+ * Get a wish list
+ * 
  * @param  int $wish_list_id 	the ID of the wish list
  * @return array               	the contents of the wish list
+ * @since  1.0
  */
-function edd_wl_get_wish_list( $wish_list_id ) {
+function edd_wl_get_wish_list( $wish_list_id = '' ) {
+	$wish_list_id = isset( $wish_list_id ) ? get_query_var( 'view' ) : null;
+
 	// retrieve the wish list
-	return get_post_meta( $wish_list_id, 'edd_wish_list', true );
+	return apply_filters( 'edd_wl_get_wish_list', get_post_meta( $wish_list_id, 'edd_wish_list', true ) );
 }
 
 /**

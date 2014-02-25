@@ -114,7 +114,7 @@ function edd_wl_get_item_position_in_list( $download_id = 0, $options = array() 
 	$cart_items = edd_get_cart_contents();
 
 	$list_id = edd_wl_get_query()->posts[0]->ID;
-	$list_items = edd_wl_get_wish_list( $list_id);
+	$list_items = edd_wl_get_wish_list( $list_id );
 
 	if ( ! is_array( $list_items ) ) {
 		return false; // Empty list

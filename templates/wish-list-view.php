@@ -5,10 +5,10 @@
  * 
  * @since 1.0
 */
-$list_id = get_query_var( 'view' );
+$list_id = edd_wl_get_list_id();
 
 // gets the list
-$downloads = edd_wl_get_wish_list( $list_id );
+$downloads = edd_wl_get_wish_list();
 
 // get list post object
 $list = get_post( $list_id );
@@ -36,19 +36,20 @@ $privacy = get_post_status( $list_id );
 				<?php
 					$item_option 		= ! empty( $item['options'] ) ? '<span class="edd-wl-item-title-option">' . edd_get_cart_item_price_name( $item ) . '</span>' : '';
 					$variable_pricing 	= edd_has_variable_prices( $item['id'] );
-					$variable_price_id = isset( $item['options']['price_id'] ) ? $item['options']['price_id'] : '';
+					$variable_price_id 	= isset( $item['options']['price_id'] ) ? $item['options']['price_id'] : '';
 				?>
 					<a href="<?php echo post_permalink( $item['id'] ); ?>" title="<?php echo the_title_attribute( array( 'post' => $item['id'] ) ); ?>">
 						<?php echo get_the_title( $item['id'] ); ?>
 					</a>
 					<?php echo $item_option; /* The item's price option is variable pricing is enabled */ ?>
 					<?php echo edd_wl_has_purchased( $item['id'], $variable_price_id ); /* Shows "Already purchased" */ ?>
-				</span>
 
-				<span class="edd-wl-item-image">
-				<?php if ( current_theme_supports( 'post-thumbnails' ) && has_post_thumbnail( $item['id'] ) ) : ?>
-					<?php echo get_the_post_thumbnail( $item['id'], apply_filters( 'edd_checkout_image_size', array( 50, 50 ) ) ); ?>
-				<?php endif; ?>
+					<span class="edd-wl-item-image">
+					<?php if ( current_theme_supports( 'post-thumbnails' ) && has_post_thumbnail( $item['id'] ) ) : ?>
+						<?php echo get_the_post_thumbnail( $item['id'], apply_filters( 'edd_checkout_image_size', array( 50, 50 ) ) ); ?>
+					<?php endif; ?>
+					</span>
+					
 				</span>
 
 				<span class="edd-wl-item-price">
