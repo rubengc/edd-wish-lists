@@ -9,6 +9,18 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * Add path for template files
+ *
+ * @since 1.0
+*/
+function edd_wl_edd_template_paths( $file_paths ) {
+	$file_paths[95] = edd_wl_get_templates_dir();
+	return $file_paths;
+}
+add_filter( 'edd_template_paths', 'edd_wl_edd_template_paths' );
+
+
+/**
  * Returns the path to the templates directory
  *
  * @since 1.0
@@ -425,4 +437,36 @@ function edd_wl_add_all_to_cart_link( $args = array() ) {
 	);
 
 	return $button;
+}
+
+/**
+ * Delete list link
+ *
+ * @since  1.0
+ * @param  array  $args link arguments
+ * @return string       delete link
+ */
+function edd_wl_delete_list_link( $args = array() ) {
+	
+	$defaults = apply_filters( 'edd_wl_delete_list_link_defaults', 
+		array(
+			'text' 		=> sprintf( __( 'Delete %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ),
+			'class'		=> 'edd-wl-delete-list'
+		)
+	);
+
+	$args = wp_parse_args( $args, $defaults );
+	extract( $args, EXTR_SKIP );
+
+	ob_start(); ?>
+
+	<p>
+		<a href="#" class="<?php echo $class; ?>" title="<?php echo $text; ?>">
+			<?php echo $text; ?>
+		</a>
+	</p>
+
+<?php
+	$html = ob_get_clean();
+	return apply_filters( 'edd_wl_delete_list_link', $html );
 }

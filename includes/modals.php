@@ -36,8 +36,8 @@ add_action( 'wp_footer', 'edd_wl_modal_window', 100 );
 function edd_wl_modal_share_via_email() {
 
 	// only load on view page, when email sharing is present
-	 if ( ! ( edd_wl_is_page( 'view' ) && edd_wl_sharing_is_enabled( 'email' ) ) )
-	 	return;
+	if ( ! ( edd_wl_is_page( 'view' ) && edd_wl_sharing_is_enabled( 'email' ) ) )
+		return;
 
 	$list_id = get_query_var( 'view' );
 	?>
@@ -134,7 +134,7 @@ function edd_wl_list_delete_confirm() {
 		</p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo get_query_var( 'edit' ); ?>" class="edd-wl-button edd-wl-action eddwl-delete-list-confirm">
+		<a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo get_query_var( 'edit' ); ?>" class="edd-wl-button edd-wl-action edd-wl-delete-list-confirm">
 			<span class="label"><?php printf( __( 'Yes, delete this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?></span>
 			<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>
 		</a>

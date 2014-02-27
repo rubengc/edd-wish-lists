@@ -93,7 +93,7 @@ function edd_wl_delete_list_js() {
 	jQuery(document).ready(function ($) {
 
 		// open delete confirm modal
-		$('body').on('click.eddDeleteWishList', '.eddwl-delete-list', function (e) {  
+		$('body').on('click.eddDeleteWishList', '.edd-wl-delete-list', function (e) {  
 		    e.preventDefault();
 
 		    $('#edd-wl-modal').modal({
@@ -103,7 +103,7 @@ function edd_wl_delete_list_js() {
 		});
 
 		 // delete list from edit screen
-		 $('body').on('click.eddDeleteWishListConfirm', '.eddwl-delete-list-confirm', function (e) {
+		 $('body').on('click.eddDeleteWishListConfirm', '.edd-wl-delete-list-confirm', function (e) {
 		    e.preventDefault();
 
 		    var $spinner = $(this).find('.edd-loading');

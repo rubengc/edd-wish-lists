@@ -69,7 +69,7 @@ function edd_wl_rewrite_rules() {
         'index.php?page_id=' . $wish_list_edit_page_id . '&edit=$matches[1]',
         'top'
     );
-
+    
     // flush the rewrite rules
     flush_rewrite_rules();
 }

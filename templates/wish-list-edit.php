@@ -39,8 +39,4 @@ $privacy    = get_post_status( $post_id );
 	<?php wp_nonce_field( 'list_nonce', 'list_nonce_field' ); ?>
 </form>
 
-<p>
-	<a href="#" class="eddwl-delete-list">
-		<?php printf( __( 'Delete %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
-	</a>
-</p>
+<?php echo edd_wl_delete_list_link(); ?>

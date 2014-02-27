@@ -196,7 +196,7 @@ function edd_wl_settings( $settings ) {
 			)
 		),
 	);
-
+	
 	return array_merge( $settings, $plugin_settings );
 }
 add_filter( 'edd_settings_extensions', 'edd_wl_settings' );

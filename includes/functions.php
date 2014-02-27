@@ -8,16 +8,6 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Add path for template files
- *
- * @since 1.0
-*/
-function edd_wl_edd_template_paths( $file_paths ) {
-	$file_paths[95] = edd_wl_get_templates_dir();
-	return $file_paths;
-}
-add_filter( 'edd_template_paths', 'edd_wl_edd_template_paths' );
 
 /**
  * Get list ID
@@ -124,6 +114,8 @@ function edd_wl_get_list_statuses() {
 
 /**
  * Check if we're on a certain page
+ *
+ * @since  1.0
  * @return boolean true|false
  */
 function edd_wl_is_page( $page = '' ) {

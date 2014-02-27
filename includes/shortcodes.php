@@ -116,7 +116,7 @@ function edd_wl_add_to_list_shortcode( $atts, $content = null ) {
 		), $atts, 'edd_wish_lists_add' )
 	);
 
-    $args = array(
+    $args = apply_filters( 'edd_wl_add_to_list_shortcode', array(
 		'download_id' 	=> $id,
 		'text' 			=> $text,
 		'icon'			=> $icon,
@@ -125,7 +125,7 @@ function edd_wl_add_to_list_shortcode( $atts, $content = null ) {
 		'class'			=> 'edd-wl-open-modal edd-wl-action before',
 		'price_option'	=> $option,
 		'shortcode'		=> true // used to return the links, not echo them in edd_wl_wish_list_link()
-	);
+	), $id, $option );
 
 	$content = edd_wl_wish_list_link( $args );
 
