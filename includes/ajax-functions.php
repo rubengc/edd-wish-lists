@@ -232,8 +232,7 @@ function edd_wl_open_modal() {
     // get wish lists and send price IDs + items array
     $lists 				= edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_single );
     
-    // count lists - do simple count array here
-   // $list_count 		= null != edd_wl_get_query() && edd_wl_get_query()->found_posts ? edd_wl_get_query()->found_posts : 0;
+    // count lists
     $list_count 		= edd_wl_get_query() ? count ( edd_wl_get_query() ) : 0;
 
     $return = array(

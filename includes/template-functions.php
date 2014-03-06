@@ -735,7 +735,7 @@ function edd_wl_edit_settings_link( $list_id, $args = array() ) {
 		$html = '<' . $wrapper . ' class="' . $wrapper_class . '"' . '>' . $link . '</' . $wrapper . '>';
 	}
 	else {
-		$html .= $output;
+		$html .= $link;
 	}
 
 	echo $html;
@@ -782,7 +782,7 @@ function edd_wl_edit_link( $list_id, $args = array() ) {
 		$html = '<' . $wrapper . ' class="' . $wrapper_class . '"' . '>' . $link . '</' . $wrapper . '>';
 	}
 	else {
-		$html .= $output;
+		$html .= $link;
 	}
 
 	echo $html;
@@ -827,7 +827,7 @@ function edd_wl_create_list_link( $args = array() ) {
 		$html = '<' . $wrapper . ' class="' . $wrapper_class . '"' . '>' . $link . '</' . $wrapper . '>';
 	}
 	else {
-		$html .= $output;
+		$html .= $link;
 	}
 
 	echo $html;

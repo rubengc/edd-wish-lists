@@ -2,17 +2,18 @@
 /**
  * Wish List template
 */
-	// get list ID
-	$list_id = edd_wl_get_list_id();
 
-	// gets the list
-	$downloads = edd_wl_get_wish_list();
-	// get list post object
-	$list = get_post( $list_id );
-	// title
-	$title = get_the_title( $list_id );
-	//status
-	$privacy = get_post_status( $list_id );
+// get list ID
+$list_id = edd_wl_get_list_id();
+
+// gets the list
+$downloads = edd_wl_get_wish_list();
+// get list post object
+$list = get_post( $list_id );
+// title
+$title = get_the_title( $list_id );
+//status
+$privacy = get_post_status( $list_id );
 
 ?>
 
@@ -23,26 +24,26 @@
 <?php if ( $downloads ) : ?>
 
 	<?php // All all items in list to cart
-		echo edd_wl_add_all_to_cart_link( array( 'list_id' => $list_id, 'wrapper' => 'p', 'wrapper_class' => 'test123', 'text' => __( 'Add all to cart', 'edd-wish-lists' ) ) );
+		echo edd_wl_add_all_to_cart_link();
 	?>
 
 	<ul class="edd-wish-list">
 		<?php foreach ( $downloads as $key => $item ) : ?>
 			<li>
 				<?php // item title
-					echo edd_wl_item_title( $item, array( 'wrapper_class' => 'test1', 'class' => 'test1', 'wrapper' => 'span' ) ); 
+					echo edd_wl_item_title( $item ); 
 				?>
 
 				<?php // item price
-					echo edd_wl_item_price( $item['id'], $item['options'], array( 'wrapper_class' => 'test2' , 'wrapper' => 'span' ) ); 
+					echo edd_wl_item_price( $item['id'], $item['options'] ); 
 				?>
 
 				<?php // purchase link
-					echo edd_wl_item_purchase( $item, array( 'wrapper_class' => 'test', 'wrapper' => 'span' ) );
+					echo edd_wl_item_purchase( $item );
 				?>
 
 				<?php // remove item link
-					echo edd_wl_item_remove_link( $item['id'], $key, $list_id, array( 'wrapper_class' => 'test', 'class' => 'test3', 'wrapper' => 'span' ) );
+					echo edd_wl_item_remove_link( $item['id'], $key, $list_id );
 				?>
 			</li>
 		<?php endforeach; ?>
@@ -70,5 +71,5 @@
 <?php endif; ?>
 
 <?php // edit settings
-	echo edd_wl_edit_settings_link( $list_id, array( 'class' => 'testing', 'wrapper_class' => 'wrappp' ) );
+	echo edd_wl_edit_settings_link( $list_id );
 ?>

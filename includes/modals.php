@@ -223,9 +223,6 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 		            	  <optgroup label="Public">
 		            	 
 		            	  <?php foreach ( $public as $id ) : ?>
-		            	    <?php
-		            	    //  $items = get_post_meta( $id, 'edd_wish_list', true );
-		            	    ?>
 		            	    <option value="<?php echo $id; ?>"><?php echo get_the_title( $id ) . ' ' . edd_wl_get_item_count( $id ); ?></option>  
 		            	 <?php endforeach; ?>
 		            	  
@@ -242,9 +239,6 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 		                <optgroup label="Private">
 		               
 		                <?php foreach ( $private as $id ) : ?>
-		                  <?php
-		                 //   $items = get_post_meta( get_the_ID(), 'edd_wish_list', true );
-		                  ?>
 		                  <option value="<?php echo $id; ?>"><?php echo get_the_title( $id ) . ' ' . edd_wl_get_item_count( $id ); ?></option> 
 		                <?php endforeach; ?>
 		                

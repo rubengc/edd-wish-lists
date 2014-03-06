@@ -34,7 +34,6 @@ function edd_wl_create_token( $list_id = '' ) {
 		}
 	}
 
-//	return $token_id;
 }
 
 /**
