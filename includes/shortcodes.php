@@ -63,6 +63,10 @@ function edd_wl_create_shortcode( $atts, $content = null ) {
 			'title' => '',
 		), $atts, 'edd_wish_lists_create' )
 	);
+	
+	// exit if no wish list create page is set
+	if ( 'none' == edd_get_option( 'edd_wl_page_create' ) )
+		return;
 
 	$content = edd_wl_load_template( 'create' );
 
@@ -86,8 +90,8 @@ function edd_wl_shortcode( $atts, $content = null ) {
 		), $atts, 'edd_wish_lists' )
 	);
 
-	// if no wish list view page is set in options, don't show lists at all
-	if ( ! edd_wl_get_page_slug( 'view' ) )
+	// exit if no wish list page is set
+	if ( 'none' == edd_get_option( 'edd_wl_page' ) )
 		return;
 
 	$content = edd_wl_wish_list();
@@ -128,6 +132,10 @@ function edd_wl_add_to_list_shortcode( $atts, $content = null ) {
 	), $id, $option );
 
 	$content = edd_wl_wish_list_link( $args );
+
+	// load required scripts for this shortcode
+	wp_enqueue_script( 'edd-wl' );
+	wp_enqueue_script( 'edd-wl-modal' );
 
 	return $content;
 }

@@ -76,12 +76,13 @@ class EDD_Wish_Lists_Walker_PageDropdown extends Walker {
 	var $db_fields = array ('parent' => 'post_parent', 'id' => 'ID');
 
 	function start_el( &$output, $page, $depth = 0, $args = array(), $id = 0 ) {
+		global $edd_options;
 
 		$pad = str_repeat('&nbsp;', $depth * 3);
-		global $edd_options;
+		
 		$output .= "\t<option class=\"level-$depth\" value=\"$page->ID\"";
 		
-		$option = $edd_options[$args['id']];
+		$option = isset( $edd_options[$args['id']] ) ? $edd_options[$args['id']] : '';
 
 		$selected = selected( $option, $page->ID, false );
 		$output .= $selected;
@@ -109,43 +110,45 @@ function edd_wl_settings( $settings ) {
 		array(
 			'id' => 'edd_wl_page',
 			'name' => sprintf( __( '%s Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
-			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will view their %s. This page should include the [edd_wish_lists] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_plural( true ) ) . '</p>',
+			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will view their %s. This page should include the [edd_wish_lists] shortcode', 'edd-wish-lists' ), edd_wl_get_label_plural( true ) ) . '</p>',
 			'type' => 'dropdown_pages',
 		),
 		array(
 			'id' => 'edd_wl_page_view',
 			'name' => sprintf( __( '%s View Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
-			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will view each %s. This page should include the [edd_wish_lists_view] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
+			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will view each %s. This page should include the [edd_wish_lists_view] shortcode', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'dropdown_pages',
 		),
 		array(
 			'id' => 'edd_wl_page_edit',
 			'name' => sprintf( __( '%s Edit Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
-			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will edit a %s. This page should include the [edd_wish_lists_edit] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
+			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will edit a %s. This page should include the [edd_wish_lists_edit] shortcode', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'dropdown_pages',
 		),
 		array(
 			'id' => 'edd_wl_page_create',
 			'name' => sprintf( __( '%s Create Page', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
-			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will create a %s. This page should include the [edd_wish_lists_create] shortcode.', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
+			'desc' => '<p class="description">' . sprintf( __( 'Select the page where users will create a %s. This page should include the [edd_wish_lists_create] shortcode', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
 			'type' => 'dropdown_pages',
 		),
 		array(
 			'id' => 'edd_wl_add_to_wish_list',
 			'name' => sprintf( __( 'Add To %s Text', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
 			'desc' => '<p class="description">' . sprintf( __( 'Enter the text you\'d like to appear for adding a %s to a %s', 'edd-wish-lists' ), edd_get_label_singular( true ), edd_wl_get_label_singular( true ) ) . '</p>',
-			'type' => 'text'
+			'type' => 'text',
+			'std' => sprintf( __( 'Add to %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) )
 		),
 		array(
 			'id' => 'edd_wl_add_to_cart',
 			'name' => __( 'Add To Cart Text', 'edd-wish-lists' ),
-			'desc' => '<p class="description">' . sprintf( __( 'Enter the text you\'d like to appear for adding a %s from the %s to the cart', 'edd-wish-lists' ), edd_get_label_singular( true ), edd_wl_get_label_singular( true ) ) . '</p>',
-			'type' => 'text'
+			'desc' => '<p class="description">' . sprintf( __( 'Enter the add to cart text you\'d like to appear on the single %s page', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ) . '</p>',
+			'type' => 'text',
+			'std' => __( 'Add to cart', 'edd-wish-lists' )
 		),
 		array(
 			'id' => 'edd_wl_allow_guests',
-			'name' => sprintf( __( 'Allow Guest %s Creation', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
-			'desc' => '<p class="description">' . sprintf( __( 'Allow guests to create a %s', 'edd-wish-lists' ), edd_wl_get_label_singular() ) . '</p>',
+			'name' => sprintf( __( 'Allow Guests To Create %s', 'edd-wish-lists' ), edd_wl_get_label_plural() ),
+		//	'desc' => '<p class="description">' . sprintf( __( 'Allow Guests To Create %s', 'edd-wish-lists' ), edd_wl_get_label_plural() ) . '</p>',
 			'type' => 'select',
 			'options' =>  array(
 				'yes' =>  __( 'Yes', 'edd-wish-lists' ),

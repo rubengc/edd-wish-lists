@@ -16,10 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function edd_wl_messages() {
 	$messages = array(
 		'must_login' 					=> sprintf( __( 'Sorry, you must login to create a %s', 'edd-wish-lists' ), 		edd_wl_get_label_singular( true ) ),
-		'list_updated'					=> sprintf( __( '%s successfully updated', 'edd-wish-lists' ), 						edd_wl_get_label_singular() ),
-		'list_created_guest'			=> sprintf( __( '%s successfully created and saved for 30 days. If you wish to keep it longer, please create an account.', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
-		'list_created'					=> sprintf( __( '%s successfully created', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
-		'list_deleted'					=> sprintf( __( '%s successfully deleted', 'edd-wish-lists' ), 						edd_wl_get_label_singular() ),
+		'list_updated'					=> sprintf( __( '%s updated', 'edd-wish-lists' ), 									edd_wl_get_label_singular() ),
+		'list_created_guest'			=> sprintf( __( '%s created and saved for 30 days. If you wish to keep it longer, please create an account.', 'edd-wish-lists' ), edd_wl_get_label_singular() ),
+		'list_created'					=> sprintf( __( '%s created', 'edd-wish-lists' ), 									edd_wl_get_label_singular() ),
+		'list_deleted'					=> sprintf( __( '%s deleted', 'edd-wish-lists' ), 									edd_wl_get_label_singular() ),
 		'no_lists' 						=> sprintf( __( 'You currently have no %s', 'edd-wish-lists' ), 					edd_wl_get_label_plural( true ) ),
 		'no_downloads' 					=> sprintf( __( 'Nothing here yet, how about adding some %s?', 'edd-wish-lists' ), 	edd_get_label_plural( true ) ),
 		'lists_included'				=> __( 'This item has already been added to: ', 'edd-wish-lists' ),
@@ -28,9 +28,11 @@ function edd_wl_messages() {
 		'modal_option_add_new'			=> __( 'Add to new', 'edd-wish-lists' ),
 		'modal_option_add_to_existing'	=> __( 'Add to existing', 'edd-wish-lists' ),
 		'modal_option_title'			=> __( 'Title', 'edd-wish-lists' ),
+		'modal_share_title'				=> sprintf( __( 'Share this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ),
+		'modal_share_success'			=> __( 'Successfully shared', 'edd-wish-lists' ),
 		'list_option_private'			=> __( 'Private - only viewable by you', 'edd-wish-lists' ),
 		'list_option_public'			=> __( 'Public - viewable by anyone', 'edd-wish-lists' ),
-		'list_share_success'			=> __( 'Successfully shared.', 'edd-wish-lists' ),
+	//	'list_share_success'			=> __( 'Successfully shared.', 'edd-wish-lists' ),
 		'list_title_required'			=> __( 'You need to enter a title', 'edd-wish-lists' ),
 		'item_already_purchased'		=> __( 'Already purchased', 'edd-wish-lists' ),
 	);
@@ -52,9 +54,9 @@ function edd_wl_set_messages() {
 	 * wish-lists.php
 	*/
 
-	// no lists
-	$list_query = null != edd_wl_get_query() && edd_wl_get_query()->found_posts > 0 ? true : false;
-	if ( ! $list_query && edd_wl_is_page( 'wish-lists' ) ) {
+	// no lists if no posts
+	//$list_query = null != edd_wl_get_query() && edd_wl_get_query()->found_posts > 0 ? true : false;
+	if ( ! edd_wl_get_query() && edd_wl_is_page( 'wish-lists' ) ) {
 		edd_wl_set_message( 'no_lists', $messages['no_lists'] );
 	}
 
@@ -69,7 +71,7 @@ function edd_wl_set_messages() {
 	/**
 	 * wish-list-view.php
 	*/
-	if ( edd_wl_is_page( 'view' ) ) {
+	if ( edd_wl_is_view_page() ) {
 		$downloads = edd_wl_get_wish_list();
 
 		// list updated

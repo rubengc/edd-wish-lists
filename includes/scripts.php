@@ -24,14 +24,8 @@ function edd_wl_print_scripts() {
 	wp_register_script( 'edd-wl-validate', EDD_WL_PLUGIN_URL . 'includes/js/jquery.validate' .  $suffix . '.js', array( 'jquery' ), EDD_WL_VERSION, true );
 	wp_register_script( 'edd-wl-modal', EDD_WL_PLUGIN_URL . 'includes/js/modal' .  $suffix . '.js', array( 'jquery' ), EDD_WL_VERSION, true );
 
-	// main scripts
-	if ( 
-		edd_wl_has_shortcode( 'downloads' ) 			|| 
-		edd_wl_has_shortcode( 'edd_wish_lists_add' ) 	|| 
-		edd_wl_is_page( 'view' ) 						|| 
-		edd_wl_is_page( 'edit' ) 						||
-		is_singular( 'download' )
-	) {
+	// load scripts on single download pages
+	if ( is_singular( 'download' ) ) {
 		wp_enqueue_script( 'edd-wl' );
 		wp_enqueue_script( 'edd-wl-modal' );
 	}
@@ -156,7 +150,7 @@ add_action( 'wp_footer', 'edd_wl_delete_list_js' );
  */
 function edd_wl_validate() {
 
-	if ( ! ( edd_wl_is_page( 'view' ) && edd_wl_sharing_is_enabled( 'email' ) ) )
+	if ( ! ( edd_wl_is_view_page() && edd_wl_sharing_is_enabled( 'email' ) ) )
 		return;
 
 	?>
@@ -223,7 +217,8 @@ function edd_wl_validate() {
                     from_email:   	$('input[name=edd_wl_from_email]').val(),
                     emails:         $('input[name=edd_wl_share_emails]').val(),
                     message:        $('textarea[name=edd_wl_share_message]').val(),
-                    nonce:          edd_wl_scripts.ajax_nonce,
+                    referrer: 		$('input[name=referrer]').val(),
+                    nonce:          edd_wl_scripts.ajax_nonce
                 };
 
                 $.ajax({
@@ -236,8 +231,9 @@ function edd_wl_validate() {
                         $('a.edd-wl-share-via-email').addClass('edd-has-js');
                         $('.edd-no-js').hide();
                         
+
                         // clear form
-                        $('input, textarea', form).val('');
+                        $('input[type=text], textarea', form).val('');
 
                        	// replace modal contents with success contents
                         $('#edd-wl-modal .modal-content').empty().append( response.success );

@@ -23,12 +23,21 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 == Changelog ==
 
+If you have made modifications to the wish-list-view.php template, make sure edd_wl_wish_list_item_purchase() is renamed to edd_wl_item_purchase()
+
 = 1.0.2 =
 * New: added email sharing as option in extension settings
-* New: added function for retrieving item position in list
+* New: added filter to remove delete link
 * Tweak: improved script handling
 * Tweak: JS
 * Tweak: CSS
+* Tweak: improved script loading
+* Tweak: improved handling of list queries
+* Tweak: admin settings improvements
+* Tweak: code refactoring
+* Tweak: drastically reduced code in view and wish lists templates
+* Tweak: Create new list button is now hidden when create page is not selected in settings
+* Tweak: Edit links are now hidden when no edit page selected in options
 
 = 1.0.1 =
 * Fix: PHP 5.2 Compatibility

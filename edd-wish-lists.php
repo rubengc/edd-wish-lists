@@ -175,6 +175,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		private function hooks() {
 			add_action( 'admin_init', array( $this, 'activation' ) );
 			
+			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta' ), null, 2 );
 
 			// insert actions
 			do_action( 'edd_wl_setup_actions' );
@@ -283,6 +284,28 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 
 			return array_merge( $plugin_links, $links );
 		}
+
+		/**
+		 * Modify plugin metalinks
+		 *
+		 * @access      public
+		 * @since       1.0.0
+		 * @param       array $links The current links array
+		 * @param       string $file A specific plugin table entry
+		 * @return      array $links The modified links array
+		 */
+		public function plugin_meta( $links, $file ) {
+		    if ( $file == plugin_basename( __FILE__ ) ) {
+		        $plugins_link = array(
+		            '<a title="View more plugins for Easy Digital Downloads by Sumobi" href="https://easydigitaldownloads.com/blog/author/andrewmunro/?ref=166" target="_blank">' . __( 'Author\'s EDD plugins', 'edd-wish-lists' ) . '</a>'
+		        );
+
+		        $links = array_merge( $links, $plugins_link );
+		    }
+
+		    return $links;
+		}
+
 
 	}
 

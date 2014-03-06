@@ -1,119 +1,74 @@
 <?php
 /**
  * Wish List template
- *
- * 
- * @since 1.0
 */
-$list_id = edd_wl_get_list_id();
+	// get list ID
+	$list_id = edd_wl_get_list_id();
 
-// gets the list
-$downloads = edd_wl_get_wish_list();
-
-// get list post object
-$list = get_post( $list_id );
-// title
-$title = get_the_title( $list_id );
-//status
-$privacy = get_post_status( $list_id );
+	// gets the list
+	$downloads = edd_wl_get_wish_list();
+	// get list post object
+	$list = get_post( $list_id );
+	// title
+	$title = get_the_title( $list_id );
+	//status
+	$privacy = get_post_status( $list_id );
 
 ?>
-<p><?php echo $list->post_content; ?></p>
+
+<?php if ( $list_id ) : ?>
+	<p><?php echo $list->post_content; ?></p>
+<?php endif; ?>
 
 <?php if ( $downloads ) : ?>
 
-	<?php 
-		/**
-		 * All all items in list to cart
-		*/
-		echo '<p>' . edd_wl_add_all_to_cart_link( array( 'list_id' => $list_id ) ) . '</p>';
+	<?php // All all items in list to cart
+		echo edd_wl_add_all_to_cart_link( array( 'list_id' => $list_id, 'wrapper' => 'p', 'wrapper_class' => 'test123', 'text' => __( 'Add all to cart', 'edd-wish-lists' ) ) );
 	?>
 
 	<ul class="edd-wish-list">
 		<?php foreach ( $downloads as $key => $item ) : ?>
 			<li>
-				<span class="edd-wl-item-title">
-				<?php
-					$item_option 		= ! empty( $item['options'] ) ? '<span class="edd-wl-item-title-option">' . edd_get_cart_item_price_name( $item ) . '</span>' : '';
-					$variable_pricing 	= edd_has_variable_prices( $item['id'] );
-					$variable_price_id 	= isset( $item['options']['price_id'] ) ? $item['options']['price_id'] : '';
+				<?php // item title
+					echo edd_wl_item_title( $item, array( 'wrapper_class' => 'test1', 'class' => 'test1', 'wrapper' => 'span' ) ); 
 				?>
-					<a href="<?php echo post_permalink( $item['id'] ); ?>" title="<?php echo the_title_attribute( array( 'post' => $item['id'] ) ); ?>">
-						<?php echo get_the_title( $item['id'] ); ?>
-					</a>
-					<?php echo $item_option; /* The item's price option is variable pricing is enabled */ ?>
-					<?php echo edd_wl_has_purchased( $item['id'], $variable_price_id ); /* Shows "Already purchased" */ ?>
 
-					<span class="edd-wl-item-image">
-					<?php if ( current_theme_supports( 'post-thumbnails' ) && has_post_thumbnail( $item['id'] ) ) : ?>
-						<?php echo get_the_post_thumbnail( $item['id'], apply_filters( 'edd_checkout_image_size', array( 50, 50 ) ) ); ?>
-					<?php endif; ?>
-					</span>
-					
-				</span>
+				<?php // item price
+					echo edd_wl_item_price( $item['id'], $item['options'], array( 'wrapper_class' => 'test2' , 'wrapper' => 'span' ) ); 
+				?>
 
-				<span class="edd-wl-item-price">
-					<?php echo edd_cart_item_price( $item['id'], $item['options'] ); ?>
-				</span>
+				<?php // purchase link
+					echo edd_wl_item_purchase( $item, array( 'wrapper_class' => 'test', 'wrapper' => 'span' ) );
+				?>
 
-				<span class="edd-wl-item-purchase">
-					<?php echo edd_wl_wish_list_item_purchase( $item ); ?>
-				</span>
-				
-				<?php if ( edd_wl_is_users_list( $list_id ) ) : ?>
-				<span class="edd-wl-item-remove">
-					<a title="<?php _e( 'Remove', 'edd-wish-lists' ); ?>" href="#" data-cart-item="<?php echo $key; ?>" data-download-id="<?php echo $item['id']; ?>" data-list-id="<?php echo $list_id; ?>" data-action="edd_remove_from_wish_list" class="edd-remove-from-wish-list">
-					<i class="glyphicon glyphicon-remove"></i>
-					<span class="hide-text"><?php _e( 'Remove', 'edd-wish-lists' ); ?></span>
-					</a>
-				</span>
-				<?php endif; ?>
+				<?php // remove item link
+					echo edd_wl_item_remove_link( $item['id'], $key, $list_id, array( 'wrapper_class' => 'test', 'class' => 'test3', 'wrapper' => 'span' ) );
+				?>
 			</li>
 		<?php endforeach; ?>
 	</ul>
-
 
 	<?php 
 	/**
 	 * Sharing - only shown for public lists
 	*/
-	if ( 'private' !== get_post_status( $list_id ) ) : ?>
+	if ( 'private' !== get_post_status( $list_id ) && apply_filters( 'edd_wl_display_sharing', true ) ) : ?>
 		<div class="edd-wl-sharing">
-			<h3>
-				<?php _e( 'Share', 'edd-wish-lists' ); ?>
-			</h3>
-			<p>
-				<?php 
-				/**
-				 * Shortlink to share
-				 */
-				echo wp_get_shortlink( $list_id ); 
-				?>
-			</p>
+			<h3><?php _e( 'Share', 'edd-wish-lists' ); ?></h3>
+			<p><?php echo wp_get_shortlink( $list_id ); // Shortlink to share ?></p>
 			
 			<?php 
-				/**
-				 * Share via email
-				 */
-				echo edd_wl_share_via_email_link(); 
-			?>
-			
-			<?php 
-				/**
-				 * Social sharing services
-				 */
-				echo edd_wl_sharing_services(); 
+				// Share via email
+				echo edd_wl_share_via_email_link();
+				
+				// Social sharing services
+				echo edd_wl_sharing_services();
 			?>
 		</div>
 	<?php endif; ?>
 
 <?php endif; ?>
 
-<?php 
-/**
- * Edit list
-*/
-if ( edd_wl_is_users_list( $list_id ) ) : ?>
-
-	<p><a href="<?php echo edd_wl_get_wish_list_edit_uri( $list_id ); ?>"><?php printf( __( 'Edit %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?></a></p>
-<?php endif; ?>
+<?php // edit settings
+	echo edd_wl_edit_settings_link( $list_id, array( 'class' => 'testing', 'wrapper_class' => 'wrappp' ) );
+?>

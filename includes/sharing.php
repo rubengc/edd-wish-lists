@@ -26,12 +26,26 @@ function edd_wl_share_via_email_link() {
 }
 
 /**
+ * Default Email Template Subject
+ *
+ * @since 1.0
+ * @return string $default_email_body Body of the email
+ */
+function edd_wl_share_via_email_subject( $sender_name, $referrer ) {
+
+	$subject = sprintf( __( '%s has suggested you look at this %s from %s', 'edd-wish-lists' ), $sender_name, edd_wl_get_label_singular( true ), get_bloginfo('name') );
+	
+	return apply_filters( 'edd_wl_share_via_email_subject', $subject, $sender_name, $referrer );
+
+}
+
+/**
  * Default Email Template Body
  *
  * @since 1.0
  * @return string $default_email_body Body of the email
  */
-function edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message ) {
+function edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message, $referrer ) {
 	// Email body
 	$default_email_body = __( "Hi!", "edd-wish-lists" ) . "<br/><br/>";
 	$default_email_body .= sprintf( __( "%s has suggested you look at this %s from %s:", "edd-wish-lists" ), $sender_name, edd_wl_get_label_singular( true ), get_bloginfo( 'name' ) ) . "<br/>";
@@ -44,7 +58,7 @@ function edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email
 	$default_email_body .= get_bloginfo('name') . "<br/>";
 	$default_email_body .= '<a title="' . get_bloginfo( 'name' ) . '" href="' . get_bloginfo( 'url' ) . '">' . get_bloginfo( 'url' ) . '</a>';
 
-	$default_email_body = apply_filters( 'edd_wl_share_via_email_message', $default_email_body );
+	$default_email_body = apply_filters( 'edd_wl_share_via_email_message', $default_email_body, $shortlink, $sender_name, $message, $sender_email, $referrer );
 
 	return $default_email_body;
 }
@@ -200,7 +214,7 @@ function edd_wl_sharing_services() {
 function edd_wl_sharing_print_scripts() {
 	global $edd_options;
 
-	if ( ! ( edd_wl_is_page( 'view' ) ) )
+	if ( ! ( edd_wl_is_view_page() ) )
 		return;
 
 	?>

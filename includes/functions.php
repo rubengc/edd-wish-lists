@@ -23,17 +23,44 @@ function edd_wl_get_list_id() {
 }
 
 /**
+ * Is view page?
+ * 
+ * @return [type] [description]
+ */
+function edd_wl_is_view_page() {
+	$pages = apply_filters( 'edd_wl_is_view_page', 
+		array(
+			edd_get_option( 'edd_wl_page_view', '' )
+		)
+	);
+
+	if ( $pages ) {
+		foreach ( $pages as $page ) {
+			if ( is_page( $page ) ) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+/**
  * Get a wish list
  * 
  * @param  int $wish_list_id 	the ID of the wish list
  * @return array               	the contents of the wish list
  * @since  1.0
+ * @todo  remove favorites code
  */
-function edd_wl_get_wish_list( $wish_list_id = '' ) {
-	$wish_list_id = isset( $wish_list_id ) ? get_query_var( 'view' ) : null;
+function edd_wl_get_wish_list( $list_id = '' ) {
 
+	// use query var for list if on view page
+	if ( edd_wl_is_view_page() )
+		$list_id = get_query_var( 'view' );
+	
 	// retrieve the wish list
-	return apply_filters( 'edd_wl_get_wish_list', get_post_meta( $wish_list_id, 'edd_wish_list', true ) );
+	return apply_filters( 'edd_wl_get_wish_list', get_post_meta( $list_id, 'edd_wish_list', true ) );
 }
 
 /**
@@ -173,7 +200,7 @@ function edd_wl_get_wish_list_view_uri( $id = '' ) {
 	global $edd_options;
 
 	$uri = isset( $edd_options['edd_wl_page_view'] ) ? get_permalink( $edd_options['edd_wl_page_view'] ) : false;
-	
+
 	if ( edd_wl_has_pretty_permalinks() ) {
 		return apply_filters( 'edd_wl_get_wish_list_view_uri', trailingslashit( $uri ) . $id );
 	}		
@@ -277,7 +304,7 @@ function edd_wl_remove_item_url( $cart_key, $post, $ajax = false ) {
 
 /**
  * The query to return the posts on the main wish lists page
- * retrieves post object for either logged in user or logged out
+ * retrieves ids of lists for either logged in user or logged out
  * 
  * @since 1.0
 */
@@ -314,40 +341,24 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 		);
 	}
 
-	$lists = new WP_Query( $query );
+	$posts = new WP_Query( $query );
 
-	if ( isset( $lists->found_posts ) ) {
-		return $lists;
+	$ids = array();
+
+	if ( $posts->have_posts() ) {
+	  while ( $posts->have_posts() ) {
+	    $posts->the_post();
+	    
+	    $ids[] = get_the_ID();
+	  }
 	}
+
+	if ( $ids ) {
+		return $ids;
+	}
+	wp_reset_postdata();
 	
-	return array();
-}
-
-/**
- * Check for existance of shortcode
- * 
- * @param  string  $shortcode
- * @return boolean
- * @since  1.0
- */
-function edd_wl_has_shortcode( $shortcode = '' ) {
-	global $post;
-
-	// false because we have to search through the post content first
-	$found = false;
-
-	// if no short code was provided, return false
-	if ( ! $shortcode ) {
-		return $found;
-	}
-
-	if (  is_object( $post ) && stripos( $post->post_content, '[' . $shortcode ) !== false ) {
-		// we have found the short code
-		$found = true;
-	}
-
-	// return our final results
-	return $found;
+	return false;
 }
 
 
@@ -361,10 +372,11 @@ function edd_wl_has_shortcode( $shortcode = '' ) {
  * @return array Array of IDs for each item added to the cart
  */
 function edd_wl_add_all_to_cart( $list_id ) {
+
 	$cart_item_ids = array();
 
 	$items = edd_wl_get_wish_list( $list_id );
-
+	
 	if ( $items ) {
 		foreach ( $items as $item ) {
 			// check that they aren't already in the cart
@@ -420,51 +432,46 @@ function edd_wl_lists_included( $download_id, $options ) {
  * @todo  modify function to accept list ID, or run a search with get_posts or osmething
  */
 function edd_wl_item_in_wish_list( $download_id = 0, $options = array() ) {
+	$posts = edd_wl_get_query();
 
-	$posts = edd_wl_get_query()->posts ? edd_wl_get_query()->posts : array();
+	//var_dump(edd_wl_get_query());
 
 	if ( $posts ) {
-		$ids = array();
+		
+		
 
-		foreach ( $posts as $post ) {
-			$ids[] = $post->ID;
-		}
+		$found_ids = array();
 
-		if ( $ids ) {
+		foreach ( $posts as $id ) {
 
-			$found_ids = array();
+			$cart_items = get_post_meta( $id, 'edd_wish_list', true );
+			$found = false;
 
-			foreach ( $ids as $id ) {
-
-				$cart_items = get_post_meta( $id, 'edd_wish_list', true );
-				$found = false;
-
-				if ( $cart_items ) {
-					foreach ( $cart_items as $item ) {
-						if ( $item['id'] == $download_id ) {
-							if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
-								if ( $options['price_id'] == $item['options']['price_id'] ) {
-									$found = true;
-									break;
-								}
-							} 
-							else {
+			if ( $cart_items ) {
+				foreach ( $cart_items as $item ) {
+					if ( $item['id'] == $download_id ) {
+						if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
+							if ( $options['price_id'] == $item['options']['price_id'] ) {
 								$found = true;
 								break;
 							}
+						} 
+						else {
+							$found = true;
+							break;
 						}
 					}
 				}
-				
-				// add each found id to array
-				if ( $found ) {
-					$found_ids[] = $id;
-				}
-
+			}
+			
+			// add each found id to array
+			if ( $found ) {
+				$found_ids[] = $id;
 			}
 
-			return $found_ids;
 		}
+
+		return $found_ids;
 
 	}
 
@@ -607,4 +614,36 @@ function edd_wl_validate_share_emails( $emails ) {
 		return $valid_email;
 	
 	return null;
+}
+
+
+/**
+ * Get the Item Position in list
+ *
+ * @since 1.0.2
+ *
+ * @param int   $download_id ID of the download to get position of
+ * @param array $options array of price options
+ * @return bool|int|string false if empty list |  position of the item in the list
+ */
+function edd_wl_get_item_position_in_list( $download_id = 0, $list_id = 0, $options = array() ) {
+
+     $list_items = edd_wl_get_wish_list( $list_id );
+
+     if ( ! is_array( $list_items ) ) {
+          return false; // Empty list
+     } else {
+          foreach ( $list_items as $position => $item ) {
+               if ( $item['id'] == $download_id ) {
+                    if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
+                         if ( (int) $options['price_id'] == (int) $item['options']['price_id'] ) {
+                              return $position;
+                         }
+                    } else {
+                         return $position;
+                    }
+               }
+          }
+     }
+     return false; // Not found
 }

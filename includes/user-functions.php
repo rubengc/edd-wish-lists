@@ -33,11 +33,14 @@ function edd_wl_create_token( $list_id = '' ) {
 			update_post_meta( $list_id, 'edd_wl_token', $token_id );	
 		}
 	}
+
+//	return $token_id;
 }
 
 /**
  * Check if the list belongs to the current user.
  *
+ * @return  boolean true if list belongs to current user, false otherwise
  * @since 1.0
 */
 function edd_wl_is_users_list( $list_id ) {

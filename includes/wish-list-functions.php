@@ -100,36 +100,3 @@ function edd_wl_add_to_wish_list( $download_id, $options = array(), $list_id ) {
 
 	return $list;
 }
-
-/**
- * Get the Item Position in list
- *
- * @since 1.0.2
- *
- * @param int   $download_id ID of the download to get position of
- * @param array $options array of price options
- * @return bool|int|string false if empty cart |  position of the item in the cart
- */
-function edd_wl_get_item_position_in_list( $download_id = 0, $options = array() ) {
-	$cart_items = edd_get_cart_contents();
-
-	$list_id = edd_wl_get_query()->posts[0]->ID;
-	$list_items = edd_wl_get_wish_list( $list_id );
-
-	if ( ! is_array( $list_items ) ) {
-		return false; // Empty list
-	} else {
-		foreach ( $list_items as $position => $item ) {
-			if ( $item['id'] == $download_id ) {
-				if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
-					if ( (int) $options['price_id'] == (int) $item['options']['price_id'] ) {
-						return $position;
-					}
-				} else {
-					return $position;
-				}
-			}
-		}
-	}
-	return false; // Not found
-}

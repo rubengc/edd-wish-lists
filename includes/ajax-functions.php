@@ -231,7 +231,10 @@ function edd_wl_open_modal() {
 
     // get wish lists and send price IDs + items array
     $lists 				= edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_single );
-    $list_count 		= null != edd_wl_get_query() && edd_wl_get_query()->found_posts ? edd_wl_get_query()->found_posts : 0;
+    
+    // count lists - do simple count array here
+   // $list_count 		= null != edd_wl_get_query() && edd_wl_get_query()->found_posts ? edd_wl_get_query()->found_posts : 0;
+    $list_count 		= edd_wl_get_query() ? count ( edd_wl_get_query() ) : 0;
 
     $return = array(
 		'post_id'  		=> $download_id,
@@ -260,6 +263,9 @@ function edd_wl_share_via_email() {
 	if ( ! isset( $_POST['post_id'] ) )
 		return;
 
+	// referrer
+	$referrer 		= $_POST['referrer'] ? $_POST['referrer'] : '';
+
 	// sender details
 	$sender_name 	= isset( $_POST['from_name'] ) ? $_POST['from_name'] : '';
 	$sender_email 	= isset( $_POST['from_email'] ) ? $_POST['from_email'] : '';
@@ -278,9 +284,8 @@ function edd_wl_share_via_email() {
 
 	if ( ! isset( $has_error ) ) {
 		$shortlink = wp_get_shortlink( $post_id ); // shortlink
-
-		$subject = apply_filters( 'edd_wl_share_via_email_subject', sprintf( __( '%s has suggested you look at this %s from %s', 'edd-wish-lists' ), $sender_name, edd_wl_get_label_singular( true ), get_bloginfo('name') ) );
-		$message = edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message );
+		$subject = edd_wl_share_via_email_subject( $sender_name, $referrer ); 	
+		$message = edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message, $referrer );
 
 		$headers = "From: " . stripslashes_deep( html_entity_decode( $from_name, ENT_COMPAT, 'UTF-8' ) ) . " <$from_email>\r\n";
 		$headers .= "Reply-To: ". $sender_email . "\r\n";

@@ -32,6 +32,7 @@ add_action( 'edd_wl_purchase_all', 'edd_wl_process_purchase_all' );
  * @return 	void
  */
 function edd_wl_redirects() {
+
 	// Prevent private lists from being viewed. Also only allows users to access edit slugs with own list ID
 	if ( edd_wl_is_private_list() || ( ! edd_wl_is_users_list( get_query_var( 'edit' ) ) && get_query_var( 'edit' ) ) ) {
 		$redirect = apply_filters( 'edd_wl_private_redirect', edd_wl_get_wish_list_uri() );
@@ -44,5 +45,6 @@ function edd_wl_redirects() {
 		wp_redirect( edd_wl_get_wish_list_uri() );
 		edd_die();
 	}
+
 }
 add_action( 'template_redirect', 'edd_wl_redirects' );

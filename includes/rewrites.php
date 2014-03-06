@@ -49,7 +49,7 @@ add_action( 'admin_init', 'edd_wl_save_permalinks' );
 
 /**
  * Rewrite rules
- * @todo  don't fire on init hook
+ * @since  1.0
  */
 function edd_wl_rewrite_rules() {
     $wish_list_view_page_id = edd_get_option( 'edd_wl_page_view', null );
@@ -57,7 +57,7 @@ function edd_wl_rewrite_rules() {
     
     $view_slug = edd_wl_get_page_slug( 'view' ) ? edd_wl_get_page_slug( 'view' ) : '';
     $edit_slug = edd_wl_get_page_slug( 'edit' ) ? edd_wl_get_page_slug( 'edit' ) : '';
-
+    
     add_rewrite_rule(
         '.*' . $view_slug . '/([0-9]+)?$',
         'index.php?page_id=' . $wish_list_view_page_id . '&view=$matches[1]',
@@ -69,7 +69,7 @@ function edd_wl_rewrite_rules() {
         'index.php?page_id=' . $wish_list_edit_page_id . '&edit=$matches[1]',
         'top'
     );
-    
+
     // flush the rewrite rules
     flush_rewrite_rules();
 }

@@ -34,9 +34,10 @@ add_action( 'wp_footer', 'edd_wl_modal_window', 100 );
  * @since 1.0
 */
 function edd_wl_modal_share_via_email() {
+	$messages = edd_wl_messages();
 
 	// only load on view page, when email sharing is present
-	if ( ! ( edd_wl_is_page( 'view' ) && edd_wl_sharing_is_enabled( 'email' ) ) )
+	if ( ! ( edd_wl_is_view_page() && edd_wl_sharing_is_enabled( 'email' ) ) )
 		return;
 
 	$list_id = get_query_var( 'view' );
@@ -44,7 +45,7 @@ function edd_wl_modal_share_via_email() {
 	<form class="wish-list-form" id="edd-wl-share-email-form" method="get" action="">
 	<div class="modal-header">
 		<h2 id="edd-wl-modal-label">
-			<?php printf( __( 'Share this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+			<?php echo $messages['modal_share_title']; ?>
 		</h2>
 		<a class="edd-wl-close" href="#" data-dismiss="modal">
 			<i class="glyphicon glyphicon-remove"></i>
@@ -59,6 +60,7 @@ function edd_wl_modal_share_via_email() {
 	?>
 
 	<input type="hidden" name="submitted" id="submitted" value="true">
+	<input name="referrer" type="hidden" value="<?php echo get_the_ID(); ?>">
 
 	<?php wp_nonce_field( 'share_via_email_nonce', 'share_via_email_nonce_field' ); ?>
 
@@ -85,15 +87,12 @@ function edd_wl_modal_share_via_email_success() {
 	?>
 	<div class="modal-header">
 		<h2 id="edd-wl-modal-label">
-			<?php printf( __( 'Share this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+			<?php echo $messages['modal_share_success']; ?>
 		</h2>
 		<a class="edd-wl-close" href="#" data-dismiss="modal">
 			<i class="glyphicon glyphicon-remove"></i>
 			<span class="hide-text"><?php _e( 'Close', 'edd-wish-lists' ); ?></span>
 		</a>
-	</div>
-	<div class="modal-body">
-		<p><?php echo $messages['list_share_success']; ?></p>
 	</div>
 
 	<div class="modal-footer">
@@ -198,10 +197,9 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 	<?php else : ?>
 		
 		<?php
-			// get users public lists
+			$list_query 		= edd_wl_get_query();
 			$private  			= edd_wl_get_query( 'private' );
 		  	$public   			= edd_wl_get_query( 'public' );
-			$list_query 		= null != edd_wl_get_query() && edd_wl_get_query()->found_posts > 0 ? true : false;
 			$variable_pricing   = edd_has_variable_prices( $download_id );
 			$data_variable      = $variable_pricing ? ' data-variable-price=yes' : 'data-variable-price=no';
 			$type               = edd_single_price_option_mode( $download_id ) ? 'data-price-mode=multi' : 'data-price-mode=single';
@@ -220,36 +218,38 @@ function edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_
 		            	/**
 		            	 * Public lists
 		            	*/
-		            	if ( $public->have_posts() ) : ?>
+		            	if ( $public ) : ?>
+
 		            	  <optgroup label="Public">
 		            	 
-		            	  <?php while ( $public->have_posts() ) : $public->the_post(); ?>
+		            	  <?php foreach ( $public as $id ) : ?>
 		            	    <?php
-		            	      $items = get_post_meta( get_the_ID(), 'edd_wish_list', true );
+		            	    //  $items = get_post_meta( $id, 'edd_wish_list', true );
 		            	    ?>
-		            	    <option value="<?php echo get_the_ID(); ?>"><?php echo get_the_title() . ' ' . edd_wl_get_item_count( get_the_ID() ); ?></option>  
-		            	  <?php endwhile; wp_reset_query(); ?>
+		            	    <option value="<?php echo $id; ?>"><?php echo get_the_title( $id ) . ' ' . edd_wl_get_item_count( $id ); ?></option>  
+		            	 <?php endforeach; ?>
 		            	  
 		            	   </optgroup>
+
 		            	<?php endif; ?>
 
 		               <?php
 		              /**
 		               * Private lists
 		              */
-		              if ( $private->have_posts() ) : ?>
+		              if ( $private ) : ?>
+
 		                <optgroup label="Private">
 		               
-		                <?php while ( $private->have_posts() ) : $private->the_post(); ?>
+		                <?php foreach ( $private as $id ) : ?>
 		                  <?php
-		                    $items = get_post_meta( get_the_ID(), 'edd_wish_list', true );
+		                 //   $items = get_post_meta( get_the_ID(), 'edd_wish_list', true );
 		                  ?>
-		                  <option value="<?php echo get_the_ID(); ?>"><?php echo get_the_title() . ' ' . edd_wl_get_item_count( get_the_ID() ); ?></option>  
-		                <?php endwhile; wp_reset_query(); ?>
+		                  <option value="<?php echo $id; ?>"><?php echo get_the_title( $id ) . ' ' . edd_wl_get_item_count( $id ); ?></option> 
+		                <?php endforeach; ?>
 		                
 		                 </optgroup>
 		              <?php endif; ?>
-
 
 		              </select>
 

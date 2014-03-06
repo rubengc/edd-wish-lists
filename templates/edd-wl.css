@@ -209,6 +209,10 @@ a.edd-wl-button.link-size-sm {
   font-weight: normal;
   font-style: normal;
 }
+[class*="edd-icon-"]:before,
+[class*=" edd-icon-"]:before {
+  cursor: pointer;
+}
 .glyphicon {
   position: relative;
   top: 2px;
@@ -219,12 +223,6 @@ a.edd-wl-button.link-size-sm {
   font-weight: normal;
   line-height: 1;
   -moz-osx-font-smoothing: grayscale;
-}
-.glyph-right .glyphicon:empty {
-  margin: 0 0 0 0.25em;
-}
-.glyphicon:empty {
-  margin-right: 0.25em;
 }
 .glyphicon-star:before {
   content: "\e001";
@@ -314,6 +312,12 @@ a.edd-wl-action .edd-loading {
 .edd-wl-action[data-edd-loading] .edd-loading {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+i.glyphicon + .label {
+  padding-left: 5px;
+}
+.label + i.glyphicon {
+  padding-left: 5px;
 }
 a.edd-wl-action {
   position: relative;
