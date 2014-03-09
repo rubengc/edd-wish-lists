@@ -428,18 +428,19 @@ function edd_wl_lists_included( $download_id, $options ) {
  *
  * @param int   $download_id ID of the download to remove
  * @param array $options
- * @return bool Item in the cart or not?
+ * @return bool Item in the list or not?
  * @todo  modify function to accept list ID, or run a search with get_posts or osmething
  */
-function edd_wl_item_in_wish_list( $download_id = 0, $options = array() ) {
-	$posts = edd_wl_get_query();
+function edd_wl_item_in_wish_list( $download_id = 0, $options = array(), $list_id = 0 ) {
+	
 
-	//var_dump(edd_wl_get_query());
+	if ( isset( $list_id ) )
+		$posts = array( $list_id );
+	else
+		$posts = edd_wl_get_query();
 
 	if ( $posts ) {
 		
-		
-
 		$found_ids = array();
 
 		foreach ( $posts as $id ) {

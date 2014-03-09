@@ -115,7 +115,7 @@ function edd_wl_modal_share_via_email_success() {
 */
 function edd_wl_list_delete_confirm() {
 	// only load on edit page
-	if ( ! edd_wl_is_page( 'edit' ) )
+	if ( ! get_query_var( 'edit' ) )
 		return;
 	?>
 	<div class="modal-header">

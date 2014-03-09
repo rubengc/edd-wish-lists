@@ -80,7 +80,7 @@ add_action( 'wp_enqueue_scripts', 'edd_wl_print_scripts', 100 );
  * @return [type] [description]
  */
 function edd_wl_delete_list_js() {
-	if ( ! edd_wl_is_page( 'edit' ) )
+	if ( ! get_query_var( 'edit' ) )
 		return;
 	?>
 	<script>

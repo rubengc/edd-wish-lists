@@ -24,7 +24,7 @@ $privacy = get_post_status( $list_id );
 <?php if ( $downloads ) : ?>
 
 	<?php // All all items in list to cart
-		echo edd_wl_add_all_to_cart_link();
+		echo edd_wl_add_all_to_cart_link( $list_id );
 	?>
 
 	<ul class="edd-wish-list">

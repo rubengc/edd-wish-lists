@@ -55,7 +55,6 @@ function edd_wl_set_messages() {
 	*/
 
 	// no lists if no posts
-	//$list_query = null != edd_wl_get_query() && edd_wl_get_query()->found_posts > 0 ? true : false;
 	if ( ! edd_wl_get_query() && edd_wl_is_page( 'wish-lists' ) ) {
 		edd_wl_set_message( 'no_lists', $messages['no_lists'] );
 	}
@@ -71,7 +70,7 @@ function edd_wl_set_messages() {
 	/**
 	 * wish-list-view.php
 	*/
-	if ( edd_wl_is_view_page() ) {
+	if ( edd_wl_is_page( 'view' ) ) {
 		$downloads = edd_wl_get_wish_list();
 
 		// list updated

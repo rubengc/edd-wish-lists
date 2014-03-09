@@ -110,7 +110,7 @@ function edd_wl_the_title( $title, $id ) {
 		return $title;
 
 	// View page - replace the main page title with the name of the list
-	if ( get_query_var( 'view' ) && in_the_loop() && $id == get_the_ID() ) {
+	if ( edd_wl_is_view_page() && get_query_var( 'view' ) && in_the_loop() && $id == get_the_ID() ) {
 		$title = get_the_title( get_query_var( 'view' ) );
 	}	
 
@@ -361,8 +361,6 @@ function edd_wl_item_purchase( $item, $args = array() ) {
 		'link'			=> '',
 	), $item['id'] );
 
-	
-
 	$args = wp_parse_args( $args, $defaults );
 
 	extract( $args, EXTR_SKIP );
@@ -408,13 +406,14 @@ function edd_wl_item_purchase( $item, $args = array() ) {
 	$default_wrapper_class = ' edd-wl-item-purchase';
 	$wrapper_class .= $wrapper_class ? $default_wrapper_class : trim( $default_wrapper_class );	
 	
+	$default_css_class = ! $variable_pricing ? 'edd-add-to-cart-from-wish-list' : '';
 	?>
 
 	<form id="<?php echo $form_id; ?>" class="edd_download_purchase_form" method="post">
 		<div class="edd_purchase_submit_wrapper">
 		<?php 
 			printf(
-				'<a href="%10$s" class="edd-add-to-cart-from-wish-list %1$s %8$s" data-action="edd_add_to_cart_from_wish_list" data-download-id="%3$s" %4$s %5$s %6$s %7$s><span class="label">%2$s</span>%9$s</a>',
+				'<a href="%10$s" class="%11$s %1$s %8$s" data-action="edd_add_to_cart_from_wish_list" data-download-id="%3$s" %4$s %5$s %6$s %7$s><span class="label">%2$s</span>%9$s</a>',
 				implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 1
 				esc_attr( $text ),											// 2
 				esc_attr( $download_id ),									// 3
@@ -424,7 +423,8 @@ function edd_wl_item_purchase( $item, $args = array() ) {
 				esc_attr( $data_price_option ),								// 7
 				$button_size, 												// 8
 				$loading, 													// 9
-				$link 														// 10
+				$link, 														// 10
+				$default_css_class 											// 11
 			);
 
 			// checkout link that shows when item is added to the cart
@@ -454,14 +454,14 @@ function edd_wl_item_purchase( $item, $args = array() ) {
  * @param  [type] $item [description]
  * @return [type]       [description]
  */
-function edd_wl_add_all_to_cart_link( $args = array() ) {
+function edd_wl_add_all_to_cart_link( $list_id = 0, $args = array() ) {
 
 	if ( ! apply_filters( 'edd_wl_show_add_all_to_cart_link', true ) )
 		return;
 
 	$defaults = apply_filters( 'edd_wl_add_all_to_cart_link_defaults', 
 		array(
-			'list_id'		=> $args['list_id'],
+			'list_id'		=> $list_id,
 			'text' 			=> __( 'Add all to cart', 'edd-wish-lists' ),
 			'style'			=> 'button',
 			'color'			=> '',
