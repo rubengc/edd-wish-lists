@@ -24,17 +24,21 @@ function edd_wl_create_token( $list_id = '' ) {
 		}
 		else {
 			// append their first list id to the front of the timestamp. The list ID auto increments and will always be unique
-			$token_id 		= $list_id . time();
+			$token 		= $list_id . time();
 			$token_expire 	= apply_filters( 'edd_wl_token_expire', time()+3600*24*30 );
 
-			$cookie = setcookie( 'edd_wl_token', $token_id, $token_expire, COOKIEPATH, COOKIE_DOMAIN );
+			$cookie = setcookie( 'edd_wl_token', $token, $token_expire, COOKIEPATH, COOKIE_DOMAIN );
 			// store edd_wl_token against list with the same time stamp
 			// we'll use this to verify that this belongs to the user
-			update_post_meta( $list_id, 'edd_wl_token', $token_id );	
+			update_post_meta( $list_id, 'edd_wl_token', $token );
+
 		}
+
+		return $token;
 	}
 
 }
+
 
 /**
  * Check if the list belongs to the current user.
@@ -142,7 +146,7 @@ function edd_wl_new_user_registration( $user_id ) {
 			delete_post_meta( $list->ID, 'edd_wl_token', edd_wl_get_list_token() );
 		}
 
-		// remove cookie from user's computer
+		// remove cookie
 		setcookie( 'edd_wl_token', '', time()-3600, COOKIEPATH, COOKIE_DOMAIN );
 	}
 }

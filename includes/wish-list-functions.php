@@ -95,8 +95,15 @@ function edd_wl_add_to_wish_list( $download_id, $options = array(), $list_id ) {
 	// store in meta_key. Will either be new array or a merged array
 	update_post_meta( $list_id, 'edd_wish_list', $list );	
 
-	// create token for logged out user
-	edd_wl_create_token( $list_id );
+	do_action( 'edd_wl_post_add_to_list', $list_id, $download_id, $options );
 
 	return $list;
 }
+
+/**
+ * Create token for logged out user
+ */
+function edd_wl_add_to_wish_list_create_token( $list_id, $download_id, $options ) {
+	edd_wl_create_token( $list_id );
+}
+add_action( 'edd_wl_post_add_to_list', 'edd_wl_add_to_wish_list_create_token', 10, 3 );

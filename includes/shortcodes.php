@@ -114,7 +114,7 @@ function edd_wl_add_to_list_shortcode( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 			'id' 		=> $post->ID,
 			'text' 		=> ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : __( 'Add to wish list', 'edd-wish-lists' ),
-			'icon'		=> $edd_options[ 'edd_wl_icon' ] ? $edd_options[ 'edd_wl_icon' ] : 'gift',
+			'icon'		=> $edd_options[ 'edd_wl_icon' ] ? $edd_options[ 'edd_wl_icon' ] : 'star',
 			'option'	=> 1, 		// default variable pricing option
 			'style'		=> $edd_options[ 'edd_wl_button_style' ] ? $edd_options[ 'edd_wl_button_style' ] : 'button',
 		), $atts, 'edd_wish_lists_add' )
