@@ -188,18 +188,18 @@
 .plain {
   display: inline-block;
 }
-a.link-size-lg {
+a.lg {
   font-size: 18px;
   line-height: 1.33;
 }
-a.link-size-sm {
+a.sm {
   font-size: 12px;
   line-height: 1.5;
 }
-a.edd-wl-button.link-size-lg {
+a.edd-wl-button.lg {
   padding: 10px 16px;
 }
-a.edd-wl-button.link-size-sm {
+a.edd-wl-button.sm {
   padding: 5px 10px;
 }
 @font-face {
@@ -223,6 +223,9 @@ a.edd-wl-button.link-size-sm {
   font-weight: normal;
   line-height: 1;
   -moz-osx-font-smoothing: grayscale;
+}
+.no-text .glyphicon {
+  top: 0;
 }
 .glyphicon-star:before {
   content: "\e001";

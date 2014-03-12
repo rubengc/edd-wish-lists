@@ -25,6 +25,14 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 If you have made modifications to the wish-list-view.php template, make sure edd_wl_wish_list_item_purchase() is renamed to edd_wl_item_purchase()
 
+= 1.0.3 =
+* Fix: when no text is shown in settings, don't show default text on front-end
+* Fix: filter with same name as another
+* Fix: removed options passed into the edd_wl_delete_list_link function on the wish-list-edit.php template. These were overriding (as they should) the plugin's options.
+* Fix: link size CSS class names.
+* Tweak: small CSS adjustment for when add to wish list link does not have any text. The icon now aligns better
+* Tweak: Moved text from delete list modal into the edd_wl_messages() function
+
 = 1.0.2 =
 * New: added email sharing as option in extension settings
 * New: added filter to remove delete link

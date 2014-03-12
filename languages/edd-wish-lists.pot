@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Easy Digital Downloads - Wish Lists\n"
-"POT-Creation-Date: 2014-03-09 15:14+1200\n"
-"PO-Revision-Date: 2014-03-09 15:14+1200\n"
+"POT-Creation-Date: 2014-03-12 16:10+1200\n"
+"PO-Revision-Date: 2014-03-12 16:10+1200\n"
 "Last-Translator: Andrew Munro, Sumobi <andrew@sumobi.com>\n"
 "Language-Team: Sumobi <andrew@sumobi.com>\n"
 "Language: en_US\n"
@@ -101,8 +101,7 @@ msgstr ""
 msgid "Enter the text you'd like to appear for adding a %s to a %s"
 msgstr ""
 
-#: ../includes/admin-settings.php:139 ../includes/modals.php:154
-#: ../includes/template-functions.php:179
+#: ../includes/admin-settings.php:139 ../includes/modals.php:156
 #, php-format
 msgid "Add to %s"
 msgstr ""
@@ -116,7 +115,7 @@ msgstr ""
 msgid "Enter the add to cart text you'd like to appear on the single %s page"
 msgstr ""
 
-#: ../includes/admin-settings.php:146 ../includes/template-functions.php:354
+#: ../includes/admin-settings.php:146 ../includes/template-functions.php:352
 msgid "Add to cart"
 msgstr ""
 
@@ -219,7 +218,7 @@ msgstr ""
 msgid "Successfully added to <strong>%s</strong>"
 msgstr ""
 
-#: ../includes/dashboard-columns.php:19 ../includes/messages.php:30
+#: ../includes/dashboard-columns.php:19 ../includes/messages.php:31
 #: ../templates/wish-list-edit.php:20
 msgid "Title"
 msgstr ""
@@ -294,53 +293,68 @@ msgstr ""
 
 #: ../includes/messages.php:24
 #, php-format
-msgid "Nothing here yet, how about adding some %s?"
+msgid "You are about to delete this %s, are you sure?"
 msgstr ""
 
 #: ../includes/messages.php:25
-msgid "This item has already been added to: "
+#, php-format
+msgid "Nothing here yet, how about adding some %s?"
 msgstr ""
 
 #: ../includes/messages.php:26
-msgid "Save"
+msgid "This item has already been added to: "
 msgstr ""
 
 #: ../includes/messages.php:27
-msgid "Great, I'm done"
+msgid "Save"
 msgstr ""
 
 #: ../includes/messages.php:28
-msgid "Add to new"
+msgid "Great, I'm done"
 msgstr ""
 
 #: ../includes/messages.php:29
+msgid "Add to new"
+msgstr ""
+
+#: ../includes/messages.php:30
 msgid "Add to existing"
 msgstr ""
 
-#: ../includes/messages.php:31
+#: ../includes/messages.php:32 ../includes/template-functions.php:524
+#, php-format
+msgid "Delete %s"
+msgstr ""
+
+#: ../includes/messages.php:33
+#, php-format
+msgid "Yes, delete this %s"
+msgstr ""
+
+#: ../includes/messages.php:34
 #, php-format
 msgid "Share this %s"
 msgstr ""
 
-#: ../includes/messages.php:32
+#: ../includes/messages.php:35
 msgid "Successfully shared"
 msgstr ""
 
-#: ../includes/messages.php:33 ../templates/wish-list-create.php:24
+#: ../includes/messages.php:36 ../templates/wish-list-create.php:24
 #: ../templates/wish-list-edit.php:29
 msgid "Private - only viewable by you"
 msgstr ""
 
-#: ../includes/messages.php:34 ../templates/wish-list-create.php:25
+#: ../includes/messages.php:37 ../templates/wish-list-create.php:25
 #: ../templates/wish-list-edit.php:30
 msgid "Public - viewable by anyone"
 msgstr ""
 
-#: ../includes/messages.php:36
+#: ../includes/messages.php:38
 msgid "You need to enter a title"
 msgstr ""
 
-#: ../includes/messages.php:37
+#: ../includes/messages.php:39
 msgid "Already purchased"
 msgstr ""
 
@@ -358,28 +372,12 @@ msgid "No items have been added yet"
 msgstr ""
 
 #: ../includes/modals.php:52 ../includes/modals.php:94
-#: ../includes/modals.php:127 ../includes/modals.php:184
+#: ../includes/modals.php:129 ../includes/modals.php:186
 msgid "Close"
 msgstr ""
 
 #: ../includes/modals.php:70
 msgid "Send Now"
-msgstr ""
-
-#: ../includes/modals.php:123 ../includes/template-functions.php:526
-#: ../templates/wish-list-edit.php:42
-#, php-format
-msgid "Delete %s"
-msgstr ""
-
-#: ../includes/modals.php:132
-#, php-format
-msgid "You are about to delete this %s, are you sure?"
-msgstr ""
-
-#: ../includes/modals.php:137
-#, php-format
-msgid "Yes, delete this %s"
 msgstr ""
 
 #: ../includes/post-type.php:18
@@ -465,27 +463,27 @@ msgstr ""
 msgid " Total: "
 msgstr ""
 
-#: ../includes/template-functions.php:355
+#: ../includes/template-functions.php:353
 msgid "Checkout"
 msgstr ""
 
-#: ../includes/template-functions.php:465
+#: ../includes/template-functions.php:463
 msgid "Add all to cart"
 msgstr ""
 
-#: ../includes/template-functions.php:607
+#: ../includes/template-functions.php:605
 msgid "Remove"
 msgstr ""
 
-#: ../includes/template-functions.php:714
+#: ../includes/template-functions.php:712
 msgid "Edit settings"
 msgstr ""
 
-#: ../includes/template-functions.php:759
+#: ../includes/template-functions.php:757
 msgid "edit"
 msgstr ""
 
-#: ../includes/template-functions.php:807
+#: ../includes/template-functions.php:805
 #, php-format
 msgid "Create new %s"
 msgstr ""

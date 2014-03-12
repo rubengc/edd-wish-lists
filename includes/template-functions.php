@@ -176,7 +176,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 	$defaults = apply_filters( 'edd_wl_link_defaults', 
 		array(
 			'download_id' 	=> isset( $post->ID ) ? $post->ID : '',
-			'text'        	=> ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : sprintf( __( 'Add to %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ),
+			'text'        	=> ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : '',
 			'style'       	=> edd_get_option( 'edd_wl_button_style', 'button' ),
 			'color'       	=> '',
 			'class'       	=> 'edd-wl-action',
@@ -209,8 +209,6 @@ function edd_wl_wish_list_link( $args = array() ) {
 	}
 
 	ob_start();
-
-	
 
 	$icon = $icon && 'none' != $icon ? '<i class="glyphicon glyphicon-' . $icon . '"></i>' : '';
 
@@ -602,7 +600,7 @@ function edd_wl_item_remove_link( $item_id, $key, $list_id, $args = array() ) {
 	if ( ! edd_wl_is_users_list( $list_id ) )
 		return;
 
-	$defaults = apply_filters( 'edd_wl_delete_list_link_defaults', 
+	$defaults = apply_filters( 'edd_wl_item_remove_link_defaults', 
 		array(
 			'text' 			=> __( 'Remove', 'edd-wish-lists' ),
 			'wrapper_class'	=> '',

@@ -117,10 +117,12 @@ function edd_wl_list_delete_confirm() {
 	// only load on edit page
 	if ( ! get_query_var( 'edit' ) )
 		return;
+
+	$messages = edd_wl_messages();
 	?>
 	<div class="modal-header">
 		<h2 id="edd-wl-modal-label">
-			<?php printf( __( 'Delete %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+			<?php echo $messages['modal_delete_title']; ?>
 		</h2>
 		<a class="edd-wl-close" href="#" data-dismiss="modal">
 			<i class="glyphicon glyphicon-remove"></i>
@@ -129,12 +131,12 @@ function edd_wl_list_delete_confirm() {
 	</div>
 	<div class="modal-body">
 		<p>
-			<?php printf( __( 'You are about to delete this %s, are you sure?', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?>
+			<?php echo $messages['list_delete_confirm']; ?>
 		</p>
 	</div>
 	<div class="modal-footer">
 		<a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo get_query_var( 'edit' ); ?>" class="edd-wl-button edd-wl-action edd-wl-delete-list-confirm">
-			<span class="label"><?php printf( __( 'Yes, delete this %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ); ?></span>
+			<span class="label"><?php echo $messages['modal_button_delete_confirm']; ?></span>
 			<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>
 		</a>
 	</div>
