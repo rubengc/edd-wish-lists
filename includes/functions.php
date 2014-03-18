@@ -8,6 +8,17 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Allowed post types
+ *
+ * @since  1.0.4
+ * @return array $post_types an array of post types allowed
+ */
+function edd_wl_allowed_post_types() {
+	$post_types = apply_filters( 'edd_wl_allowed_post_types', array( 'download' ) );
+
+	return $post_types;
+}
 
 /**
  * Get list ID

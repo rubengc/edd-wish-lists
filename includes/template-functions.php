@@ -404,7 +404,7 @@ function edd_wl_item_purchase( $item, $args = array() ) {
 	$default_wrapper_class = ' edd-wl-item-purchase';
 	$wrapper_class .= $wrapper_class ? $default_wrapper_class : trim( $default_wrapper_class );	
 	
-	$default_css_class = ! $variable_pricing ? 'edd-add-to-cart-from-wish-list' : '';
+	$default_css_class = apply_filters( 'edd_wl_item_purchase_default_css_classes', 'edd-add-to-cart-from-wish-list', $download_id );
 	?>
 
 	<form id="<?php echo $form_id; ?>" class="edd_download_purchase_form" method="post">
@@ -675,7 +675,7 @@ function edd_wl_item_title( $item, $args = array() ) {
 
 	$html = '';
 
-	$link = '<a href="' . post_permalink( $item_id ) . '" ' . $class . ' title="' . get_the_title( $item_id ) . '">' . get_the_title( $item_id ) . '</a>';
+	$link = '<a href="' . apply_filters( 'edd_wl_item_title_permalink', post_permalink( $item_id ), $item_id ) . '" ' . $class . ' title="' . get_the_title( $item_id ) . '">' . get_the_title( $item_id ) . '</a>';
 
 	$output = $link . $item_option . $already_purchased . $item_image;
 

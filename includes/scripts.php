@@ -24,11 +24,15 @@ function edd_wl_print_scripts() {
 	wp_register_script( 'edd-wl-validate', EDD_WL_PLUGIN_URL . 'includes/js/jquery.validate' .  $suffix . '.js', array( 'jquery' ), EDD_WL_VERSION, true );
 	wp_register_script( 'edd-wl-modal', EDD_WL_PLUGIN_URL . 'includes/js/modal' .  $suffix . '.js', array( 'jquery' ), EDD_WL_VERSION, true );
 
-	// load scripts on single download pages
-	if ( is_singular( 'download' ) ) {
-		wp_enqueue_script( 'edd-wl' );
-		wp_enqueue_script( 'edd-wl-modal' );
+	// load scripts on single post type pages
+	$post_types = edd_wl_allowed_post_types();
+	foreach ( $post_types as $post_type ) {
+		if ( is_singular( $post_type ) ) {
+			wp_enqueue_script( 'edd-wl' );
+			wp_enqueue_script( 'edd-wl-modal' );
+		}
 	}
+	
 
 	// load validation if email sharing is present
 	if ( edd_wl_is_page( 'view' ) && edd_wl_sharing_is_enabled( 'email' ) ) {
