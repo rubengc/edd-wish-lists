@@ -362,12 +362,13 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 	    
 	    $ids[] = get_the_ID();
 	  }
+
+	  wp_reset_postdata();
 	}
 
 	if ( $ids ) {
 		return $ids;
 	}
-	wp_reset_postdata();
 	
 	return false;
 }

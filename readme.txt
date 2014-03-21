@@ -25,6 +25,9 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 If you have made modifications to the wish-list-view.php template, make sure edd_wl_wish_list_item_purchase() is renamed to edd_wl_item_purchase()
 
+= 1.0.5 =
+* Fix: shortcodes weren't showing on page templates when Wish Lists plugin was active
+
 = 1.0.4 =
 * New: edd_wl_allowed_post_types() function
 * New: edd_wl_item_title_permalink filter hook
