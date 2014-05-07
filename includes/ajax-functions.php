@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return void
  */
 function edd_ajax_add_to_cart_from_wish_list() {
-	if ( isset( $_POST['download_id'] ) && check_ajax_referer( 'edd_ajax_nonce', 'nonce' ) ) {
+	if ( isset( $_POST['download_id'] ) ) {
 		global $post;
 
 		$to_add = array();
@@ -61,7 +61,7 @@ add_action( 'wp_ajax_nopriv_edd_add_to_cart_from_wish_list', 'edd_ajax_add_to_ca
  * @return void
  */
 function edd_ajax_remove_from_wish_list() {
-	if ( isset( $_POST['cart_item'] ) && check_ajax_referer( 'edd_ajax_nonce', 'nonce' ) ) {
+	if ( isset( $_POST['cart_item'] ) ) {
 		
 		edd_remove_from_wish_list( $_POST['cart_item'], $_POST['list_id'] );
 		
@@ -122,7 +122,7 @@ add_action( 'wp_ajax_nopriv_edd_wl_delete_list', 'edd_wl_delete_list' );
  */
 function edd_ajax_add_to_wish_list() {
 
-	if ( isset( $_POST['download_id'] ) && check_ajax_referer( 'edd_ajax_nonce', 'nonce' ) ) {
+	if ( isset( $_POST['download_id'] ) ) {
 		global $post;
 
 		$to_add = array();

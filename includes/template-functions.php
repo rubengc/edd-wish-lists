@@ -103,7 +103,7 @@ add_filter( 'wp_title', 'edd_wl_wp_title', 10, 2 );
  *
  * @since 1.0
 */
-function edd_wl_the_title( $title, $id ) {
+function edd_wl_the_title( $title, $id = '' ) {
 
 	// prevent the title from changing
 	if ( edd_wl_is_private_list() )
