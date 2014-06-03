@@ -138,7 +138,6 @@ jQuery(document).ready(function ($) {
             url: edd_scripts.ajaxurl,
             success: function (response) {
                 if ( response.removed ) {
-                //    console.log('item removed');
 
                     if ( parseInt( edd_scripts.position_in_cart, 10 ) === parseInt( item, 10 ) ) {
                         window.location = window.location;
@@ -156,7 +155,17 @@ jQuery(document).ready(function ($) {
                     }
 
                     // Remove the selected wish list item
-                    $('.edd-wish-list').find("[data-cart-item='" + item + "']").parent().parent().remove();
+                    var toRemove =  $('.edd-wish-list').find("[data-cart-item='" + item + "']").closest('.row');
+
+                    if ( toRemove ) {
+                        toRemove.remove();
+                    }
+                    // backwards compatibility
+                    else {
+                         $('.edd-wish-list').find("[data-cart-item='" + item + "']").parent().parent().remove();
+                    }
+
+                   
                 }
             }
 
