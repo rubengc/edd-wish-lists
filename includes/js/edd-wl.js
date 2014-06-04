@@ -155,7 +155,7 @@ jQuery(document).ready(function ($) {
                     }
 
                     // Remove the selected wish list item
-                    var toRemove =  $('.edd-wish-list').find("[data-cart-item='" + item + "']").closest('.row');
+                    var toRemove =  $('.edd-wish-list').find("[data-cart-item='" + item + "']").closest('.wl-row');
 
                     if ( toRemove ) {
                         toRemove.remove();

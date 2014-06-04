@@ -29,7 +29,7 @@ $privacy = get_post_status( $list_id );
 
 	<ul class="edd-wish-list">
 		<?php foreach ( $downloads as $key => $item ) : ?>
-			<li class="row">
+			<li class="wl-row">
 				<?php // item title
 					echo edd_wl_item_title( $item ); 
 				?>

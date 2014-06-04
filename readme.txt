@@ -25,6 +25,9 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 If you have made modifications to the wish-list-view.php template, make sure edd_wl_wish_list_item_purchase() is renamed to edd_wl_item_purchase()
 
+= 1.0.7 =
+* Tweak: When removing an item from a wish list, it now searches for the closest element with a CSS class of "row". This means you can structure your HTML how you want. Just apply the row class to the wrapper that should be removed.
+
 = 1.0.6 =
 * Fix: Compatibility with EDD v1.9.9
 * Fix: Modified a redirect action so it doesn't conflict with other plugin redirects 
