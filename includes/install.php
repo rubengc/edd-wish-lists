@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function edd_wl_install() {
 
 	// return if EDD is not installed
-	if( ! class_exists( 'Easy_Digital_Downloads' ) )
+	if ( ! class_exists( 'Easy_Digital_Downloads' ) )
 		return;
 
 	global $wpdb, $edd_options;

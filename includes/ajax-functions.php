@@ -165,7 +165,7 @@ function edd_ajax_add_to_wish_list() {
 
 		// add each download to wish list
 		foreach ( $to_add as $options ) {
-			if( $_POST['download_id'] == $options['price_id'] ) {
+			if ( $_POST['download_id'] == $options['price_id'] ) {
 				$options = array();
 			}
 
@@ -230,15 +230,15 @@ function edd_wl_open_modal() {
 	}
 
     // get wish lists and send price IDs + items array
-    $lists 				= edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_single );
+    $lists = edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_single );
     
     // count lists
-    $list_count 		= edd_wl_get_query() ? count ( edd_wl_get_query() ) : 0;
+    $list_count = edd_wl_get_query() ? count ( edd_wl_get_query() ) : 0;
 
     $return = array(
-		'post_id'  		=> $download_id,
-		'list_count'	=> $list_count,	// count how many lists the user has
-		'lists' 		=> html_entity_decode( $lists, ENT_COMPAT, 'UTF-8' )
+		'post_id'    => $download_id,
+		'list_count' => $list_count,	// count how many lists the user has
+		'lists'      => html_entity_decode( $lists, ENT_COMPAT, 'UTF-8' )
 	);
 
 	echo json_encode( $return );
@@ -263,18 +263,16 @@ function edd_wl_share_via_email() {
 		return;
 
 	// referrer
-	$referrer 		= $_POST['referrer'] ? $_POST['referrer'] : '';
+	$referrer = $_POST['referrer'] ? $_POST['referrer'] : '';
 
 	// sender details
-	$sender_name 	= isset( $_POST['from_name'] ) ? $_POST['from_name'] : '';
-	$sender_email 	= isset( $_POST['from_email'] ) ? $_POST['from_email'] : '';
-
-	$emails 		= isset( $_POST['emails'] ) ? $_POST['emails'] : '';
-	$post_id 		= isset( $_POST['post_id'] ) ? $_POST['post_id'] : '';
-	$from_name 		= isset( $edd_options['from_name'] ) ? $edd_options['from_name'] : get_bloginfo('name');
-	$from_email 	= isset( $edd_options['from_email'] ) ? $edd_options['from_email'] : get_option('admin_email');
-
-	$message 		= isset( $_POST['message'] ) ? $_POST['message'] : '';
+	$sender_name  = isset( $_POST['from_name'] ) ? $_POST['from_name'] : '';
+	$sender_email = isset( $_POST['from_email'] ) ? $_POST['from_email'] : '';
+	$emails       = isset( $_POST['emails'] ) ? $_POST['emails'] : '';
+	$post_id      = isset( $_POST['post_id'] ) ? $_POST['post_id'] : '';
+	$from_name    = isset( $edd_options['from_name'] ) ? $edd_options['from_name'] : get_bloginfo('name');
+	$from_email   = isset( $edd_options['from_email'] ) ? $edd_options['from_email'] : get_option('admin_email');
+	$message      = isset( $_POST['message'] ) ? $_POST['message'] : '';
 
     // validation
     if ( ! ( $sender_name || $sender_email || ! edd_wl_validate_share_emails( $emails ) ) ) {
@@ -283,13 +281,13 @@ function edd_wl_share_via_email() {
 
 	if ( ! isset( $has_error ) ) {
 		$shortlink = wp_get_shortlink( $post_id ); // shortlink
-		$subject = edd_wl_share_via_email_subject( $sender_name, $referrer ); 	
-		$message = edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message, $referrer );
+		$subject   = edd_wl_share_via_email_subject( $sender_name, $referrer ); 	
+		$message   = edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message, $referrer );
 
-		$headers = "From: " . stripslashes_deep( html_entity_decode( $from_name, ENT_COMPAT, 'UTF-8' ) ) . " <$from_email>\r\n";
-		$headers .= "Reply-To: ". $sender_email . "\r\n";
-		$headers .= "Content-Type: text/html; charset=utf-8\r\n";
-		$headers = apply_filters( 'edd_wl_share_via_email_headers', $headers );
+		$headers   = "From: " . stripslashes_deep( html_entity_decode( $from_name, ENT_COMPAT, 'UTF-8' ) ) . " <$from_email>\r\n";
+		$headers  .= "Reply-To: ". $sender_email . "\r\n";
+		$headers  .= "Content-Type: text/html; charset=utf-8\r\n";
+		$headers   = apply_filters( 'edd_wl_share_via_email_headers', $headers );
 
 		// send email
 		wp_mail( $emails, $subject, $message, $headers );
