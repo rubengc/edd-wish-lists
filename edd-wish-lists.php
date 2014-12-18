@@ -173,7 +173,6 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 * @return void
 		 */
 		private function hooks() {
-			add_action( 'admin_init', array( $this, 'activation' ) );
 			
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta' ), null, 2 );
 
@@ -221,38 +220,6 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 				// Load the default language files
 				load_plugin_textdomain( 'edd-wish-lists', false, $lang_dir );
 			}
-		}
-
-		/**
-		 * Activation function fires when the plugin is activated.
-		 *
-		 * This function is fired when the activation hook is called by WordPress,
-		 * it flushes the rewrite rules and disables the plugin if EDD isn't active
-		 * and throws an error.
-		 *
-		 * @since 1.0
-		 * @access public
-		 *
-		 * @return void
-		 */
-		public function activation() {
-			global $wpdb;
-
-			if ( ! class_exists( 'Easy_Digital_Downloads' ) ) {
-				// is this plugin active?
-				if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
-					// deactivate the plugin
-			 		deactivate_plugins( plugin_basename( __FILE__ ) );
-			 		// unset activation notice
-			 		unset( $_GET[ 'activate' ] );
-			 		// display notice
-			 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-				}
-			}
-			else {
-				add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'settings_link' ), 10, 2 );
-			}
-
 		}
 
 		/**
@@ -327,8 +294,18 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
  * @return object Returns an instance of the EDD_Wish_Lists class
  */
 function edd_wish_lists() {
-	return EDD_Wish_Lists::get_instance();
+    if( ! class_exists( 'Easy_Digital_Downloads' ) ) {
+        if( ! class_exists( 'EDD_Extension_Activation' ) ) {
+            require_once 'includes/class.extension-activation.php';
+        }
+
+        $activation = new EDD_Extension_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
+        $activation = $activation->run();
+    } else {
+        return EDD_Wish_Lists::get_instance();
+    }
 }
+
 
 /**
  * Loads plugin after all the others have loaded and have registered their hooks and filters
