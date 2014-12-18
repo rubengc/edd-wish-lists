@@ -223,23 +223,6 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		}
 
 		/**
-		 * Admin notices
-		 *
-		 * @since 1.0
-		*/
-		public function admin_notices() {
-			$edd_plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/easy-digital-downloads/easy-digital-downloads.php', false, false );
-
-			if ( ! is_plugin_active('easy-digital-downloads/easy-digital-downloads.php') ) {
-				echo '<div class="error"><p>' . sprintf( __( 'You must install %sEasy Digital Downloads%s to use EDD Wish Lists.', 'edd-wish-lists' ), '<a href="http://wordpress.org/plugins/easy-digital-downloads/" title="Easy Digital Downloads" target="_blank">', '</a>' ) . '</p></div>';
-			}
-
-			if ( $edd_plugin_data['Version'] < '1.8.4' ) {
-				echo '<div class="error"><p>' . __( 'EDD Wish Lists requires Easy Digital Downloads Version 1.8.4 or greater. Please update Easy Digital Downloads.', 'edd-wish-lists' ) . '</p></div>';
-			}
-		}
-
-		/**
 		 * Plugin settings link
 		 *
 		 * @since 1.0
