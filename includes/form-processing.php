@@ -24,7 +24,7 @@ function edd_wl_process_form_requests() {
     }
 
     // only process the form if there are no errors
-    if( ! isset( $has_error ) ) {
+    if ( ! isset( $has_error ) ) {
       // edit form
       if ( isset( $_GET['created'] ) && $_GET['created'] == true ) {
         $args = array(
@@ -38,7 +38,7 @@ function edd_wl_process_form_requests() {
 
         // redirect to success page if successful
         if ( $post_id ) {
-          // create token for logged user user and store against list
+          // create token for logged in user and store against list
           edd_wl_create_token( $post_id );
 
           // redirect to newly created list
