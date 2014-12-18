@@ -193,7 +193,7 @@ function edd_wl_sharing_services() {
 			$locale = apply_filters( 'edd_wl_linkedin_locale', 'en_US' );
 		?>
 		<div class="edd-wl-service linkedin">
-		<script src="http://platform.linkedin.com/in.js" type="text/javascript">lang: <?php echo $locale; ?></script>
+		<script src="//platform.linkedin.com/in.js" type="text/javascript">lang: <?php echo $locale; ?></script>
 		<script type="IN/Share" <?php echo $linkedin_layout; ?> data-onSuccess="share" data-url="<?php echo $share_url; ?>"></script>
 		</div>
 		<?php endif; ?>
