@@ -48,7 +48,7 @@ function edd_wl_process_form_requests() {
       // update form
       elseif ( isset( $_GET['updated'] ) && $_GET['updated'] == true ) {
 
-        $wish_list  = get_post( get_query_var('edit') ); // get wish list
+        $wish_list  = get_post( get_query_var('wl_edit') ); // get wish list
         $post_id    = $wish_list->ID;
 
         $args = array(
