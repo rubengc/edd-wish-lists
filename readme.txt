@@ -30,6 +30,7 @@ If you have made modifications to the wish-list-view.php template, make sure edd
 * Tweak: When removing an item from a wish list, it now searches for the closest element with a CSS class of "row". This means you can structure your HTML how you want and only need to apply the row class to the wrapper that should be removed.
 * Tweak: Removed html { overflow-y: inherit; } CSS rule
 * Tweak: New activation class
+* Tweak: Changed the "edit" and "view" query vars to "wl_edit" and "wl_view". This was to avoid potential conflicts with other plugins using the same names. If you have modified the wish-list-edit.php template make sure to change line 6 from get_post( get_query_var('edit') ) to get_post( edd_wl_get_wish_list() );
 
 = 1.0.6 =
 * Fix: Compatibility with EDD v1.9.9
