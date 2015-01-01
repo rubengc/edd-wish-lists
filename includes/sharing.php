@@ -120,7 +120,7 @@ function edd_wl_sharing_services() {
 	global $edd_options;
 
 	// get list ID
-	$list_id = get_query_var( 'view' );
+	$list_id = get_query_var( 'wl_view' );
 
 	$sharing_layout = apply_filters( 'edd_wl_sharing_layout', 'vertical' );
 
@@ -147,7 +147,7 @@ function edd_wl_sharing_services() {
 	$twitter_text = apply_filters( 'edd_wl_twitter_text', get_the_title( $list_id ) );
 	
 	// URL to share. Uses shortlink
-	$share_url = apply_filters( 'edd_wl_share_url', wp_get_shortlink( get_query_var( 'view' ) ) );
+	$share_url = apply_filters( 'edd_wl_share_url', wp_get_shortlink( get_query_var( 'wl_view' ) ) );
 
 	// get services
 	$services = edd_get_option( 'edd_wl_services', '' );
@@ -166,7 +166,7 @@ function edd_wl_sharing_services() {
 			$twitter_button_size 	= apply_filters( 'edd_wl_twitter_button_size', 'medium' );
 		?>
 		<div class="edd-wl-service twitter">
-			<a href="https://twitter.com/share" data-width="100" data-lang="<?php echo $locale; ?>" class="twitter-share-button" <?php echo $twitter_layout; ?> data-size="<?php echo $twitter_button_size; ?>" data-counturl="<?php echo post_permalink( get_query_var( 'view' ) ); ?>" data-url="<?php echo $share_url; ?>" data-text="<?php echo $twitter_text; ?>" data-related=""><?php _e( 'Share', 'edd-wish-lists' ); ?></a>
+			<a href="https://twitter.com/share" data-width="100" data-lang="<?php echo $locale; ?>" class="twitter-share-button" <?php echo $twitter_layout; ?> data-size="<?php echo $twitter_button_size; ?>" data-counturl="<?php echo post_permalink( get_query_var( 'wl_view' ) ); ?>" data-url="<?php echo $share_url; ?>" data-text="<?php echo $twitter_text; ?>" data-related=""><?php _e( 'Share', 'edd-wish-lists' ); ?></a>
 		</div>
 		<?php endif; ?>
 
