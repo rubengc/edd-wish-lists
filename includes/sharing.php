@@ -125,32 +125,32 @@ function edd_wl_sharing_services() {
 	$sharing_layout = apply_filters( 'edd_wl_sharing_layout', 'vertical' );
 
 	if ( 'vertical' == $sharing_layout ) {
-		$twitter_layout 	= 'data-count="vertical"';
-		$facebook_layout 	= 'data-layout="box_count"';
-		$googleplus_layout 	= 'data-size="tall"';
-		$linkedin_layout 	= 'data-counter="top"';
+		$twitter_layout    = 'data-count="vertical"';
+		$facebook_layout   = 'data-layout="box_count"';
+		$googleplus_layout = 'data-size="tall"';
+		$linkedin_layout   = 'data-counter="top"';
 	}
 	elseif ( 'horizontal' == $sharing_layout ) {
-		$twitter_layout 	= 'data-count="horizontal"';
-		$facebook_layout 	= 'data-layout="button_count"';
-		$googleplus_layout 	= 'data-size="medium"';
-		$linkedin_layout 	= 'data-counter="right"';
+		$twitter_layout    = 'data-count="horizontal"';
+		$facebook_layout   = 'data-layout="button_count"';
+		$googleplus_layout = 'data-size="medium"';
+		$linkedin_layout   = 'data-counter="right"';
 	}
 	else {
-		$twitter_layout 	= '';
-		$facebook_layout 	= '';
-		$googleplus_layout 	= '';
-		$linkedin_layout 	= '';
+		$twitter_layout    = '';
+		$facebook_layout   = '';
+		$googleplus_layout = '';
+		$linkedin_layout   = '';
 	}
 
 	// twitter message
-	$twitter_text 	= apply_filters( 'edd_wl_twitter_text', get_the_title( $list_id ) );
+	$twitter_text = apply_filters( 'edd_wl_twitter_text', get_the_title( $list_id ) );
 	
 	// URL to share. Uses shortlink
-	$share_url 		= apply_filters( 'edd_wl_share_url', wp_get_shortlink( get_query_var( 'view' ) ) );
+	$share_url = apply_filters( 'edd_wl_share_url', wp_get_shortlink( get_query_var( 'view' ) ) );
 
 	// get services
-	$services 		= edd_get_option( 'edd_wl_services', '' );
+	$services = edd_get_option( 'edd_wl_services', '' );
 
 	// return if there are no services
 	if ( empty( $services ) )
