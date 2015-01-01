@@ -36,7 +36,7 @@ function edd_wl_redirects() {
 	// Prevent private lists from being viewed. Also only allows users to access edit slugs with own list ID
 	if ( 
 		edd_wl_is_private_list() 															|| 	// list is set to private
-		( ! edd_wl_is_users_list( get_query_var( 'edit' ) ) && get_query_var( 'edit' ) ) 		// not user's list																
+		( ! edd_wl_is_users_list( get_query_var( 'wl_edit' ) ) && get_query_var( 'wl_edit' ) ) 		// not user's list																
 	) {
 		// Don't redirect if we're on single download page. 
 		// Extra check to fix compatibility with crowdfunding extension or any other extension that uses an edit query var on the single download page
@@ -49,7 +49,7 @@ function edd_wl_redirects() {
 	}
 
 	// redirect if edit or view page is accessed but edit/view query_var does not exist
-	if ( ( edd_wl_is_page( 'view' ) && ! get_query_var( 'view' ) ) || ( edd_wl_is_page( 'edit' ) && ! get_query_var( 'edit' ) ) ) {
+	if ( ( edd_wl_is_page( 'view' ) && ! get_query_var( 'wl_view' ) ) || ( edd_wl_is_page( 'edit' ) && ! get_query_var( 'wl_edit' ) ) ) {
 		wp_redirect( edd_wl_get_wish_list_uri() );
 		edd_die();
 	}

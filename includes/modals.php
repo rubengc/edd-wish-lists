@@ -40,7 +40,7 @@ function edd_wl_modal_share_via_email() {
 	if ( ! ( edd_wl_is_view_page() && edd_wl_sharing_is_enabled( 'email' ) ) )
 		return;
 
-	$list_id = get_query_var( 'view' );
+	$list_id = get_query_var( 'wl_view' );
 	?>
 	<form class="wish-list-form" id="edd-wl-share-email-form" method="get" action="">
 	<div class="modal-header">
@@ -115,7 +115,7 @@ function edd_wl_modal_share_via_email_success() {
 */
 function edd_wl_list_delete_confirm() {
 	// only load on edit page
-	if ( ! get_query_var( 'edit' ) )
+	if ( ! get_query_var( 'wl_edit' ) )
 		return;
 
 	$messages = edd_wl_messages();
@@ -135,7 +135,7 @@ function edd_wl_list_delete_confirm() {
 		</p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo get_query_var( 'edit' ); ?>" class="edd-wl-button edd-wl-action edd-wl-delete-list-confirm">
+		<a href="#" data-action="edd_wl_delete_list" data-post-id="<?php echo get_query_var( 'wl_edit' ); ?>" class="edd-wl-button edd-wl-action edd-wl-delete-list-confirm">
 			<span class="label"><?php echo $messages['modal_button_delete_confirm']; ?></span>
 			<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>
 		</a>

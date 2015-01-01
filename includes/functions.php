@@ -28,7 +28,7 @@ function edd_wl_allowed_post_types() {
  * @since  1.0
  */
 function edd_wl_get_list_id() {
-	$list_id = get_query_var( 'view' );
+	$list_id = get_query_var( 'wl_view' );
 
 	return apply_filters( 'edd_wl_get_list_id', $list_id );
 }
@@ -36,7 +36,7 @@ function edd_wl_get_list_id() {
 /**
  * Is view page?
  * 
- * @return [type] [description]
+ * @return boolean
  */
 function edd_wl_is_view_page() {
 	$pages = apply_filters( 'edd_wl_is_view_page', 
@@ -57,21 +57,52 @@ function edd_wl_is_view_page() {
 }
 
 /**
+ * Is edit page?
+ * 
+ * @return boolean
+ */
+function edd_wl_is_edit_page() {
+
+	$pages = apply_filters( 'edd_wl_is_edit_page', 
+		array(
+			edd_get_option( 'edd_wl_page_edit', '' )
+		)
+	);
+
+	if ( $pages ) {
+		foreach ( $pages as $page ) {
+			if ( is_page( $page ) ) {
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
+/**
  * Get a wish list
  * 
  * @param  int $wish_list_id 	the ID of the wish list
  * @return array               	the contents of the wish list
  * @since  1.0
- * @todo  remove favorites code
  */
 function edd_wl_get_wish_list( $list_id = '' ) {
 
 	// use query var for list if on view page
-	if ( edd_wl_is_view_page() )
-		$list_id = get_query_var( 'view' );
+	if ( edd_wl_is_view_page() ) {
+		$list_id = get_query_var( 'wl_view' );
+	}
 	
+	// use query var for list if on edit page
+	if ( edd_wl_is_edit_page() ) {
+		$list_id = get_query_var( 'wl_edit' );
+		return $list_id;
+	}
+
 	// retrieve the wish list
 	return apply_filters( 'edd_wl_get_wish_list', get_post_meta( $list_id, 'edd_wish_list', true ) );
+
 }
 
 /**
@@ -80,12 +111,15 @@ function edd_wl_get_wish_list( $list_id = '' ) {
  * @since 1.0
 */
 function edd_wl_has_pretty_permalinks() {
+
 	global $wp_rewrite;
 	
-	if ( $wp_rewrite->using_permalinks() )
+	if ( $wp_rewrite->using_permalinks() ) {
 		return true;
+	}
 	
 	return false;
+
 }
 
 /**
@@ -95,20 +129,25 @@ function edd_wl_has_pretty_permalinks() {
  * @return [type]
  */
 function edd_wl_is_private_list() {
-	if ( get_query_var( 'view' ) )
-		$list_id = get_query_var( 'view' );
-	elseif ( get_query_var( 'edit' ) )
-		$list_id = get_query_var( 'edit' );
-	else
-		$list_id = '';
 
-	if ( ! $list_id )
+	if ( get_query_var( 'wl_view' ) ) {
+		$list_id = get_query_var( 'wl_view' );
+	} elseif ( get_query_var( 'wl_edit' ) ) {
+		$list_id = get_query_var( 'wl_edit' );
+	} else {
+		$list_id = '';
+	}
+
+	if ( ! $list_id ) {
 		return;
+	}
 
 	$list_status = get_post_status( $list_id );
 
-	if ( 'private' == $list_status && ! edd_wl_is_users_list( $list_id ) && ( edd_wl_is_page( 'view' ) || edd_wl_is_page( 'edit' ) ) )
+	if ( 'private' == $list_status && ! edd_wl_is_users_list( $list_id ) && ( edd_wl_is_page( 'view' ) || edd_wl_is_page( 'edit' ) ) ) {
 		return true;
+	}
+
 }
 
 
@@ -118,6 +157,7 @@ function edd_wl_is_private_list() {
  * @since 1.0
 */
 function edd_wl_get_list_status( $post_id = '' ) {
+
 	$post_id = isset( $post_id ) ? $post_id : get_the_ID();
 
 	$status = get_post_status( $post_id );
@@ -133,6 +173,7 @@ function edd_wl_get_list_status( $post_id = '' ) {
 	}
 
 	return $status;
+
 }
 
 /**
@@ -216,7 +257,7 @@ function edd_wl_get_wish_list_view_uri( $id = '' ) {
 		return apply_filters( 'edd_wl_get_wish_list_view_uri', trailingslashit( $uri ) . $id );
 	}		
 	else {
-		return apply_filters( 'edd_wl_get_wish_list_view_uri', add_query_arg( 'view', $id, $uri ) );
+		return apply_filters( 'edd_wl_get_wish_list_view_uri', add_query_arg( 'wl_view', $id, $uri ) );
 	}
 }
 
@@ -233,7 +274,7 @@ function edd_wl_get_wish_list_edit_uri( $id = '') {
 		return apply_filters( 'edd_wl_get_wish_list_edit_uri', trailingslashit( $uri ) . $id );
 	}		
 	else {
-		return apply_filters( 'edd_wl_get_wish_list_edit_uri', add_query_arg( 'edit', $id, $uri ) );
+		return apply_filters( 'edd_wl_get_wish_list_edit_uri', add_query_arg( 'wl_edit', $id, $uri ) );
 	}
 }
 

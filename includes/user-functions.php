@@ -52,7 +52,7 @@ function edd_wl_is_users_list( $list_id ) {
 	$current_user_id = get_current_user_id();
 
 	// should only be on view or edit page
-	if ( ! ( get_query_var('edit') || get_query_var('view') ) )
+	if ( ! ( get_query_var('wl_edit') || get_query_var('wl_view') ) )
 		return;
 
 	// logged in users

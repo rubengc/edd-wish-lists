@@ -82,10 +82,10 @@ function edd_wl_wp_title( $title, $sep ) {
 			return $title;
 
 		if ( is_page( $view_page ) ) {
-			$list_id = get_query_var( 'view' );
+			$list_id = get_query_var( 'wl_view' );
 		}
 		elseif ( is_page( $edit_page ) ) {
-			$list_id = get_query_var( 'edit' );
+			$list_id = get_query_var( 'wl_edit' );
 		}
 
 		$list_title = get_the_title( $list_id );
@@ -110,8 +110,8 @@ function edd_wl_the_title( $title, $id = '' ) {
 		return $title;
 
 	// View page - replace the main page title with the name of the list
-	if ( edd_wl_is_view_page() && get_query_var( 'view' ) && in_the_loop() && $id == get_the_ID() ) {
-		$title = get_the_title( get_query_var( 'view' ) );
+	if ( edd_wl_is_view_page() && get_query_var( 'wl_view' ) && in_the_loop() && $id == get_the_ID() ) {
+		$title = get_the_title( get_query_var( 'wl_view' ) );
 	}	
 
     return $title;

@@ -3,7 +3,7 @@
  * Edit Wish List template
 */
 
-$wish_list  = get_post( get_query_var('edit') );
+$wish_list  = get_post( edd_wl_get_wish_list() );
 $post_id    = $wish_list->ID;
 $content    = $wish_list->post_content;
 $title      = get_the_title( $post_id );

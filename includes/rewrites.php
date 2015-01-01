@@ -60,13 +60,13 @@ function edd_wl_rewrite_rules() {
     
     add_rewrite_rule(
         '.*' . $view_slug . '/([0-9]+)?$',
-        'index.php?page_id=' . $wish_list_view_page_id . '&view=$matches[1]',
+        'index.php?page_id=' . $wish_list_view_page_id . '&wl_view=$matches[1]',
         'top'
     );
 
     add_rewrite_rule(
         '.*' . $edit_slug . '/([0-9]+)?$',
-        'index.php?page_id=' . $wish_list_edit_page_id . '&edit=$matches[1]',
+        'index.php?page_id=' . $wish_list_edit_page_id . '&wl_edit=$matches[1]',
         'top'
     );
 
@@ -93,12 +93,12 @@ add_filter( 'post_type_link', 'edd_wl_post_type_link', 10, 4 );
 
 /**
  * Rewrite tags
- * Adds our 'view' and 'edit' to query vars as seen in the add_rewrite_rule's above
+ * Adds our 'wl_view' and 'wl_edit' to query vars as seen in the add_rewrite_rule's above
  *
  * @since 1.0
 */
 function edd_wl_add_rewrite_tag() {
-	add_rewrite_tag( '%view%', '([^/]+)');
-    add_rewrite_tag( '%edit%', '([^/]+)');
+	add_rewrite_tag( '%wl_view%', '([^/]+)');
+    add_rewrite_tag( '%wl_edit%', '([^/]+)');
 }
 add_action( 'init', 'edd_wl_add_rewrite_tag' );
