@@ -20,18 +20,6 @@ function edd_wl_allowed_post_types() {
 	return $post_types;
 }
 
-/**
- * Get list ID
- * Performs a simple lookup of the 'view' query var
- * 
- * @return int ID of list
- * @since  1.0
- */
-function edd_wl_get_list_id() {
-	$list_id = get_query_var( 'wl_view' );
-
-	return apply_filters( 'edd_wl_get_list_id', $list_id );
-}
 
 /**
  * Is view page?
@@ -81,7 +69,29 @@ function edd_wl_is_edit_page() {
 }
 
 /**
- * Get a wish list
+ * Get list ID
+ * Performs a simple lookup of the 'view' query var
+ * 
+ * @return int ID of list
+ * @since  1.0
+ */
+function edd_wl_get_list_id() {
+
+	if ( get_query_var( 'wl_view' ) ) {
+		$list_id = get_query_var( 'wl_view' );
+	} elseif ( get_query_var( 'wl_edit' ) ) {
+		$list_id = get_query_var( 'wl_edit' );
+	}
+	
+	if ( $list_id ) {
+		return apply_filters( 'edd_wl_get_list_id', $list_id );
+	}
+	
+	return false;
+}
+
+/**
+ * Gets the downloads of a specific wish list
  * 
  * @param  int $wish_list_id 	the ID of the wish list
  * @return array               	the contents of the wish list
@@ -89,19 +99,12 @@ function edd_wl_is_edit_page() {
  */
 function edd_wl_get_wish_list( $list_id = '' ) {
 
-	// use query var for list if on view page
-	if ( edd_wl_is_view_page() ) {
-		$list_id = get_query_var( 'wl_view' );
+	if ( $list_id ) {
+		// retrieve the wish list
+		return apply_filters( 'edd_wl_get_wish_list', get_post_meta( $list_id, 'edd_wish_list', true ) );
 	}
 	
-	// use query var for list if on edit page
-	if ( edd_wl_is_edit_page() ) {
-		$list_id = get_query_var( 'wl_edit' );
-		return $list_id;
-	}
-
-	// retrieve the wish list
-	return apply_filters( 'edd_wl_get_wish_list', get_post_meta( $list_id, 'edd_wish_list', true ) );
+	return false;
 
 }
 

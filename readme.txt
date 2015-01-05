@@ -25,6 +25,10 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 If you have made modifications to the wish-list-view.php template, make sure edd_wl_wish_list_item_purchase() is renamed to edd_wl_item_purchase()
 
+= 1.0.8 =
+* Tweak: Improved edd_wl_get_list_id() and edd_wl_get_wish_list() functions
+* Tweak: Modified wish-list-edit.php and wish-list-view.php templates based on the changes above
+
 = 1.0.7 =
 * Fix: LinkedIn issue when loading over https
 * Tweak: When removing an item from a wish list, it now searches for the closest element with a CSS class of "row". This means you can structure your HTML how you want and only need to apply the row class to the wrapper that should be removed.

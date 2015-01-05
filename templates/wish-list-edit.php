@@ -3,11 +3,11 @@
  * Edit Wish List template
 */
 
-$wish_list  = get_post( edd_wl_get_wish_list() );
-$post_id    = $wish_list->ID;
-$content    = $wish_list->post_content;
-$title      = get_the_title( $post_id );
-$privacy    = get_post_status( $post_id );
+$list_id   = edd_wl_get_list_id();
+$wish_list = get_post( $list_id );
+$content   = $wish_list->post_content;
+$title     = get_the_title( $list_id );
+$privacy   = get_post_status( $list_id );
 
 ?>
 

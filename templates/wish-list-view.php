@@ -6,12 +6,15 @@
 // get list ID
 $list_id = edd_wl_get_list_id();
 
-// gets the list
-$downloads = edd_wl_get_wish_list();
+// get the downloads from the wish list
+$downloads = edd_wl_get_wish_list( $list_id );
+
 // get list post object
 $list = get_post( $list_id );
+
 // title
 $title = get_the_title( $list_id );
+
 //status
 $privacy = get_post_status( $list_id );
 
