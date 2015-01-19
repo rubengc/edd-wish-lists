@@ -405,12 +405,6 @@ jQuery(document).ready(function ($) {
                 } 
                 else {
 
-                    // Update the cart quantity
-                    $('span.edd-cart-quantity').each(function() {
-                        var quantity = parseInt($(this).text(), 10) + 1;
-                        $(this).text(quantity);
-                    });
-
                     if ( price_mode == 'multi' ) {
                         // remove spinner for multi
                         $this.removeAttr( 'data-edd-loading' );
