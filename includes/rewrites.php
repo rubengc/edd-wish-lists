@@ -55,8 +55,8 @@ function edd_wl_rewrite_rules() {
     $wish_list_view_page_id = edd_get_option( 'edd_wl_page_view', null );
     $wish_list_edit_page_id = edd_get_option( 'edd_wl_page_edit', null );
     
-    $view_slug = edd_wl_get_page_slug( 'view' ) ? edd_wl_get_page_slug( 'view' ) : '';
-    $edit_slug = edd_wl_get_page_slug( 'edit' ) ? edd_wl_get_page_slug( 'edit' ) : '';
+    $view_slug = edd_wl_get_page_slug( 'view' ) ? edd_wl_get_page_slug( 'view' ) : 'view';
+    $edit_slug = edd_wl_get_page_slug( 'edit' ) ? edd_wl_get_page_slug( 'edit' ) : 'edit';
     
     add_rewrite_rule(
         '.*' . $view_slug . '/([0-9]+)?$',
@@ -73,6 +73,15 @@ function edd_wl_rewrite_rules() {
     // flush the rewrite rules
     flush_rewrite_rules();
 }
+
+/**
+ * Run the edd_wl_rewrite_rules() function after EDD is installed
+ * @since  1.0.9
+ */
+function edd_wl_edd_after_install( $edd_options ) {
+    edd_wl_rewrite_rules();
+}
+add_action( 'edd_after_install', 'edd_wl_edd_after_install' );
 
 /**
  * Filter calls to get_post_permalink()
