@@ -8,9 +8,7 @@ jQuery(document).ready(function ($) {
     });
 
     // Hide unneeded elements. These are things that are required in case JS breaks or isn't present
-    $('.edd-no-js').hide();
     $('a.edd-add-to-wish-list').addClass('edd-has-js');
-
 
     // Send Add to Cart request
     $('body').on('click.eddAddToCartFromWishList', '.edd-add-to-cart-from-wish-list', function (e) {
@@ -58,14 +56,14 @@ jQuery(document).ready(function ($) {
             action: action,
             download_id: download,
             price_ids : item_price_ids,
-            nonce: edd_scripts.ajax_nonce,
+            nonce: edd_wl_scripts.ajax_nonce,
         };
 
         $.ajax({
             type: "POST",
             data: data,
             dataType: "json",
-            url: edd_scripts.ajaxurl,
+            url: edd_wl_scripts.ajaxurl,
             success: function (response) {
 
                     // Add the new item to the cart widget
@@ -128,14 +126,14 @@ jQuery(document).ready(function ($) {
                 action: action,
                 cart_item: item,
                 list_id: list_id,
-                nonce: edd_scripts.ajax_nonce
+                nonce: edd_wl_scripts.ajax_nonce
             };
 
          $.ajax({
             type: "POST",
             data: data,
             dataType: "json",
-            url: edd_scripts.ajaxurl,
+            url: edd_wl_scripts.ajaxurl,
             success: function (response) {
                 if ( response.removed ) {
 
@@ -247,7 +245,7 @@ jQuery(document).ready(function ($) {
             type:       "POST",
             data:       data,
             dataType:   "json",
-            url:        edd_scripts.ajaxurl,
+            url:        edd_wl_scripts.ajaxurl,
             success: function (response) {
                 // populate modal window with data
                 $('#edd-wl-modal .modal-content').html( response.lists );
@@ -255,7 +253,6 @@ jQuery(document).ready(function ($) {
                 $('.edd-wl-open-modal').removeAttr('data-edd-loading');
 
                 $('a.edd-wl-open-modal').addClass('edd-has-js');
-                $('.edd-no-js').hide();
 
                 // hide create list field
                 if ( 'new-list' === $( 'input:radio[name=list-options]:checked' ).val() || response.list_count === 0 ) {
@@ -374,14 +371,14 @@ jQuery(document).ready(function ($) {
                 new_or_existing : new_or_existing,  // whether its a new list or existing. Could be true or false
                 list_name : list_name,              // the list name entered by the user
                 list_status : list_status,
-                nonce: edd_scripts.ajax_nonce      // nonce
+                nonce: edd_wl_scripts.ajax_nonce      // nonce
             };
 
         $.ajax({
             type: "POST",
             data: data,
             dataType: "json",
-            url: edd_scripts.ajaxurl,
+            url: edd_wl_scripts.ajaxurl,
             success: function (response) {
 
                 // hide the save button and show the close buttons
