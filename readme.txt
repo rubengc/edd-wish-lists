@@ -25,6 +25,11 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 If you have made modifications to the wish-list-view.php template, make sure edd_wl_wish_list_item_purchase() is renamed to edd_wl_item_purchase()
 
+= 1.0.9 =
+* Fix: Cart quantities in some themes were being updated when a download was added to a wish list.
+* Fix: When EDD was deactivated and reactivated the wish list page was not viewable until either the EDD settings were saved or Wish Lists was deactivated and reactivated.
+* Tweak: Leaving "Enable Ajax" unchecked in downloads -> settings -> misc no longer affects Wish Lists. Ajax is always required for Wish Lists so now works regardless of this setting.
+
 = 1.0.8 =
 * Tweak: Improved edd_wl_get_list_id() and edd_wl_get_wish_list() functions
 * Tweak: Modified wish-list-edit.php and wish-list-view.php templates based on the changes above
