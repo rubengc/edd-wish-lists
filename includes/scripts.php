@@ -26,6 +26,7 @@ function edd_wl_print_scripts() {
 
 	// load scripts on single post type pages
 	$post_types = edd_wl_allowed_post_types();
+
 	foreach ( $post_types as $post_type ) {
 		if ( is_singular( $post_type ) ) {
 			wp_enqueue_script( 'edd-wl' );
@@ -40,9 +41,10 @@ function edd_wl_print_scripts() {
 	}
 
 	wp_localize_script( 'edd-wl', 'edd_wl_scripts', array(
-		 'wish_list_page'          => edd_wl_get_wish_list_uri(),
-		 'wish_list_add'           => edd_wl_get_wish_list_create_uri(),
-		 'ajax_nonce'              => wp_create_nonce( 'edd_wl_ajax_nonce' ),
+		'ajaxurl'                 => edd_get_ajax_url(),
+		'wish_list_page'          => edd_wl_get_wish_list_uri(),
+		'wish_list_add'           => edd_wl_get_wish_list_create_uri(),
+		'ajax_nonce'              => wp_create_nonce( 'edd_wl_ajax_nonce' ),
 		)
 	);
 
@@ -127,7 +129,7 @@ function edd_wl_delete_list_js() {
 		        type:       "POST",
 		        data:       data,
 		        dataType:   "json",
-		        url:        edd_scripts.ajaxurl,
+		        url:        edd_wl_scripts.ajaxurl,
 		        success: function (response) {
 		            if( response.msg == 'success' ) {
 		                window.location = edd_wl_scripts.wish_list_page;
@@ -229,7 +231,7 @@ function edd_wl_validate() {
                     type:       "POST",
                     data:       data,
                     dataType:   "json",
-                    url:        edd_scripts.ajaxurl,
+                    url:        edd_wl_scripts.ajaxurl,
                     success: function (response) {
                         $('.edd-wl-share-via-email').removeAttr('data-edd-loading');
                         $('a.edd-wl-share-via-email').addClass('edd-has-js');

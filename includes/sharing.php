@@ -336,13 +336,6 @@ function edd_wl_sharing_print_scripts() {
 		*/
 		if ( edd_wl_sharing_is_enabled() ) : ?>
 
-		/* <![CDATA[ */
-		var edd_wl_vars = {
-			"ajaxurl": 		"<?php echo edd_get_ajax_url(); ?>",
-			"edd_wl_nonce": "<?php echo wp_create_nonce( 'edd_wl_nonce' ); ?>"
-		};
-		/* ]]> */
-
 		jQuery(document).ready(function ($) {
 
 			jQuery(document).on( 'listShared', function(e) {
@@ -352,7 +345,7 @@ function edd_wl_sharing_print_scripts() {
 			    	var postData = {
 			            action: 'share_list',
 			            list_id: <?php echo get_the_ID(); ?>, 
-			            nonce: edd_scripts.ajax_nonce
+			            nonce: edd_wl_scripts.ajax_nonce
 			        };
 
 			    	$.ajax({

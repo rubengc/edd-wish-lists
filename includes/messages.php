@@ -73,7 +73,8 @@ function edd_wl_set_messages() {
 	 * wish-list-view.php
 	*/
 	if ( edd_wl_is_page( 'view' ) ) {
-		$downloads = edd_wl_get_wish_list( edd_wl_get_list_id() );
+		
+		$downloads = edd_wl_get_list_id() ? edd_wl_get_wish_list( edd_wl_get_list_id() ) : array();
 
 		// list updated
 		if ( isset( $_GET['list'] ) && $_GET['list'] == 'updated' ) {
