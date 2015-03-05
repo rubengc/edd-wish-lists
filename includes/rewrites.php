@@ -24,7 +24,9 @@ function edd_wl_plugin_settings_save() {
         && ( isset( $_GET['tab'] ) && $_GET['tab'] == 'extensions' ) 
         && ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] == 'true' ) 
     ) {
-        edd_wl_rewrite_rules();
+
+        // flush the rewrite rules when settings are saved
+        flush_rewrite_rules();
     }
 
 }
@@ -48,38 +50,11 @@ function edd_wl_save_permalinks() {
 add_action( 'admin_init', 'edd_wl_save_permalinks' );
 
 /**
- * Rewrite rules
- * @since  1.0
- */
-function edd_wl_rewrite_rules() {
-    $wish_list_view_page_id = edd_get_option( 'edd_wl_page_view', null );
-    $wish_list_edit_page_id = edd_get_option( 'edd_wl_page_edit', null );
-    
-    $view_slug = edd_wl_get_page_slug( 'view' ) ? edd_wl_get_page_slug( 'view' ) : 'view';
-    $edit_slug = edd_wl_get_page_slug( 'edit' ) ? edd_wl_get_page_slug( 'edit' ) : 'edit';
-    
-    add_rewrite_rule(
-        '.*' . $view_slug . '/([0-9]+)?$',
-        'index.php?page_id=' . $wish_list_view_page_id . '&wl_view=$matches[1]',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '.*' . $edit_slug . '/([0-9]+)?$',
-        'index.php?page_id=' . $wish_list_edit_page_id . '&wl_edit=$matches[1]',
-        'top'
-    );
-
-    // flush the rewrite rules
-    flush_rewrite_rules();
-}
-
-/**
- * Run the edd_wl_rewrite_rules() function after EDD is installed
+ * Flush the rewrite rules after EDD is installed
  * @since  1.0.9
  */
 function edd_wl_edd_after_install( $edd_options ) {
-    edd_wl_rewrite_rules();
+    flush_rewrite_rules();
 }
 add_action( 'edd_after_install', 'edd_wl_edd_after_install' );
 
@@ -99,6 +74,32 @@ function edd_wl_post_type_link( $post_link, $post, $leavename, $sample ) {
     return $post_link;
 }
 add_filter( 'post_type_link', 'edd_wl_post_type_link', 10, 4 );
+
+/**
+ * Rewrite rules
+ * @since  1.0
+ */
+function edd_wl_rewrite_rules() {
+    $wish_list_view_page_id = edd_get_option( 'edd_wl_page_view' );
+    $wish_list_edit_page_id = edd_get_option( 'edd_wl_page_edit' );
+    
+    $view_slug = edd_wl_get_page_slug( 'view' ) ? edd_wl_get_page_slug( 'view' ) : 'view';
+    $edit_slug = edd_wl_get_page_slug( 'edit' ) ? edd_wl_get_page_slug( 'edit' ) : 'edit';
+    
+    add_rewrite_rule(
+        '.*' . $view_slug . '/([0-9]+)?$',
+        'index.php?page_id=' . $wish_list_view_page_id . '&wl_view=$matches[1]',
+        'top'
+    );
+
+    add_rewrite_rule(
+        '.*' . $edit_slug . '/([0-9]+)?$',
+        'index.php?page_id=' . $wish_list_edit_page_id . '&wl_edit=$matches[1]',
+        'top'
+    );
+
+}
+add_action( 'init', 'edd_wl_rewrite_rules' );
 
 /**
  * Rewrite tags
