@@ -176,7 +176,7 @@ function edd_wl_sharing_services() {
 		?>
 		
 		<div class="edd-wl-service facebook">
-			<div class="fb-like" data-href="<?php echo $share_url; ?>" data-send="true" data-action="like" <?php echo $facebook_layout; ?> data-share="<?php echo $data_share; ?>" data-width="" data-show-faces="false"></div>
+			<div class="fb-like" data-href="<?php echo post_permalink( get_query_var( 'wl_view' ) ); ?>" data-send="true" data-action="like" <?php echo $facebook_layout; ?> data-share="<?php echo $data_share; ?>" data-width="" data-show-faces="false"></div>
 		</div>
 		<?php endif; ?>
 
@@ -205,6 +205,140 @@ function edd_wl_sharing_services() {
 	$share_box = ob_get_clean();
 	return apply_filters( 'edd_wl_share_box', $share_box );
 }
+
+/**
+ * Set opengraph URL to use URL including query vars
+ *
+ * @since 1.1
+ */
+function edd_wl_add_og_url() {
+
+	if ( get_query_var( 'wl_view' ) ) : 
+
+		$post         = get_post( get_query_var( 'wl_view' ) );
+		$post_content = $post ? $post->post_content : '';
+
+	?>
+
+<meta property="og:title" content="<?php wp_title( '|', true, 'right' ); ?>" />
+<meta property="og:url" content="<?php echo trailingslashit( post_permalink( get_query_var( 'wl_view' ) ) ); ?>" />
+<meta property="og:description" content="<?php echo esc_attr( $post_content ); ?>" />
+<link rel="canonical" href="<?php echo trailingslashit( post_permalink( get_query_var( 'wl_view' ) ) ); ?>" />
+<?php endif;
+
+}
+add_action( 'wp_head', 'edd_wl_add_og_url' );
+
+/**
+ * Removes WP canonical URL when on single wish list page
+ *
+ * @since 1.1
+ */
+function edd_wl_wp_head() {
+
+	if ( get_query_var( 'wl_view' ) ) {
+		// remove canonical tag
+		remove_action( 'wp_head', 'rel_canonical' );	
+	}
+
+}
+add_action( 'template_redirect', 'edd_wl_wp_head' );
+
+/**
+ * Remove opengraph URL if WPSEO is active and we're on single wish list page
+ *
+ * @since 1.1 
+ */
+function edd_wl_wpseo_opengraph_url( $url ) {
+
+	if ( get_query_var( 'wl_view' ) ) {
+		return '';
+	}
+
+	return $url;
+	
+}
+add_filter( 'wpseo_opengraph_url', 'edd_wl_wpseo_opengraph_url' );
+
+/**
+ * Remove WPSEO page title when on single wish list page
+ *
+ * @since 1.1 
+ */
+function edd_wl_wpseo_title( $title ) {
+
+	// add the title of the wish list to the title tag
+	if ( get_query_var( 'wl_view' ) ) {
+		return get_the_title( get_query_var( 'wl_view' ) ) . ' - ' . $title;
+	}
+
+	return $title;
+	
+}
+add_filter( 'wpseo_title', 'edd_wl_wpseo_title' );
+
+/**
+ * Remove opengraph description if WPSEO is active and we're on single wish list page
+ *
+ * @since 1.1 
+ */
+function edd_wl_wpseo_opengraph_desc( $desc ) {
+
+	if ( get_query_var( 'wl_view' ) ) {
+		return '';
+	}
+
+	return $desc;
+	
+}
+add_filter( 'wpseo_opengraph_desc', 'edd_wl_wpseo_opengraph_desc' );
+
+/**
+ * Remove opengraph title if WPSEO is active and we're on single wish list page
+ *
+ * @since 1.1 
+ */
+function edd_wl_wpseo_opengraph_title( $title ) {
+
+	if ( get_query_var( 'wl_view' ) ) {
+		return '';
+	}
+
+	return $title;
+	
+}
+add_filter( 'wpseo_opengraph_title', 'edd_wl_wpseo_opengraph_title' );
+
+/**
+ * Remove canonical URL from WPSEO if active and we're on the single wish list page
+ *
+ * @since 1.1 
+ */
+function edd_wl_wpseo_canonical( $url ) {
+
+	if ( get_query_var( 'wl_view' ) ) {
+		return '';
+	}
+
+	return $url;
+	
+}
+add_filter( 'wpseo_canonical', 'edd_wl_wpseo_canonical' );
+
+/**
+ * Jetpack shortlinks filter the standard WP shortlinks. This breaks the links on the single wish list pages. This resets the links back to how they should be.
+ *
+ * @since 1.1
+ */
+function edd_wl_jetpack_shortlinks( $shortlink ) {
+
+	if ( get_query_var( 'wl_view' ) ) {
+		return home_url( '?p=' . get_query_var( 'wl_view' ) );
+	}
+
+	return $shortlink;
+}
+add_filter( 'get_shortlink', 'edd_wl_jetpack_shortlinks', 100 );
 
 /**
  * Print scripts

@@ -280,7 +280,8 @@ function edd_wl_share_via_email() {
     }
 
 	if ( ! isset( $has_error ) ) {
-		$shortlink = wp_get_shortlink( $post_id ); // shortlink
+		$shortlink = home_url( '?p=' . $post_id );
+
 		$subject   = edd_wl_share_via_email_subject( $sender_name, $referrer ); 	
 		$message   = edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message, $referrer );
 

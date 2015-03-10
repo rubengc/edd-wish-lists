@@ -23,6 +23,12 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 == Changelog ==
 
+= 1.1 =
+* Fix: Some plugins which flushed rewrite rules on activation interferred with Wish Lists' rewrite rules
+* Fix: When sharing a wish list via Facebook, the correct URL is now shared
+* Fix: Issue with sharing URL disappearing from single wish list page when WP.me Shortlinks were enabled in Jetpack
+* Tweak: Various opengraph improvements
+
 If you have made modifications to the wish-list-view.php template, make sure edd_wl_wish_list_item_purchase() is renamed to edd_wl_item_purchase()
 
 = 1.0.9 =
