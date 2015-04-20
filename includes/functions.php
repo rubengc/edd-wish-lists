@@ -23,11 +23,11 @@ function edd_wl_allowed_post_types() {
 
 /**
  * Is view page?
- * 
+ *
  * @return boolean
  */
 function edd_wl_is_view_page() {
-	$pages = apply_filters( 'edd_wl_is_view_page', 
+	$pages = apply_filters( 'edd_wl_is_view_page',
 		array(
 			edd_get_option( 'edd_wl_page_view', '' )
 		)
@@ -40,18 +40,18 @@ function edd_wl_is_view_page() {
 			}
 		}
 	}
-	
+
 	return false;
 }
 
 /**
  * Is edit page?
- * 
+ *
  * @return boolean
  */
 function edd_wl_is_edit_page() {
 
-	$pages = apply_filters( 'edd_wl_is_edit_page', 
+	$pages = apply_filters( 'edd_wl_is_edit_page',
 		array(
 			edd_get_option( 'edd_wl_page_edit', '' )
 		)
@@ -64,14 +64,14 @@ function edd_wl_is_edit_page() {
 			}
 		}
 	}
-	
+
 	return false;
 }
 
 /**
  * Get list ID
  * Performs a simple lookup of the 'view' query var
- * 
+ *
  * @return int ID of list
  * @since  1.0
  */
@@ -82,17 +82,17 @@ function edd_wl_get_list_id() {
 	} elseif ( get_query_var( 'wl_edit' ) ) {
 		$list_id = get_query_var( 'wl_edit' );
 	}
-	
+
 	if ( $list_id ) {
 		return apply_filters( 'edd_wl_get_list_id', $list_id );
 	}
-	
+
 	return false;
 }
 
 /**
  * Gets the downloads of a specific wish list
- * 
+ *
  * @param  int $wish_list_id 	the ID of the wish list
  * @return array               	the contents of the wish list
  * @since  1.0
@@ -103,7 +103,7 @@ function edd_wl_get_wish_list( $list_id = '' ) {
 		// retrieve the wish list
 		return apply_filters( 'edd_wl_get_wish_list', get_post_meta( $list_id, 'edd_wish_list', true ) );
 	}
-	
+
 	return false;
 
 }
@@ -116,11 +116,11 @@ function edd_wl_get_wish_list( $list_id = '' ) {
 function edd_wl_has_pretty_permalinks() {
 
 	global $wp_rewrite;
-	
+
 	if ( $wp_rewrite->using_permalinks() ) {
 		return true;
 	}
-	
+
 	return false;
 
 }
@@ -172,7 +172,7 @@ function edd_wl_get_list_status( $post_id = '' ) {
 
 		case 'private':
 			$status = 'private';
-			break;	
+			break;
 	}
 
 	return $status;
@@ -187,7 +187,7 @@ function edd_wl_get_list_status( $post_id = '' ) {
 */
 function edd_wl_get_list_statuses() {
 	$statuses = array(
-		'public', 
+		'public',
 		'private'
 	);
 
@@ -222,9 +222,9 @@ function edd_wl_is_page( $page = '' ) {
 	}
 
 	if ( is_page( $id ) ) {
-		return true;	
+		return true;
 	}
-	
+
 	return false;
 }
 
@@ -240,11 +240,13 @@ function edd_wl_get_wish_list_uri() {
 	$uri = isset( $edd_options['edd_wl_page'] ) ?  get_permalink( $edd_options['edd_wl_page'] ) : false;
 
 	if ( edd_wl_has_pretty_permalinks() ) {
-		return apply_filters( 'edd_wl_get_wish_list_uri', trailingslashit( $uri ) );
-	}		
-	else {
-		return apply_filters( 'edd_wl_get_wish_list_uri', $uri );
+		$url = trailingslashit( $uri );
 	}
+	else {
+		$url = $uri;
+	}
+
+	return esc_url( apply_filters( 'edd_wl_get_wish_list_uri', $url ) );
 }
 
 /**
@@ -257,11 +259,13 @@ function edd_wl_get_wish_list_view_uri( $id = '' ) {
 	$uri = isset( $edd_options['edd_wl_page_view'] ) ? get_permalink( $edd_options['edd_wl_page_view'] ) : false;
 
 	if ( edd_wl_has_pretty_permalinks() ) {
-		return apply_filters( 'edd_wl_get_wish_list_view_uri', trailingslashit( $uri ) . $id );
-	}		
-	else {
-		return apply_filters( 'edd_wl_get_wish_list_view_uri', add_query_arg( 'wl_view', $id, $uri ) );
+		$url = trailingslashit( $uri ) . $id;
 	}
+	else {
+		$url = add_query_arg( 'wl_view', $id, $uri );
+	}
+
+	return esc_url( apply_filters( 'edd_wl_get_wish_list_view_uri', $url ) );
 }
 
 /**
@@ -272,13 +276,15 @@ function edd_wl_get_wish_list_edit_uri( $id = '') {
 	global $edd_options;
 
 	$uri = isset( $edd_options['edd_wl_page_edit'] ) ? get_permalink( $edd_options['edd_wl_page_edit'] ) : false;
-	
+
 	if ( edd_wl_has_pretty_permalinks() ) {
-		return apply_filters( 'edd_wl_get_wish_list_edit_uri', trailingslashit( $uri ) . $id );
-	}		
-	else {
-		return apply_filters( 'edd_wl_get_wish_list_edit_uri', add_query_arg( 'wl_edit', $id, $uri ) );
+		$url = trailingslashit( $uri ) . $id;
 	}
+	else {
+		$url = add_query_arg( 'wl_edit', $id, $uri );
+	}
+
+	return esc_url( apply_filters( 'edd_wl_get_wish_list_edit_uri', $url ) );
 }
 
 /**
@@ -291,11 +297,13 @@ function edd_wl_get_wish_list_create_uri() {
 	$uri = isset( $edd_options['edd_wl_page_create'] ) ? get_permalink( $edd_options['edd_wl_page_create'] ) : false;
 
 	if ( edd_wl_has_pretty_permalinks() ) {
-		return apply_filters( 'edd_wl_get_wish_list_create_uri', trailingslashit( $uri )  );
-	}		
-	else {
-		return apply_filters( 'edd_wl_get_wish_list_create_uri', $uri );
+		$url = trailingslashit( $uri );
 	}
+	else {
+		$url = $uri;
+	}
+
+	return esc_url( apply_filters( 'edd_wl_get_wish_list_create_uri', $url ) );
 
 }
 
@@ -314,19 +322,19 @@ function edd_wl_get_page_slug( $page_name = '' ) {
 		case 'view':
 			$page_id = isset( $edd_options['edd_wl_page_view'] ) && 'none' != $edd_options['edd_wl_page_view'] ? $edd_options['edd_wl_page_view'] : null;
 			break;
-		
+
 		case 'edit':
 			$page_id = isset( $edd_options['edd_wl_page_edit'] ) && 'none' != $edd_options['edd_wl_page_edit'] ? $edd_options['edd_wl_page_edit'] : null;
 			break;
 
 		case 'create':
 			$page_id = isset( $edd_options['edd_wl_page_create'] ) && 'none' != $edd_options['edd_wl_page_create'] ? $edd_options['edd_wl_page_create'] : null;
-			break;	
+			break;
 	}
 
 	// get post slug from post object
 	$slug = isset( $page_id ) ? get_post( $page_id )->post_name : null;
-	
+
 	return $slug;
 }
 
@@ -354,13 +362,13 @@ function edd_wl_remove_item_url( $cart_key, $post, $ajax = false ) {
 	}
 	$remove_url = add_query_arg( array( 'cart_item' => $cart_key, 'edd_action' => 'remove' ), $current_page );
 
-	return apply_filters( 'edd_remove_item_url', $remove_url );
+	return esc_url( apply_filters( 'edd_remove_item_url', $remove_url ) );
 }
 
 /**
  * The query to return the posts on the main wish lists page
  * retrieves ids of lists for either logged in user or logged out
- * 
+ *
  * @since 1.0
 */
 function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
@@ -383,7 +391,7 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 		'post_status' 		=> $status,
 	);
 
-	// get lists that belong to the currently logged in user 
+	// get lists that belong to the currently logged in user
 	if( is_user_logged_in() ) {
 		$query['author'] = $current_user->ID;
 	}
@@ -401,19 +409,19 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 	$ids = array();
 
 	if ( $posts->have_posts() ) {
-	  while ( $posts->have_posts() ) {
-	    $posts->the_post();
-	    
-	    $ids[] = get_the_ID();
-	  }
+		while ( $posts->have_posts() ) {
+			$posts->the_post();
 
-	  wp_reset_postdata();
+			$ids[] = get_the_ID();
+		}
+
+		wp_reset_postdata();
 	}
 
 	if ( $ids ) {
 		return $ids;
 	}
-	
+
 	return false;
 }
 
@@ -432,12 +440,13 @@ function edd_wl_add_all_to_cart( $list_id ) {
 	$cart_item_ids = array();
 
 	$items = edd_wl_get_wish_list( $list_id );
-	
+
 	if ( $items ) {
 		foreach ( $items as $item ) {
 			// check that they aren't already in the cart
-			if ( edd_item_in_cart( $item['id'], $item['options'] ) )
+			if ( edd_item_in_cart( $item['id'], $item['options'] ) ) {
 				continue;
+			}
 
 			edd_add_to_cart( $item['id'], $item['options'] );
 			$cart_item_ids[] = $item['id'];
@@ -488,7 +497,7 @@ function edd_wl_lists_included( $download_id, $options ) {
  * @todo  modify function to accept list ID, or run a search with get_posts or osmething
  */
 function edd_wl_item_in_wish_list( $download_id = 0, $options = array(), $list_id = 0 ) {
-	
+
 
 	if ( isset( $list_id ) )
 		$posts = array( $list_id );
@@ -496,7 +505,7 @@ function edd_wl_item_in_wish_list( $download_id = 0, $options = array(), $list_i
 		$posts = edd_wl_get_query();
 
 	if ( $posts ) {
-		
+
 		$found_ids = array();
 
 		foreach ( $posts as $id ) {
@@ -512,7 +521,7 @@ function edd_wl_item_in_wish_list( $download_id = 0, $options = array(), $list_i
 								$found = true;
 								break;
 							}
-						} 
+						}
 						else {
 							$found = true;
 							break;
@@ -520,7 +529,7 @@ function edd_wl_item_in_wish_list( $download_id = 0, $options = array(), $list_i
 					}
 				}
 			}
-			
+
 			// add each found id to array
 			if ( $found ) {
 				$found_ids[] = $id;
@@ -545,13 +554,13 @@ function edd_wl_allow_guest_creation() {
 	if ( ( isset( $edd_options['edd_wl_allow_guests'] ) && 'no' == $edd_options['edd_wl_allow_guests'] ) && ! is_user_logged_in() ) {
 		return false;
 	}
-	
+
 	return true;
 }
 
 /**
  * Total price of items in wish list
- * 
+ *
  * Used on front end and also admin
  * @since 1.0
  * @param $list_id ID of list
@@ -592,9 +601,10 @@ function edd_wl_has_purchased( $download_id, $variable_price_id ) {
 
 	$has_purchased = edd_wl_get_purchases( $user_ID, $download_id, $variable_price_id );
 
-	if ( $has_purchased ) 
+	if ( $has_purchased ) {
 		return apply_filters( 'edd_wl_has_purchased', '<span class="edd-wl-item-purchased">' . $messages['item_already_purchased'] . '</span>' );
-	
+	}
+
 	return null;
 }
 
@@ -623,11 +633,11 @@ function edd_wl_get_purchases( $user_id, $download_id, $variable_price_id = null
 						if ( isset( $download['options']['price_id'] ) && $variable_price_id == $download['options']['price_id'] ) {
 							$return = true;
 							break 2;
-						} 
+						}
 						else {
 							$return = false;
 						}
-					} 
+					}
 					elseif ( $download_id == $download['id']) {
 						$return = true;
 					}
@@ -669,7 +679,7 @@ function edd_wl_validate_share_emails( $emails ) {
 
 	if ( $valid_email )
 		return $valid_email;
-	
+
 	return null;
 }
 
@@ -685,22 +695,23 @@ function edd_wl_validate_share_emails( $emails ) {
  */
 function edd_wl_get_item_position_in_list( $download_id = 0, $list_id = 0, $options = array() ) {
 
-     $list_items = edd_wl_get_wish_list( $list_id );
+	$list_items = edd_wl_get_wish_list( $list_id );
 
-     if ( ! is_array( $list_items ) ) {
-          return false; // Empty list
-     } else {
-          foreach ( $list_items as $position => $item ) {
-               if ( $item['id'] == $download_id ) {
-                    if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
-                         if ( (int) $options['price_id'] == (int) $item['options']['price_id'] ) {
-                              return $position;
-                         }
-                    } else {
-                         return $position;
-                    }
-               }
-          }
-     }
-     return false; // Not found
+	if ( ! is_array( $list_items ) ) {
+		return false; // Empty list
+	} else {
+		foreach ( $list_items as $position => $item ) {
+			if ( $item['id'] == $download_id ) {
+				if ( isset( $options['price_id'] ) && isset( $item['options']['price_id'] ) ) {
+					if ( (int) $options['price_id'] == (int) $item['options']['price_id'] ) {
+						return $position;
+					}
+				} else {
+					return $position;
+				}
+			}
+		}
+	}
+
+	return false; // Not found
 }

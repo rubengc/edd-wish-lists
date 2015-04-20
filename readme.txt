@@ -22,6 +22,8 @@ http://sumobi.com/docs/edd-wish-lists/
 After activation, configure the plugin from downloads -> settings -> extensions
 
 == Changelog ==
+= 1.1.1 =
+* Fix: PHP Notices when adding a new Download
 
 = 1.1 =
 * Fix: Some plugins which flushed rewrite rules on activation interferred with Wish Lists' rewrite rules
@@ -49,7 +51,7 @@ If you have made modifications to the wish-list-view.php template, make sure edd
 
 = 1.0.6 =
 * Fix: Compatibility with EDD v1.9.9
-* Fix: Modified a redirect action so it doesn't conflict with other plugin redirects 
+* Fix: Modified a redirect action so it doesn't conflict with other plugin redirects
 * Fix: Added a default value for the $id in the edd_wl_the_title() function.
 
 = 1.0.5 =

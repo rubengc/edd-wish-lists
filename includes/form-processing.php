@@ -42,7 +42,7 @@ function edd_wl_process_form_requests() {
           edd_wl_create_token( $post_id );
 
           // redirect to newly created list
-          wp_redirect( add_query_arg( 'list', 'created', get_permalink( $post_id ) ) ); exit;
+          wp_safe_redirect( add_query_arg( 'list', 'created', get_permalink( $post_id ) ) ); exit;
         }
       }
       // update form
@@ -65,7 +65,7 @@ function edd_wl_process_form_requests() {
         if ( $updated_post_id ) {
           $messages = edd_wl_messages();
           // redirect user back to list they just updated
-           wp_redirect( add_query_arg( 'list', 'updated', get_permalink( $updated_post_id ) ) ); exit;  
+           wp_safe_redirect( add_query_arg( 'list', 'updated', get_permalink( $updated_post_id ) ) ); exit;
 
         }
       } // end edit form process

@@ -74,9 +74,9 @@ function edd_wl_list_total( $list_id ) {
 function edd_wl_wp_title( $title, $sep ) {
 	$view_page = edd_get_option( 'edd_wl_page_view' );
 	$edit_page = edd_get_option( 'edd_wl_page_edit' );
-	
+
 	if ( is_page( $view_page ) || is_page( $edit_page ) ) {
-		
+
 		// prevent the title from changing
 		if ( edd_wl_is_private_list() )
 			return $title;
@@ -93,7 +93,7 @@ function edd_wl_wp_title( $title, $sep ) {
 		// Prepend the list name to the site title.
 		$title = $list_title . " $sep " . $title;
 	}
-	
+
 	return $title;
 }
 add_filter( 'wp_title', 'edd_wl_wp_title', 10, 2 );
@@ -112,7 +112,7 @@ function edd_wl_the_title( $title, $id = '' ) {
 	// View page - replace the main page title with the name of the list
 	if ( edd_wl_is_view_page() && get_query_var( 'wl_view' ) && in_the_loop() && $id == get_the_ID() ) {
 		$title = get_the_title( get_query_var( 'wl_view' ) );
-	}	
+	}
 
     return $title;
 }
@@ -173,7 +173,7 @@ add_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
 function edd_wl_wish_list_link( $args = array() ) {
 	global $edd_options, $post;
 
-	$defaults = apply_filters( 'edd_wl_link_defaults', 
+	$defaults = apply_filters( 'edd_wl_link_defaults',
 		array(
 			'download_id' 	=> isset( $post->ID ) ? $post->ID : '',
 			'text'        	=> ! empty( $edd_options[ 'edd_wl_add_to_wish_list' ] ) ? $edd_options[ 'edd_wl_add_to_wish_list' ] : '',
@@ -185,7 +185,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 			'link'			=> '',
 			'link_size'		=> '',
 			'price_option'	=> '',
-		) 
+		)
 	);
 
 	// merge arrays
@@ -201,7 +201,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 	if ( ! $price_option ) {
 		$variable_pricing 	= edd_has_variable_prices( $args['download_id'] );
 		$data_variable  	= $variable_pricing ? ' data-variable-price=yes' : 'data-variable-price=no';
-		$type             	= edd_single_price_option_mode( $args['download_id'] ) ? 'data-price-mode=multi' : 'data-price-mode=single';	
+		$type             	= edd_single_price_option_mode( $args['download_id'] ) ? 'data-price-mode=multi' : 'data-price-mode=single';
 	}
 	else {
 		$data_variable = '';
@@ -237,7 +237,7 @@ function edd_wl_wish_list_link( $args = array() ) {
 
 	// if link is specified, don't show spinner
 	$loading = ! $link ? '<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>' : '';
-	$link = ! $link ? '#' : $link; 
+	$link = ! $link ? '#' : $link;
 
 	// text
 	$text = $text ? '<span class="label">' . esc_attr( $text ) . '</span>' : '';
@@ -320,7 +320,7 @@ add_filter( 'downloads_shortcode', 'edd_wl_enqueue_scripts' );
 
 /**
  * Main Wish List function called by [edd_wish_lists] shortcode
- * This template can be found in the /templates folder. 
+ * This template can be found in the /templates folder.
  * Copy wish-lists.php to your edd_templates folder in your child theme
  * Would be nice to use get_template_part but you cannot pass variables along
  *
@@ -331,7 +331,7 @@ function edd_wl_wish_list() {
 	ob_start();
 	echo edd_wl_print_messages();
 	edd_get_template_part( 'wish-lists' );
-	
+
 	return ob_get_clean();
 }
 
@@ -346,7 +346,7 @@ function edd_wl_item_purchase( $item, $args = array() ) {
 	global $edd_options;
 
 	ob_start();
-	
+
 	$defaults = apply_filters( 'edd_wl_add_to_cart_defaults', array(
 		'download_id' 	=> $item['id'],
 		'text'        	=> ! empty( $edd_options[ 'edd_wl_add_to_cart' ] ) ? $edd_options[ 'edd_wl_add_to_cart' ] : __( 'Add to cart', 'edd-wish-lists' ),
@@ -396,20 +396,20 @@ function edd_wl_item_purchase( $item, $args = array() ) {
 	$button_size = '';
 	// if link is specified, don't show spinner
 	$loading = ! $link ? '<span class="edd-loading"><i class="edd-icon-spinner edd-icon-spin"></i></span>' : '';
-	$link = ! $link ? '#' : $link; 
+	$link = ! $link ? '#' : $link;
 
 	$form_id = ! empty( $form_id ) ? $form_id : 'edd_purchase_' . $download_id;
-	
+
 	// add our default class
 	$default_wrapper_class = ' edd-wl-item-purchase';
-	$wrapper_class .= $wrapper_class ? $default_wrapper_class : trim( $default_wrapper_class );	
-	
+	$wrapper_class .= $wrapper_class ? $default_wrapper_class : trim( $default_wrapper_class );
+
 	$default_css_class = apply_filters( 'edd_wl_item_purchase_default_css_classes', 'edd-add-to-cart-from-wish-list', $download_id );
 	?>
 
 	<form id="<?php echo $form_id; ?>" class="edd_download_purchase_form" method="post">
 		<div class="edd_purchase_submit_wrapper">
-		<?php 
+		<?php
 			printf(
 				'<a href="%10$s" class="%11$s %1$s %8$s" data-action="edd_add_to_cart_from_wish_list" data-download-id="%3$s" %4$s %5$s %6$s %7$s><span class="label">%2$s</span>%9$s</a>',
 				implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 1
@@ -438,9 +438,9 @@ function edd_wl_item_purchase( $item, $args = array() ) {
 		?>
 		</div>
 	</form>
-	
-<?php 
-	
+
+<?php
+
 	$html = '<' . $wrapper . ' class="' . $wrapper_class . '"' . '>' . ob_get_clean() .'</' . $wrapper . '>';
 	return apply_filters( 'edd_wl_item_purchase', $html, $item );
 }
@@ -457,7 +457,7 @@ function edd_wl_add_all_to_cart_link( $list_id = 0, $args = array() ) {
 	if ( ! apply_filters( 'edd_wl_show_add_all_to_cart_link', true ) )
 		return;
 
-	$defaults = apply_filters( 'edd_wl_add_all_to_cart_link_defaults', 
+	$defaults = apply_filters( 'edd_wl_add_all_to_cart_link_defaults',
 		array(
 			'list_id'		=> $list_id,
 			'text' 			=> __( 'Add all to cart', 'edd-wish-lists' ),
@@ -488,7 +488,7 @@ function edd_wl_add_all_to_cart_link( $list_id = 0, $args = array() ) {
 	$html = '';
 
 	$button = sprintf(
-		'<a href="' . add_query_arg( array( 'edd_action' => 'wl_purchase_all', 'list_id' => $list_id ) ) . '" class="%1$s">%2$s</a>',
+		'<a href="' . esc_url( add_query_arg( array( 'edd_action' => 'wl_purchase_all', 'list_id' => $list_id ) ) ) . '" class="%1$s">%2$s</a>',
 		implode( ' ', array( $style, $color, trim( $class ) ) ), 	// 1
 		esc_attr( $text )											// 2
 	);
@@ -497,7 +497,7 @@ function edd_wl_add_all_to_cart_link( $list_id = 0, $args = array() ) {
 
 	if ( $wrapper )
 		$html .= '<' . $wrapper . $wrapper_class . '>' . $button .'</' . $wrapper . '>';
-	else 
+	else
 		$html .= $button;
 
 
@@ -519,7 +519,7 @@ function edd_wl_delete_list_link( $args = array() ) {
 	if ( ! apply_filters( 'edd_wl_show_delete_link', true ) )
 		return;
 
-	$defaults = apply_filters( 'edd_wl_delete_list_link_defaults', 
+	$defaults = apply_filters( 'edd_wl_delete_list_link_defaults',
 		array(
 			'text' 		=> sprintf( __( 'Delete %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ),
 			'class'		=> '',
@@ -534,7 +534,7 @@ function edd_wl_delete_list_link( $args = array() ) {
 	$default_class = ' edd-wl-delete-list';
 	$class .= $class ? $default_class : trim( $default_class );
 
-	ob_start(); 
+	ob_start();
 
 	$html = '';
 
@@ -542,7 +542,7 @@ function edd_wl_delete_list_link( $args = array() ) {
 
 	if ( $wrapper )
 		$html .= '<' . $wrapper . '>' . $link .'</' . $wrapper . '>';
-	else 
+	else
 		$html .= $link;
 
 	echo $html;
@@ -559,7 +559,7 @@ function edd_wl_delete_list_link( $args = array() ) {
  * @return [type] [description]
  */
 function edd_wl_item_price( $item_id, $options, $args = array() ) {
-	$defaults = apply_filters( 'edd_wl_item_price_defaults', 
+	$defaults = apply_filters( 'edd_wl_item_price_defaults',
 		array(
 			'wrapper_class'	=> '',
 			'wrapper' 		=> 'span',
@@ -569,7 +569,7 @@ function edd_wl_item_price( $item_id, $options, $args = array() ) {
 	$args = wp_parse_args( $args, $defaults );
 	extract( $args, EXTR_SKIP );
 
-	ob_start(); 
+	ob_start();
 
 	// add our default class
 	$default_class = ' edd-wl-item-price';
@@ -578,7 +578,7 @@ function edd_wl_item_price( $item_id, $options, $args = array() ) {
 	$price = apply_filters( 'edd_wl_item_price', edd_cart_item_price( $item_id, $options ), $item_id );
 
 	$html = '<' . $wrapper . ' class="' . $wrapper_class . '"' . '>' . $price .'</' . $wrapper . '>';
-	
+
 	echo $html;
 
 	$template = ob_get_clean();
@@ -600,7 +600,7 @@ function edd_wl_item_remove_link( $item_id, $key, $list_id, $args = array() ) {
 	if ( ! edd_wl_is_users_list( $list_id ) )
 		return;
 
-	$defaults = apply_filters( 'edd_wl_item_remove_link_defaults', 
+	$defaults = apply_filters( 'edd_wl_item_remove_link_defaults',
 		array(
 			'text' 			=> __( 'Remove', 'edd-wish-lists' ),
 			'wrapper_class'	=> '',
@@ -619,7 +619,7 @@ function edd_wl_item_remove_link( $item_id, $key, $list_id, $args = array() ) {
 	$default_class = ' edd-remove-from-wish-list';
 	$class .= $class ? $default_class : trim( $default_class );
 
-	ob_start(); 
+	ob_start();
 
 	$html = '';
 
@@ -629,7 +629,7 @@ function edd_wl_item_remove_link( $item_id, $key, $list_id, $args = array() ) {
 
 	if ( $wrapper )
 		$html = '<' . $wrapper . ' class="' . $wrapper_class . '"' . '>' . $link .'</' . $wrapper . '>';
-	else 
+	else
 		$html .= $link;
 
 	echo $html;
@@ -654,7 +654,7 @@ function edd_wl_item_title( $item, $args = array() ) {
 		$item_image = has_post_thumbnail( $item_id ) ? apply_filters( 'edd_wl_item_image', '<span class="edd-wl-item-image">' . get_the_post_thumbnail( $item_id, apply_filters( 'edd_checkout_image_size', array( 50, 50 ) ) ) . '</span>' ) : '';
 	}
 
-	$defaults = apply_filters( 'edd_wl_item_title_defaults', 
+	$defaults = apply_filters( 'edd_wl_item_title_defaults',
 		array(
 			'wrapper_class'	=> '',
 			'wrapper' 		=> 'span',
@@ -671,7 +671,7 @@ function edd_wl_item_title( $item, $args = array() ) {
 
 	$class = $class ? 'class="' . trim( $class ) . '"' : '';
 
-	ob_start(); 
+	ob_start();
 
 	$html = '';
 
@@ -707,7 +707,7 @@ function edd_wl_edit_settings_link( $list_id, $args = array() ) {
 	if ( ! edd_wl_is_users_list( $list_id ) )
 		return;
 
-	$defaults = apply_filters( 'edd_wl_edit_settings_link_defaults', 
+	$defaults = apply_filters( 'edd_wl_edit_settings_link_defaults',
 		array(
 			'text'			=> __( 'Edit settings', 'edd-wish-lists' ),
 			'wrapper_class'	=> '',
@@ -721,7 +721,7 @@ function edd_wl_edit_settings_link( $list_id, $args = array() ) {
 
 	$class = $class ? 'class="' . trim( $class ) . '"' : '';
 
-	ob_start(); 
+	ob_start();
 
 	$uri = apply_filters( 'edd_wl_edit_settings_link_uri', edd_wl_get_wish_list_edit_uri( $list_id ), $list_id );
 
@@ -752,7 +752,7 @@ function edd_wl_edit_link( $list_id, $args = array() ) {
 	if ( 'none' == edd_get_option( 'edd_wl_page_edit' ) )
 		return;
 
-	$defaults = apply_filters( 'edd_wl_edit_link_defaults', 
+	$defaults = apply_filters( 'edd_wl_edit_link_defaults',
 		array(
 			'text'			=> __( 'edit', 'edd-wish-lists' ),
 			'wrapper_class'	=> '',
@@ -770,7 +770,7 @@ function edd_wl_edit_link( $list_id, $args = array() ) {
 	$default_wrapper_class = ' edd-wl-edit';
 	$wrapper_class .= $wrapper_class ? $default_wrapper_class : trim( $default_wrapper_class );
 
-	ob_start(); 
+	ob_start();
 
 	$html = '';
 
@@ -800,7 +800,7 @@ function edd_wl_create_list_link( $args = array() ) {
 	if ( 'none' == edd_get_option( 'edd_wl_page_create' ) || ! edd_wl_allow_guest_creation() )
 		return;
 
-	$defaults = apply_filters( 'edd_wl_create_list_link_defaults', 
+	$defaults = apply_filters( 'edd_wl_create_list_link_defaults',
 		array(
 			'text'			=> sprintf( __( 'Create new %s', 'edd-wish-lists' ), edd_wl_get_label_singular( true ) ),
 			'wrapper_class'	=> '',
@@ -815,7 +815,7 @@ function edd_wl_create_list_link( $args = array() ) {
 	$default_class = ' edd-wl-button edd-wl-action';
 	$class .= $class ? $default_class : trim( $default_class );
 
-	ob_start(); 
+	ob_start();
 
 	$html = '';
 

@@ -3,7 +3,7 @@
 Plugin Name: Easy Digital Downloads - Wish Lists
 Plugin URI: https://easydigitaldownloads.com/extensions/edd-wish-lists/
 Description: Gives your customers the ability to save and share their favourite products on your site
-Version: 1.1
+Version: 1.1.1
 Author: Andrew Munro, Sumobi
 Author URI: http://sumobi.com/
 License: GPL-2.0+
@@ -84,7 +84,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 * @return void
 		 */
 		private function setup_globals() {
-			$this->version 		= '1.1';
+			$this->version 		= '1.1.1';
 			$this->title 		= 'EDD Wish Lists';
 
 			global $edd_wl_scripts;
@@ -92,9 +92,9 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 			$edd_wl_scripts 	= false;
 
 			// constants
-			
+
 			if ( ! defined( 'EDD_WL_VERSION' ) )
-				define( 'EDD_WL_VERSION', '1.1' );
+				define( 'EDD_WL_VERSION', '1.1.1' );
 
 			if ( ! defined( 'EDD_WL_PLUGIN_FILE' ) )
 				define( 'EDD_WL_PLUGIN_FILE', __FILE__ );
@@ -141,7 +141,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 * @return void
 		 */
 		private function includes() {
-			require_once( dirname( $this->file ) . '/includes/post-type.php' ); 
+			require_once( dirname( $this->file ) . '/includes/post-type.php' );
 			require_once( dirname( $this->file ) . '/includes/shortcodes.php' );
 			require_once( dirname( $this->file ) . '/includes/form-processing.php' );
 			require_once( dirname( $this->file ) . '/includes/user-functions.php' );
@@ -173,7 +173,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 * @return void
 		 */
 		private function hooks() {
-			
+
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta' ), null, 2 );
 
 			// insert actions
@@ -299,9 +299,9 @@ add_action( 'plugins_loaded', 'edd_wish_lists', apply_filters( 'edd_wl_action_pr
 
 /**
  * Installation
- * 
- * Registering the hook inside the 'plugins_loaded' hook will not work. 
- * You can't call register_activation_hook() inside a function hooked to the 'plugins_loaded' or 'init' hooks (or any other hook). 
+ *
+ * Registering the hook inside the 'plugins_loaded' hook will not work.
+ * You can't call register_activation_hook() inside a function hooked to the 'plugins_loaded' or 'init' hooks (or any other hook).
  * These hooks are called before the plugin is loaded or activated.
  *
  * @since 1.0
