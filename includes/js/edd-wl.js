@@ -22,7 +22,7 @@ jQuery(document).ready(function ($) {
 
         // spinner
         var $spinner = $(this).find('.edd-loading');
-        
+
         var spinnerWidth    = $spinner.width(),
         spinnerHeight       = $spinner.height();
 
@@ -99,8 +99,8 @@ jQuery(document).ready(function ($) {
                             $('.edd-cart-added-alert', container).fadeOut();
                         }, 3000);
                     }
-                    
-         
+
+
             }
         }).fail(function (response) {
             console.log(response);
@@ -141,11 +141,11 @@ jQuery(document).ready(function ($) {
                         window.location = window.location;
                         return false;
                     }
-                    
+
                     if ( response.message ) {
                         // show message once all items have been removed
                         $('ul.edd-wish-list').parent().prepend( response.message );
-                        
+
                         // remove add all to cart button
                         $('.edd-wl-add-all-to-cart').parent().remove();
                         // remove sharing
@@ -163,7 +163,7 @@ jQuery(document).ready(function ($) {
                          $('.edd-wish-list').find("[data-cart-item='" + item + "']").parent().parent().remove();
                     }
 
-                   
+
                 }
             }
 
@@ -177,13 +177,13 @@ jQuery(document).ready(function ($) {
     });
 
 
-    // opens the modal window when the add to wish list link is clicked 
+    // opens the modal window when the add to wish list link is clicked
     $('body').on('click.eddwlOpenModal', '.edd-wl-open-modal', function (e) {
         e.preventDefault();
 
-        var $this = $(this), 
+        var $this = $(this),
             form = $this.closest('form'); // get the closest form element
-      
+
         var $spinner = $(this).find('.edd-loading');
         var container = $(this).closest('div');
 
@@ -198,19 +198,19 @@ jQuery(document).ready(function ($) {
             'margin-top' : spinnerHeight / -2
         });
 
-        var form            = jQuery('.edd_download_purchase_form');
+        var form            = $this.closest('.edd_download_purchase_form');
         var download        = $this.data('download-id');
         var variable_price  = $this.data('variable-price');
         var price_mode      = $this.data('price-mode');
         var price_option    = $this.data('price-option');   // specified as shortcode parameter
         var item_price_ids  = [];
-      
+
          // if price option manually set within shortcode
         if ( price_option >= 0 ) {
            item_price_ids[0] = price_option;
 
         } else if( variable_price == 'yes' ) {
-            
+
             // might not need this
             if( ! $('.edd_price_option_' + download + ':checked', form).length  ) {
                  // hide the spinner
@@ -223,12 +223,12 @@ jQuery(document).ready(function ($) {
             $('.edd_price_option_' + download + ':checked', form).each(function( index ) {
                 item_price_ids[ index ] = $(this).val();
             });
-            
+
         } else {
             item_price_ids[0] = download;
         }
 
-       
+
 
         var data = {
             action:     $(this).data('action'),
@@ -239,7 +239,7 @@ jQuery(document).ready(function ($) {
 
         if ( price_option >= 0 ) {
           data['price_option_single'] = true;
-        } 
+        }
 
         $.ajax({
             type:       "POST",
@@ -261,8 +261,8 @@ jQuery(document).ready(function ($) {
                     $('#user-lists').hide();
                     // check the radio input field
                     $('input:radio[name=list-options]').prop('checked', true);
-                 
-                } 
+
+                }
                 else {
                     $('#list-name').hide();
                     $('#list-status').hide();
@@ -297,7 +297,7 @@ jQuery(document).ready(function ($) {
 
     });
 
-    
+
     // Processes the add to wish list request. Creates a new list or stores downloads into existing list
 
     $('body').on('click.eddAddToWishList', '.edd-wl-save', function (e) {
@@ -306,7 +306,7 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
 
         var $spinner        = $(this).find('.edd-loading');
-        
+
         var spinnerWidth    = $spinner.width(),
         spinnerHeight       = $spinner.height();
 
@@ -319,10 +319,10 @@ jQuery(document).ready(function ($) {
             'margin-top' : spinnerHeight / -2
         });
 
-        var $this = $(this), 
+        var $this = $(this),
             form = $this.closest('form'); // get the closest form element
 
-        // set our form 
+        // set our form
         var form = jQuery('.edd_download_purchase_form');
 
         var download       = $this.data('download-id');
@@ -332,7 +332,7 @@ jQuery(document).ready(function ($) {
 
         // single_price_option mode (from shortcode)
         var single_price_option = $('input[name=edd-wl-single-price-option]').val();
-        
+
         if ( single_price_option == 'yes' ) {
            item_price_ids[0] = $('input[name=edd-wish-lists-post-id]').val();
         }
@@ -343,7 +343,7 @@ jQuery(document).ready(function ($) {
                 return;
             }
 
-            // get the price IDs from the hidden inputs, rather than the checkboxes    
+            // get the price IDs from the hidden inputs, rather than the checkboxes
             $('input[name=edd-wish-lists-post-id]').each(function( index ) {
                 item_price_ids[ index ] = $(this).val();
             });
@@ -351,7 +351,7 @@ jQuery(document).ready(function ($) {
         } else {
             item_price_ids[0] = download;
         }
-        
+
 
         if ( 'existing-list' == jQuery( 'input:radio[name=list-options]:checked' ).val() ) {
             list_id = jQuery('#user-lists').val();
@@ -364,7 +364,7 @@ jQuery(document).ready(function ($) {
             list_status     = jQuery( 'select[name=list-status]' ).val(),
             new_or_existing = jQuery( 'input:radio[name=list-options]:checked' ).val(), // whether we are adding to existing lightbox or creating a new one
             data            = {
-                action: action,                     // edd_add_to_wish_list 
+                action: action,                     // edd_add_to_wish_list
                 download_id: download,              // our download ID
                 list_id: list_id,                   // the list we're adding to
                 price_ids : item_price_ids,         // item price IDs
@@ -395,11 +395,11 @@ jQuery(document).ready(function ($) {
                     // clear field
                     $('#list-name').val('');
                 }
-                
+
                 // redirect to wish list if option is set
                 if( edd_wl_scripts.redirect_to_wish_list == '1' ) {
                     window.location = edd_wl_scripts.wish_list_page;
-                } 
+                }
                 else {
 
                     if ( price_mode == 'multi' ) {
@@ -417,6 +417,6 @@ jQuery(document).ready(function ($) {
 
         return false;
     });
-    
+
 
 });
