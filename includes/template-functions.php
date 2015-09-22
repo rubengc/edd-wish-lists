@@ -408,6 +408,18 @@ function edd_wl_item_purchase( $item, $args = array() ) {
 	?>
 
 	<form id="<?php echo $form_id; ?>" class="edd_download_purchase_form" method="post">
+		<?php
+		if ( ! isset( $item['options']['price_id'] ) ) {
+			$item['options']['price_id'] = '';
+		}
+
+		remove_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
+
+		edd_download_purchase_form_quantity_field( $download_id, $item['options'] );
+
+		add_action( 'edd_purchase_link_top', 'edd_wl_load_wish_list_link' );
+		?>
+
 		<div class="edd_purchase_submit_wrapper">
 		<?php
 			printf(

@@ -20,7 +20,7 @@ function edd_ajax_add_to_cart_from_wish_list() {
 
 		if ( isset( $_POST['price_ids'] ) && is_array( $_POST['price_ids'] ) ) {
 			foreach ( $_POST['price_ids'] as $price ) {
-				$to_add[] = array( 'price_id' => $price ); 
+				$to_add[] = array( 'price_id' => $price );
 			}
 		}
 
@@ -28,6 +28,18 @@ function edd_ajax_add_to_cart_from_wish_list() {
 
 			if( $_POST['download_id'] == $options['price_id'] )
 				$options = array();
+
+			parse_str( $_POST['post_data'], $post_data );
+
+			if( isset( $options['price_id'] ) && isset( $post_data['edd_download_quantity_' . $options['price_id'] ] ) ) {
+
+				$options['quantity'] = absint( $post_data['edd_download_quantity_' . $options['price_id'] ] );
+
+			} else {
+
+				$options['quantity'] = isset( $post_data['edd_download_quantity'] ) ? absint( $post_data['edd_download_quantity'] ) : 1;
+
+			}
 
 			// call EDD's edd_add_to_cart function
 			$key = edd_add_to_cart( $_POST['download_id'], $options );
@@ -62,11 +74,11 @@ add_action( 'wp_ajax_nopriv_edd_add_to_cart_from_wish_list', 'edd_ajax_add_to_ca
  */
 function edd_ajax_remove_from_wish_list() {
 	if ( isset( $_POST['cart_item'] ) ) {
-		
+
 		edd_remove_from_wish_list( $_POST['cart_item'], $_POST['list_id'] );
-		
+
 		$list = get_post_meta( $_POST['list_id'], 'edd_wish_list', true );
-		
+
 		$return = array(
 			'removed'  => true,
 		);
@@ -137,10 +149,10 @@ function edd_ajax_add_to_wish_list() {
 		$create_list = isset( $_POST['new_or_existing'] ) && 'new-list' == $_POST['new_or_existing'] ? true : false;
 
 		// the new list name being created. Fallback for blank list names
-		$list_name = isset( $_POST['list_name'] ) && ! empty( $_POST['list_name'] ) ? $_POST['list_name'] : __( 'My list', 'edd-wish-lists' ); 
+		$list_name = isset( $_POST['list_name'] ) && ! empty( $_POST['list_name'] ) ? $_POST['list_name'] : __( 'My list', 'edd-wish-lists' );
 
 		// the new list's status
-		$list_status = isset( $_POST['list_status'] ) ? $_POST['list_status'] : ''; 
+		$list_status = isset( $_POST['list_status'] ) ? $_POST['list_status'] : '';
 
 		$list_id = isset( $_POST['list_id'] ) ? $_POST['list_id'] : '';
 
@@ -231,7 +243,7 @@ function edd_wl_open_modal() {
 
     // get wish lists and send price IDs + items array
     $lists = edd_wl_get_wish_lists( $download_id, $price_ids, $items, $price_option_single );
-    
+
     // count lists
     $list_count = edd_wl_get_query() ? count ( edd_wl_get_query() ) : 0;
 
@@ -242,7 +254,7 @@ function edd_wl_open_modal() {
 	);
 
 	echo json_encode( $return );
-	
+
 	edd_die();
 }
 add_action( 'wp_ajax_edd_wl_open_modal', 'edd_wl_open_modal' );
@@ -282,7 +294,7 @@ function edd_wl_share_via_email() {
 	if ( ! isset( $has_error ) ) {
 		$shortlink = home_url( '?p=' . $post_id );
 
-		$subject   = edd_wl_share_via_email_subject( $sender_name, $referrer ); 	
+		$subject   = edd_wl_share_via_email_subject( $sender_name, $referrer );
 		$message   = edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email, $message, $referrer );
 
 		$headers   = "From: " . stripslashes_deep( html_entity_decode( $from_name, ENT_COMPAT, 'UTF-8' ) ) . " <$from_email>\r\n";
@@ -295,9 +307,9 @@ function edd_wl_share_via_email() {
 	}
 
 	$return['success'] = edd_wl_modal_share_via_email_success();
- 
+
 	echo json_encode( $return );
-	
+
 	edd_die();
 }
 add_action( 'wp_ajax_edd_wl_share_via_email', 'edd_wl_share_via_email' );

@@ -57,6 +57,7 @@ jQuery(document).ready(function ($) {
             download_id: download,
             price_ids : item_price_ids,
             nonce: edd_wl_scripts.ajax_nonce,
+            post_data: $this.closest('.edd_download_purchase_form').serialize()
         };
 
         $.ajax({
