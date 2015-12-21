@@ -166,7 +166,7 @@ function edd_wl_sharing_services() {
 			$twitter_button_size 	= apply_filters( 'edd_wl_twitter_button_size', 'medium' );
 		?>
 		<div class="edd-wl-service twitter">
-			<a href="https://twitter.com/share" data-width="100" data-lang="<?php echo $locale; ?>" class="twitter-share-button" <?php echo $twitter_layout; ?> data-size="<?php echo $twitter_button_size; ?>" data-counturl="<?php echo post_permalink( get_query_var( 'wl_view' ) ); ?>" data-url="<?php echo $share_url; ?>" data-text="<?php echo $twitter_text; ?>" data-related=""><?php _e( 'Share', 'edd-wish-lists' ); ?></a>
+			<a href="https://twitter.com/share" data-width="100" data-lang="<?php echo $locale; ?>" class="twitter-share-button" <?php echo $twitter_layout; ?> data-size="<?php echo $twitter_button_size; ?>" data-counturl="<?php echo get_permalink( get_query_var( 'wl_view' ) ); ?>" data-url="<?php echo $share_url; ?>" data-text="<?php echo $twitter_text; ?>" data-related=""><?php _e( 'Share', 'edd-wish-lists' ); ?></a>
 		</div>
 		<?php endif; ?>
 
@@ -176,7 +176,7 @@ function edd_wl_sharing_services() {
 		?>
 		
 		<div class="edd-wl-service facebook">
-			<div class="fb-like" data-href="<?php echo post_permalink( get_query_var( 'wl_view' ) ); ?>" data-send="true" data-action="like" <?php echo $facebook_layout; ?> data-share="<?php echo $data_share; ?>" data-width="" data-show-faces="false"></div>
+			<div class="fb-like" data-href="<?php echo get_permalink( get_query_var( 'wl_view' ) ); ?>" data-send="true" data-action="like" <?php echo $facebook_layout; ?> data-share="<?php echo $data_share; ?>" data-width="" data-show-faces="false"></div>
 		</div>
 		<?php endif; ?>
 
@@ -221,9 +221,9 @@ function edd_wl_add_og_url() {
 	?>
 
 <meta property="og:title" content="<?php wp_title( '|', true, 'right' ); ?>" />
-<meta property="og:url" content="<?php echo trailingslashit( post_permalink( get_query_var( 'wl_view' ) ) ); ?>" />
+<meta property="og:url" content="<?php echo trailingslashit( get_permalink( get_query_var( 'wl_view' ) ) ); ?>" />
 <meta property="og:description" content="<?php echo esc_attr( $post_content ); ?>" />
-<link rel="canonical" href="<?php echo trailingslashit( post_permalink( get_query_var( 'wl_view' ) ) ); ?>" />
+<link rel="canonical" href="<?php echo trailingslashit( get_permalink( get_query_var( 'wl_view' ) ) ); ?>" />
 <?php endif;
 
 }
