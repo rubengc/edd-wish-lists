@@ -687,7 +687,7 @@ function edd_wl_item_title( $item, $args = array() ) {
 
 	$html = '';
 
-	$link = '<a href="' . apply_filters( 'edd_wl_item_title_permalink', post_permalink( $item_id ), $item_id ) . '" ' . $class . ' title="' . get_the_title( $item_id ) . '">' . get_the_title( $item_id ) . '</a>';
+	$link = '<a href="' . apply_filters( 'edd_wl_item_title_permalink', get_permalink( $item_id ), $item_id ) . '" ' . $class . ' title="' . get_the_title( $item_id ) . '">' . get_the_title( $item_id ) . '</a>';
 
 	$output = $link . $item_option . $already_purchased . $item_image;
 
