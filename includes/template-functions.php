@@ -721,10 +721,10 @@ function edd_wl_edit_settings_link( $list_id, $args = array() ) {
 
 	$defaults = apply_filters( 'edd_wl_edit_settings_link_defaults',
 		array(
-			'text'			=> __( 'Edit settings', 'edd-wish-lists' ),
+			'text'          => __( 'Edit settings', 'edd-wish-lists' ),
 			'wrapper_class'	=> '',
-			'wrapper' 		=> 'p',
-			'class'			=> ''
+			'wrapper'       => 'p',
+			'class'         => ''
 		)
 	);
 
