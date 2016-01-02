@@ -34,7 +34,7 @@ function edd_wl_share_via_email_link() {
 function edd_wl_share_via_email_subject( $sender_name, $referrer ) {
 
 	$subject = sprintf( __( '%s has suggested you look at this %s from %s', 'edd-wish-lists' ), $sender_name, edd_wl_get_label_singular( true ), get_bloginfo('name') );
-	
+
 	return apply_filters( 'edd_wl_share_via_email_subject', $subject, $sender_name, $referrer );
 
 }
@@ -53,7 +53,7 @@ function edd_wl_share_via_email_message( $shortlink, $sender_name, $sender_email
 
 	if ( $message )
 		$default_email_body .= $message . "<br/><br/>";
-	
+
 	$default_email_body .= sprintf( __( "Reply to %s by emailing %s", "edd-wish-lists" ), $sender_name, '<a href="mailto:' . $sender_email . '" title="' . $sender_email . '">' . $sender_email . '</a>' ) . "<br/><br/>";
 	$default_email_body .= get_bloginfo('name') . "<br/>";
 	$default_email_body .= '<a title="' . get_bloginfo( 'name' ) . '" href="' . get_bloginfo( 'url' ) . '">' . get_bloginfo( 'url' ) . '</a>';
@@ -85,19 +85,19 @@ function edd_wl_sharing_is_enabled( $network = '' ) {
 			case 'facebook':
 				return isset( $networks[$network] );
 				break;
-				
+
 			case 'googleplus':
 				return isset( $networks[$network] );
 				break;
-				
+
 			case 'linkedin':
 				return isset( $networks[$network] );
 				break;
 
 			case 'email':
 				return isset( $networks[$network] );
-				break;			
-			
+				break;
+
 		}
 	}
 	elseif ( $networks ) {
@@ -108,7 +108,7 @@ function edd_wl_sharing_is_enabled( $network = '' ) {
 
 /**
  * Main share box that is displayed on the page
- * 
+ *
  * @param  string $id 		post/page/download ID
  * @param  string $title 	custom title
  * @param  string $message 	custom message
@@ -145,7 +145,7 @@ function edd_wl_sharing_services() {
 
 	// twitter message
 	$twitter_text = apply_filters( 'edd_wl_twitter_text', get_the_title( $list_id ) );
-	
+
 	// URL to share. Uses shortlink
 	$share_url = apply_filters( 'edd_wl_share_url', wp_get_shortlink( get_query_var( 'wl_view' ) ) );
 
@@ -155,7 +155,7 @@ function edd_wl_sharing_services() {
 	// return if there are no services
 	if ( empty( $services ) )
 		return;
-	
+
 	ob_start();
 	?>
 	<div class="<?php echo apply_filters( 'edd_wl_share_classes', 'edd-wl-share' ); ?>">
@@ -174,13 +174,13 @@ function edd_wl_sharing_services() {
 			$data_share = apply_filters( 'edd_wl_facebook_share_button', 'false' );
 			$layout 	= isset ( $sharing_layout ) ? 'data-layout="' . $sharing_layout . '"' : '';
 		?>
-		
+
 		<div class="edd-wl-service facebook">
 			<div class="fb-like" data-href="<?php echo get_permalink( get_query_var( 'wl_view' ) ); ?>" data-send="true" data-action="like" <?php echo $facebook_layout; ?> data-share="<?php echo $data_share; ?>" data-width="" data-show-faces="false"></div>
 		</div>
 		<?php endif; ?>
 
-		<?php if ( edd_wl_sharing_is_enabled( 'googleplus' ) ) : 
+		<?php if ( edd_wl_sharing_is_enabled( 'googleplus' ) ) :
 			$google_button_annotation 		= apply_filters( 'edd_wl_googleplus_button_annotation', 'bubble' );
 			$google_button_recommendations 	= apply_filters( 'edd_wl_googleplus_button_recommendations', 'false' );
 		?>
@@ -201,7 +201,7 @@ function edd_wl_sharing_services() {
 		<?php do_action( 'edd_wl_after_share_box' ); ?>
 	</div>
 
-<?php 
+<?php
 	$share_box = ob_get_clean();
 	return apply_filters( 'edd_wl_share_box', $share_box );
 }
@@ -213,7 +213,7 @@ function edd_wl_sharing_services() {
  */
 function edd_wl_add_og_url() {
 
-	if ( get_query_var( 'wl_view' ) ) : 
+	if ( get_query_var( 'wl_view' ) ) :
 
 		$post         = get_post( get_query_var( 'wl_view' ) );
 		$post_content = $post ? $post->post_content : '';
@@ -238,7 +238,7 @@ function edd_wl_wp_head() {
 
 	if ( get_query_var( 'wl_view' ) ) {
 		// remove canonical tag
-		remove_action( 'wp_head', 'rel_canonical' );	
+		remove_action( 'wp_head', 'rel_canonical' );
 	}
 
 }
@@ -247,7 +247,7 @@ add_action( 'template_redirect', 'edd_wl_wp_head' );
 /**
  * Remove opengraph URL if WPSEO is active and we're on single wish list page
  *
- * @since 1.1 
+ * @since 1.1
  */
 function edd_wl_wpseo_opengraph_url( $url ) {
 
@@ -256,14 +256,14 @@ function edd_wl_wpseo_opengraph_url( $url ) {
 	}
 
 	return $url;
-	
+
 }
 add_filter( 'wpseo_opengraph_url', 'edd_wl_wpseo_opengraph_url' );
 
 /**
  * Remove WPSEO page title when on single wish list page
  *
- * @since 1.1 
+ * @since 1.1
  */
 function edd_wl_wpseo_title( $title ) {
 
@@ -273,14 +273,14 @@ function edd_wl_wpseo_title( $title ) {
 	}
 
 	return $title;
-	
+
 }
 add_filter( 'wpseo_title', 'edd_wl_wpseo_title' );
 
 /**
  * Remove opengraph description if WPSEO is active and we're on single wish list page
  *
- * @since 1.1 
+ * @since 1.1
  */
 function edd_wl_wpseo_opengraph_desc( $desc ) {
 
@@ -289,14 +289,14 @@ function edd_wl_wpseo_opengraph_desc( $desc ) {
 	}
 
 	return $desc;
-	
+
 }
 add_filter( 'wpseo_opengraph_desc', 'edd_wl_wpseo_opengraph_desc' );
 
 /**
  * Remove opengraph title if WPSEO is active and we're on single wish list page
  *
- * @since 1.1 
+ * @since 1.1
  */
 function edd_wl_wpseo_opengraph_title( $title ) {
 
@@ -305,14 +305,14 @@ function edd_wl_wpseo_opengraph_title( $title ) {
 	}
 
 	return $title;
-	
+
 }
 add_filter( 'wpseo_opengraph_title', 'edd_wl_wpseo_opengraph_title' );
 
 /**
  * Remove canonical URL from WPSEO if active and we're on the single wish list page
  *
- * @since 1.1 
+ * @since 1.1
  */
 function edd_wl_wpseo_canonical( $url ) {
 
@@ -321,7 +321,7 @@ function edd_wl_wpseo_canonical( $url ) {
 	}
 
 	return $url;
-	
+
 }
 add_filter( 'wpseo_canonical', 'edd_wl_wpseo_canonical' );
 
@@ -354,13 +354,13 @@ function edd_wl_sharing_print_scripts() {
 	?>
 	<script type="text/javascript">
 
-	<?php 
+	<?php
 	/**
 	 * Twitter
 	 *
 	 * @since 1.0
 	*/
-	if ( edd_wl_sharing_is_enabled( 'twitter' ) ) : 
+	if ( edd_wl_sharing_is_enabled( 'twitter' ) ) :
 		?>
 	  	window.twttr = (function (d,s,id) {
 		  var t, js, fjs = d.getElementsByTagName(s)[0];
@@ -369,24 +369,15 @@ function edd_wl_sharing_print_scripts() {
 		  return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
 		}(document, "script", "twitter-wjs"));
 
-		twttr.ready(function (twttr) {
-		    twttr.events.bind('tweet', function (event) {
-		        jQuery.event.trigger({
-		            type: "listShared",
-		            url: event.target.baseURI
-		        });
-		    });
-		});
-
 		<?php endif; ?>
 
-		<?php 
+		<?php
 		/**
 		 * Google +
 		 *
 		 * @since 1.0
 		*/
-		if ( edd_wl_sharing_is_enabled( 'googleplus' ) ) : 
+		if ( edd_wl_sharing_is_enabled( 'googleplus' ) ) :
 			$locale = apply_filters( 'edd_wl_googleplus_locale', 'en-US' );
 		?>
 			window.___gcfg = {
@@ -400,30 +391,6 @@ function edd_wl_sharing_print_scripts() {
 			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 			  })();
 
-			function plusOned(obj) {
-				console.log(obj);
-				jQuery.event.trigger({
-				    type: "listShared",
-				    url: obj.href
-				});
-			}
-		<?php endif; ?>
-
-		<?php 
-		/**
-		 * LinkedIn
-		 *
-		 * @since 1.0
-		*/
-		if ( edd_wl_sharing_is_enabled( 'linkedin' ) ) : ?>
-			function share(url) {
-				console.log(url);
-			 	jQuery.event.trigger({
-		            type: "listShared",
-		            url: url
-		        });
-			}
-		
 		<?php endif; ?>
 
 		<?php
@@ -432,7 +399,7 @@ function edd_wl_sharing_print_scripts() {
 		 *
 		 * @since 1.0
 		*/
-		if ( edd_wl_sharing_is_enabled( 'facebook' ) ) : 
+		if ( edd_wl_sharing_is_enabled( 'facebook' ) ) :
 			// defaults to en_US if left blank
 			$locale = apply_filters( 'edd_wl_facebook_locale', 'en_US' );
 			?>
@@ -449,54 +416,13 @@ function edd_wl_sharing_print_scripts() {
 			    // init the FB JS SDK
 			    FB.init({
 			      status	: true,
-			      cookie	: true,                               
-			      xfbml		: true                              
+			      cookie	: true,
+			      xfbml		: true
 			    });
 
-			    FB.Event.subscribe('edge.create', function(href, widget) {
-			        jQuery.event.trigger({
-			            type: "listShared",
-			            url: href
-			        });     
-			    });
 			};
 		<?php endif; ?>
 
-		<?php 
-		/**
-		 * Listen for the productShared event
-		 *
-		 * @since 1.0
-		*/
-		if ( edd_wl_sharing_is_enabled() ) : ?>
-
-		jQuery(document).ready(function ($) {
-
-			jQuery(document).on( 'listShared', function(e) {
-
-				if( e.url == window.location.href ) {
-
-			    	var postData = {
-			            action: 'share_list',
-			            list_id: <?php echo get_the_ID(); ?>, 
-			            nonce: edd_wl_scripts.ajax_nonce
-			        };
-
-			    	$.ajax({
-			            type: "POST",
-			            data: postData,
-			            dataType: "json",
-			            url: edd_wl_vars.ajaxurl,
-			            success: function ( share_response ) {
-
-		            	}
-				        }).fail(function (data) {
-				            console.log( data );
-				        });
-				}
-			});
-		});
-	<?php endif; ?>
 	</script>
 	<?php
 }
