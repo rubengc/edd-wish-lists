@@ -28,6 +28,7 @@ After activation, configure the plugin from downloads -> settings -> extensions
 * Fix: Replaced deprecated post_permalink() function with get_permalink()
 * Fix: Empty paragraph tag (<p>) on the wish-list-view.php template when there no wish list description
 * Tweak: Prevented "Add to wishlist" buttons from appearing on the EDD checkout page where extensions such as Cross-sell/Upsell & Recommended Products add "add to cart" buttons.
+* Tweak: Replaced a soon to be deprecated WordPress function
 * New: The quantity field (if enabled in EDD) is now shown on add to cart buttons
 * New: Headings in template files now have a edd-wl-heading CSS class for easier styling
 * New: Wrapped the view template with a "edd-wl-view" CSS class for easier styling
