@@ -11,7 +11,7 @@ $privacy   = get_post_status( $list_id );
 
 ?>
 
-<h3>
+<h3 class="edd-wl-heading">
 	<?php _e( 'Settings', 'edd-wish-lists' ); ?>
 </h3>
 

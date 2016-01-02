@@ -9,12 +9,12 @@ $public 	= edd_wl_get_query( 'public' ); // get the public lists
 
 <?php echo edd_wl_create_list_link(); // create list ?>
 
-<?php 
+<?php
 /**
  * Private lists
 */
 if ( $private ) : ?>
-	<h3><?php echo sprintf( __( 'Private %s', 'edd-wish-lists' ), edd_wl_get_label_plural() ); ?></h3>
+	<h3 class="edd-wl-heading"><?php echo sprintf( __( 'Private %s', 'edd-wish-lists' ), edd_wl_get_label_plural() ); ?></h3>
 	<ul class="edd-wish-list">
 	<?php foreach ( $private as $id ) : ?>
 		<li>
@@ -31,12 +31,12 @@ if ( $private ) : ?>
 	</ul>
 <?php endif; // if private lists ?>
 
-<?php 
+<?php
 /**
  * Public lists
 */
 if ( $public ) : ?>
-	<h3><?php echo sprintf( __( 'Public %s', 'edd-wish-lists' ), edd_wl_get_label_plural() ); ?></h3>
+	<h3 class="edd-wl-heading"><?php echo sprintf( __( 'Public %s', 'edd-wish-lists' ), edd_wl_get_label_plural() ); ?></h3>
 	<ul class="edd-wish-list">
 	<?php foreach ( $public as $id ) : ?>
 		<li>
