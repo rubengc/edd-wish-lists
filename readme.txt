@@ -26,7 +26,7 @@ After activation, configure the plugin from downloads -> settings -> extensions
 = 1.1.2 =
 * Fix: Variable-priced downloads were sometimes added twice to a wish list when another EDD purchase form existed on the same page
 * Fix: Replaced deprecated post_permalink() function with get_permalink()
-* Fix: Empty paragraph tag (<p>) on the wish-list-view.php template when there no wish list description
+* Fix: Empty paragraph tag on the wish-list-view.php template when there no wish list description
 * Tweak: Prevented "Add to wishlist" buttons from appearing on the EDD checkout page where extensions such as Cross-sell/Upsell & Recommended Products add "add to cart" buttons.
 * Tweak: Replaced a soon to be deprecated WordPress function
 * New: The quantity field (if enabled in EDD) is now shown on add to cart buttons
