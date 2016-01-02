@@ -27,12 +27,14 @@ After activation, configure the plugin from downloads -> settings -> extensions
 * Fix: Variable-priced downloads were sometimes added twice to a wish list when another EDD purchase form existed on the same page
 * Fix: Replaced deprecated post_permalink() function with get_permalink()
 * Fix: Empty paragraph tag (<p>) on the wish-list-view.php template when there no wish list description
+* Tweak: Prevented "Add to wishlist" buttons from appearing on the EDD checkout page where extensions such as Cross-sell/Upsell & Recommended Products add "add to cart" buttons.
 * New: The quantity field (if enabled in EDD) is now shown on add to cart buttons
 * New: Headings in template files now have a edd-wl-heading CSS class for easier styling
 * New: Wrapped the view template with a "edd-wl-view" CSS class for easier styling
 * New: Wrapped the edit template with a "edd-wl-edit" CSS class for easier styling
 * New: Wrapped the create template with a "edd-wl-create" CSS class for easier styling
 * New: Wrapped the main wish lists template with a "edd-wl-wish-lists" CSS class for easier styling
+* New: Added a edd_wl_disable_on_checkout filter for adding "Add to wishlist" buttons back to the checkout if desired (see Tweak note above)
 
 = 1.1.1 =
 * Fix: XSS vulnerability in query args

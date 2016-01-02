@@ -151,7 +151,11 @@ function edd_wl_load_wish_list_link( $download_id = '' ) {
 		'class'			=> implode( ' ', $classes ),
 		'link_size'		=> apply_filters( 'edd_wl_link_size', '' )
 	);
-	edd_wl_wish_list_link( $args );
+
+	if ( ! ( edd_is_checkout() && apply_filters( 'edd_wl_disable_on_checkout', true ) ) ) {
+		edd_wl_wish_list_link( $args );
+	}
+
 }
 
 /**
