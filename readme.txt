@@ -22,8 +22,20 @@ http://sumobi.com/docs/edd-wish-lists/
 After activation, configure the plugin from downloads -> settings -> extensions
 
 == Changelog ==
+
+= 1.1.2 =
+* Fix: Variable-priced downloads were sometimes added twice to a wish list when another EDD purchase form existed on the same page
+* Fix: Replaced deprecated post_permalink() function with get_permalink()
+* Fix: Empty paragraph tag (<p>) on the wish-list-view.php template when there no wish list description
+* New: The quantity field (if enabled in EDD) is now shown on add to cart buttons
+* New: Headings in template files now have a edd-wl-heading CSS class for easier styling
+* New: Wrapped the view template with a "edd-wl-view" CSS class for easier styling
+* New: Wrapped the edit template with a "edd-wl-edit" CSS class for easier styling
+* New: Wrapped the create template with a "edd-wl-create" CSS class for easier styling
+* New: Wrapped the main wish lists template with a "edd-wl-wish-lists" CSS class for easier styling
+
 = 1.1.1 =
-* Fix: PHP Notices when adding a new Download
+* Fix: XSS vulnerability in query args
 
 = 1.1 =
 * Fix: Some plugins which flushed rewrite rules on activation interferred with Wish Lists' rewrite rules
