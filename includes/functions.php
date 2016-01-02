@@ -373,8 +373,7 @@ function edd_wl_remove_item_url( $cart_key, $post, $ajax = false ) {
 */
 function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 
-	global $current_user;
-	get_currentuserinfo();
+	$current_user = wp_get_current_user();
 
 	if ( 'public' == $status ) {
 		$status = 'publish';
