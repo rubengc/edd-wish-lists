@@ -21,10 +21,11 @@ function edd_wl_view_shortcode( $atts, $content = null ) {
 	);
 
   	// prevent list from displaying if it's private
-	if ( edd_wl_is_private_list() )
+	if ( edd_wl_is_private_list() ) {
 		return;
+	}
 
-	$content = edd_wl_load_template( 'view' );
+	$content = '<div class="edd-wl-view">' . edd_wl_load_template( 'view' ) . '</div>';
 
 	return $content;
 }
@@ -43,10 +44,11 @@ function edd_wl_edit_shortcode( $atts, $content = null ) {
 	);
 
 	// prevent list from displaying if it's private
-	if ( edd_wl_is_private_list() )
+	if ( edd_wl_is_private_list() ) {
 		return;
+	}
 
-	$content = edd_wl_load_template( 'edit' );
+	$content = '<div class="edd-wl-edit">' . edd_wl_load_template( 'edit' ) . '</div>';
 
 	return $content;
 }
@@ -63,12 +65,13 @@ function edd_wl_create_shortcode( $atts, $content = null ) {
 			'title' => '',
 		), $atts, 'edd_wish_lists_create' )
 	);
-	
-	// exit if no wish list create page is set
-	if ( 'none' == edd_get_option( 'edd_wl_page_create' ) )
-		return;
 
-	$content = edd_wl_load_template( 'create' );
+	// exit if no wish list create page is set
+	if ( 'none' == edd_get_option( 'edd_wl_page_create' ) ) {
+		return;
+	}
+
+	$content = '<div class="edd-wl-create">' . edd_wl_load_template( 'create' ) . '</div>';
 
 	return $content;
 }
@@ -77,7 +80,7 @@ add_shortcode( 'edd_wish_lists_create', 'edd_wl_create_shortcode' );
 
 /**
  * View Wish Lists shortcode
- * 
+ *
  * @param  array $atts
  * @param  $content
  * @return object
@@ -91,10 +94,11 @@ function edd_wl_shortcode( $atts, $content = null ) {
 	);
 
 	// exit if no wish list page is set
-	if ( 'none' == edd_get_option( 'edd_wl_page' ) )
+	if ( 'none' == edd_get_option( 'edd_wl_page' ) ) {
 		return;
+	}	
 
-	$content = edd_wl_wish_list();
+	$content = '<div class="edd-wl-wish-lists">' . edd_wl_wish_list() . '</div>';
 
 	return $content;
 }
@@ -102,7 +106,7 @@ add_shortcode( 'edd_wish_lists', 'edd_wl_shortcode' );
 
 /**
  * Add to wish list shortcode
- * 
+ *
  * @param  array $atts
  * @param  $content
  * @return object
