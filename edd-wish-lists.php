@@ -176,6 +176,8 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta' ), null, 2 );
 
+			add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 2 );
+
 			// insert actions
 			do_action( 'edd_wl_setup_actions' );
 		}
@@ -247,7 +249,7 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		public function plugin_meta( $links, $file ) {
 		    if ( $file == plugin_basename( __FILE__ ) ) {
 		        $plugins_link = array(
-		            '<a title="View more plugins for Easy Digital Downloads by Sumobi" href="https://easydigitaldownloads.com/blog/author/andrewmunro/?ref=166" target="_blank">' . __( 'Author\'s EDD plugins', 'edd-wish-lists' ) . '</a>'
+		            '<a href="https://easydigitaldownloads.com/downloads/?ref=166" target="_blank">' . __( 'EDD Extensions', 'edd-wish-lists' ) . '</a>'
 		        );
 
 		        $links = array_merge( $links, $plugins_link );
@@ -256,6 +258,24 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		    return $links;
 		}
 
+		/**
+		 * Plugins row action links
+		 *
+		 * @access public
+		 * @since 1.1.2
+		 * @param array $links already defined action links
+		 * @param string $file plugin file path and name being processed
+		 * @return array $links
+		 */
+		public function plugin_action_links( $links, $file ) {
+				$settings_link = '<a href="' . admin_url( 'edit.php?post_type=download&page=edd-settings&tab=extensions' ) . '">' . esc_html__( 'Settings', 'edd-wish-lists' ) . '</a>';
+
+				if ( $file == 'edd-wish-lists/edd-wish-lists.php' ) {
+					array_unshift( $links, $settings_link );
+				}
+
+				return $links;
+			}
 
 	}
 
