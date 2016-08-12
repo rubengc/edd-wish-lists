@@ -25,7 +25,7 @@ function edd_wl_register_post_type() {
 		'not_found' 		=> __( 'No %2$s found', 'edd-wish-lists' ),
 		'not_found_in_trash'=> __( 'No %2$s found in Trash', 'edd-wish-lists' ),
 		'parent_item_colon' => '',
-		'menu_name' 		=> __( '%2$s', 'edd-wish-lists' )
+		'menu_name' 		=> __( '%2$s', 'edd-wish-lists' ),
 	) );
 
 	foreach ( $labels as $key => $value ) {
@@ -44,6 +44,7 @@ function edd_wl_register_post_type() {
 		'rewrite'				=> false,
 		'supports'			  	=> array( 'title', 'editor' ),
 		'show_in_menu' 			=> 'edit.php?post_type=download',
+		'show_in_nav_menus'		=> false,
 	));
 
 	register_post_type( 'edd_wish_list', $args );
@@ -52,7 +53,7 @@ function edd_wl_register_post_type() {
 add_action( 'init', 'edd_wl_register_post_type', 1 );
 
 /**
- * Prevents 'Private:' from being prepended to the post title 
+ * Prevents 'Private:' from being prepended to the post title
  *
  * @since 1.0
 */
