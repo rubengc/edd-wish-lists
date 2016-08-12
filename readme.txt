@@ -23,6 +23,9 @@ After activation, configure the plugin from downloads -> settings -> extensions
 
 == Changelog ==
 
+= Version 1.1.3, August 12, 2016 =
+* Tweak: ensure Wish List post type does not display in menu builder
+
 = Version 1.1.2, January 2, 2016 =
 * Fix: Variable-priced downloads were sometimes added twice to a wish list when another EDD purchase form existed on the same page
 * Fix: Replaced deprecated post_permalink() function with get_permalink()
