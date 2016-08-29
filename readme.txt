@@ -1,17 +1,5 @@
 === EDD Wish Lists ===
 
-Plugin URI: http://easydigitaldownloads.com/extensions/edd-wish-lists?ref=166
-Author: Andrew Munro, Sumobi
-Author URI: http://sumobi.com/
-
-Requires Easy Digital Downloads 1.9 or greater
-
-== Demo ==
-http://edd-wish-lists.sumobithemes.com/
-
-== Documentation ==
-http://sumobi.com/docs/edd-wish-lists/
-
 == Installation ==
 
 1. Unpack the entire contents of this plugin zip file into your `wp-content/plugins/` folder locally

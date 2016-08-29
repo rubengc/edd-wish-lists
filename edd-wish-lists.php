@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Easy Digital Downloads - Wish Lists
-Plugin URI: https://easydigitaldownloads.com/extensions/edd-wish-lists/
+Plugin URI: https://easydigitaldownloads.com/extensions/edd-wish-lists
 Description: Gives your customers the ability to save and share their favourite products on your site
 Version: 1.1.3
-Author: Andrew Munro, Sumobi
-Author URI: http://sumobi.com/
+Author: Easy Digital Downloads
+Author URI: https://easydigitaldownloads.com
 License: GPL-2.0+
 License URI: http://www.opensource.org/licenses/gpl-license.php
 */
@@ -174,8 +174,6 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 		 */
 		private function hooks() {
 
-			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta' ), null, 2 );
-
 			add_filter( 'plugin_action_links', array( $this, 'plugin_action_links' ), 10, 2 );
 
 			// insert actions
@@ -235,27 +233,6 @@ if ( ! class_exists( 'EDD_Wish_Lists' ) ) :
 			);
 
 			return array_merge( $plugin_links, $links );
-		}
-
-		/**
-		 * Modify plugin metalinks
-		 *
-		 * @access      public
-		 * @since       1.0.0
-		 * @param       array $links The current links array
-		 * @param       string $file A specific plugin table entry
-		 * @return      array $links The modified links array
-		 */
-		public function plugin_meta( $links, $file ) {
-		    if ( $file == plugin_basename( __FILE__ ) ) {
-		        $plugins_link = array(
-		            '<a href="https://easydigitaldownloads.com/downloads/?ref=166" target="_blank">' . __( 'EDD Extensions', 'edd-wish-lists' ) . '</a>'
-		        );
-
-		        $links = array_merge( $links, $plugins_link );
-		    }
-
-		    return $links;
 		}
 
 		/**

@@ -1,9 +1,7 @@
 EDD Wish Lists
 ==============
 
-Allow users on your website to store products into public/private lists. 
-
-Demo: http://edd-wish-lists.sumobithemes.com/
+Allow users on your website to store products into public/private lists.
 
 Documentation: http://docs.easydigitaldownloads.com/category/468-wish-lists
 
@@ -27,7 +25,7 @@ Documentation: http://docs.easydigitaldownloads.com/category/468-wish-lists
 - View and manage all lists from the WordPress admin.
 - Extremely flexible. Use any page on your website to display a user’s wish lists, display individual wish lists, edit wish lists, or create wish lists
 - Uses pretty permalinks and also supports non pretty permalinks
-- 
+-
 
 **For Developers**
 - Fully customizable links/buttons. Create your own add to wish list buttons with simple function call and args
@@ -37,7 +35,7 @@ Documentation: http://docs.easydigitaldownloads.com/category/468-wish-lists
 - Translation-ready (fully localized)
 
 **Possible Future Enhancements**
-- Reporting - See which downloads are the most popular by how many times they are stored on lists. 
+- Reporting - See which downloads are the most popular by how many times they are stored on lists.
 - - Knowing this can allow you to further invest time on the more popular downloads
 - - Predict future sales
 - - Gives better indicator of which products are too high in price
