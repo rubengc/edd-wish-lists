@@ -403,6 +403,8 @@ function edd_wl_get_query( $status = array( 'publish', 'private' ) ) {
 		);
 	}
 
+	$query = apply_filters( 'edd_wl_query_args', $query );
+
 	$posts = new WP_Query( $query );
 
 	$ids = array();
